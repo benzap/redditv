@@ -4,15 +4,17 @@
 
 (enable-console-print!)
 
-(defonce app-state (atom {:text "Hello Chestnut!"}))
+(defonce app-state (atom {:text "Chestnut"}))
 
 (defn root-component [app owner]
   (reify
     om/IRender
     (render [_]
-      (dom/div nil (dom/h1 nil (:text app))))))
+      (dom/div nil (dom/h1 nil (str "Hello! " (:text app)))))))
 
 (om/root
  root-component
  app-state
  {:target (js/document.getElementById "app")})
+
+(println "Hello World!")
