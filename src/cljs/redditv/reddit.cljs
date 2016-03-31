@@ -8,7 +8,7 @@
 
 (defn get-subreddit-posts [subreddit]
   (let [output-channel (chan)
-        url (str reddit-url "/r/" subreddit ".json")
+        url (str reddit-url "/r/" subreddit ".json?limit=100")
         [success-channel error-channel] (send-jsonp url)]
     (go (let [result (js->clj (<! success-channel) :keywordize-keys true)
               data (-> result :data :children vec)]

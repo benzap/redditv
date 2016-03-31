@@ -1,0 +1,35 @@
+/* Generated in http://mikethedj4.github.io/Webkit-Scrollbar-Generator/ */
+
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #0277BD;
+  border: 0px none #ECEFF1;
+  border-radius: 28px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #29B6F6;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #01579B;
+}
+::-webkit-scrollbar-track {
+  background: #263238;
+  border: 23px none #ffffff;
+  border-radius: 39px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #37474F;
+}
+::-webkit-scrollbar-track:active {
+  background: #78909C;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

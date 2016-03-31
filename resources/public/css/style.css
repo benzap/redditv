@@ -1,5 +1,8 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
 * {
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
     color: #fdfdfd;
     padding: 0;
     margin: 0;
@@ -12,7 +15,7 @@ html, body {
 
 body {
     min-height: 100%;
-    background-color: #64B5F6;
+    background-color: #607D8B;
 }
 
 #redditv-player {
@@ -25,7 +28,7 @@ body {
 
 #redditv-playlist {
     position: absolute;
-    background-color: #2d2d2d;
+    background-color: #607D8B;
     bottom: 0;
     width: 100%;
     height: 15%;
@@ -37,16 +40,49 @@ body {
 .redditv-playlist-entry {
     position: relative;
     display: inline-block;
-    max-height: 80%;
-    height: 90%;
-    width: 200px;
-    padding: 5px;
-    margin: 5px 5px 0 5px;
-    background-color: #3d3d3d;
+    height: 100%;
+    width: 160px;
+    margin: 0px 0px 45px 0px;
     vertical-align: top;
     white-space: normal;
+    cursor: pointer;
+}
+
+.redditv-playlist-entry:hover {
+    background-color: #90A4AE;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
 }
 
 .selected {
-    background-color: #2f2f2f; 
+    background-color: #ECEFF1;
+}
+
+.entry-title {
+    cursor: pointer;
+    z-index: 1;
+    position: absolute;
+    font-size: 14px;
+    top: 0;
+    padding: 10px;
+    white-space: nowrap;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.entry-thumbnail {
+    cursor: pointer;
+    position: absolute;
+    padding: 5px;
+    top: 0;
+    width: 100%;
 }

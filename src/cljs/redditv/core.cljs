@@ -75,10 +75,14 @@
                       "redditv-playlist-entry selected"
                       "redditv-playlist-entry")]
         (dom/div #js {:className classes
+                      :title (:title entry)
                       :onClick 
                       (fn [e]
                         (put! selection-channel @entry))}
-                 (-> entry :title))
+                 [(dom/div #js {:className "entry-title noselect"} (-> entry :title))
+                  (dom/img #js {:className "entry-thumbnail"
+                                :src (-> entry :thumbnail)})
+                  ])
       ))))
 
 (defn playlist-component [app owner]
