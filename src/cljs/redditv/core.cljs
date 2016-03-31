@@ -91,22 +91,24 @@
                               :state {:selected (-> app :playlist-selected)}})
                ))))
 
-(defn update-playlist! [app]
-  (let [subreddit (-> app :subreddit)
+(defn update-playlist! [app owner]
+  (let [subreddit (om/get-props owner :subreddit)
         [success-channel error-channel]
         (reddit/get-subreddit-videos subreddit)]
     (go (let [new-playlist (<! success-channel)]
-          (when-not (-> app :playlist-selected)
+          (when-not (om/get-props owner :playlist-selected)
             (om/update! app :playlist-selected (first new-playlist)))
           (om/update! app :playlist new-playlist)
           ))
     error-channel
     ))
 
-(defn next-video! [app]
-  (let [playlist (app :playlist)
-        current-selection (app :playlist-selected)
+(defn next-video! [app owner]
+  (let [playlist (om/get-props owner :playlist)
+        current-selection (om/get-props owner :playlist-selected)
         next-selection (utils/next-element playlist current-selection)]
+    (println "Videos:" (map #(:title %) playlist))
+    (println "Current Selection: " (:title current-selection))
     (println "Playing Next: " (-> next-selection :title))
     (om/update! app :playlist-selected next-selection)
     ))
@@ -115,7 +117,7 @@
   (reify
     om/IInitState
     (init-state [_]
-      (update-playlist! app)
+      (update-playlist! app owner)
       {:selection-channel (chan)
        :player-channel (chan)
        })
@@ -140,9 +142,9 @@
               (let [{:keys [event-type] :as event} (<! player-channel)]
                 (case event-type
                   :video-ended
-                  (next-video! app)
+                  (next-video! app owner)
                   :video-not-started
-                  (next-video! app)
+                  (next-video! app owner)
                   nil))
               (recur)))
         

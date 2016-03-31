@@ -14,7 +14,9 @@
                 coll))
 
 (defn next-element [xs x]
-  (let [i (first (positions #{x} xs))]
+  (let [title (:title x)
+        playlist-titles (map #(:title %) xs)
+        i (first (positions #{title} playlist-titles))]
     (if (nil? i)
       (do
         (println "Failed to find element, grabbing first")
