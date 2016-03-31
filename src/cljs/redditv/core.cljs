@@ -8,24 +8,15 @@
             [redditv.player :as p]
             [redditv.youtube :as yt]
             [redditv.utils :as utils]
+            [redditv.reddit :as reddit]
             ))
 
 (enable-console-print!)
 
 (defonce app-state 
   (atom {:subreddit "videos"
-         :playlist
-         [{:name "New Zealand Creepy Anti-Phone Driving"
-           :page-url "https://www.youtube.com/watch?v=wM75ulDRkhI"
-           :thumbnail "https://b.thumbs.redditmedia.com/JgKhncY_1UHynTmjGqUv4RkLdi8Q-vthCYqKLzpdh-g.jpg"
-           :comments-url "https://www.reddit.com/r/videos/comments/4cgd0z/new_zealand_creepy_antiphone_driving/"}
-          {:name "Path of a Lightsaber"
-           :page-url "https://www.youtube.com/watch?v=gIDeOYSmQ1w"
-           :thumbnail "https://a.thumbs.redditmedia.com/r2tZk9I5gV0vq3gceryEVw3bBSRKaQKOpk4rPqJZ9H8.jpg"
-           :comments-url "https://www.reddit.com/r/videos/comments/4cc824/path_of_a_lightsaber/"}
-          ]
+         :playlist []
          :playlist-selected (atom nil)
-         
          }))
 
 (defn player-component [entry owner]
@@ -49,23 +40,26 @@
                   :video-buffering
                   (println "Video Buffering")
                   :video-ended
-                  (put! player-channel event))
+                  (println "Video Ended")
+                  :video-not-started
+                  (println "Video Not Started"))
+                (put! player-channel event)
                 (recur))))
         ))
 
     om/IWillReceiveProps
     (will-receive-props [this entry]
       (p/dispose (om/get-state owner :player))
-
-      (let [event-channel (om/get-state owner :event-channel)
-            new-player
-            (yt/create-youtubeplayer 
-             "redditv-player"
-             (-> entry :page-url)
-             event-channel
-             )]
-        (om/set-state! owner :player new-player)
-        ))
+      (when (entry :url)
+        (let [event-channel (om/get-state owner :event-channel)
+              new-player
+              (yt/create-youtubeplayer 
+               "redditv-player"
+               (-> entry :url)
+               event-channel
+               )]
+          (om/set-state! owner :player new-player)
+        )))
 
     om/IRender
     (render [_]
@@ -84,7 +78,7 @@
                       :onClick 
                       (fn [e]
                         (put! selection-channel @entry))}
-                 (-> entry :name))
+                 (-> entry :title))
       ))))
 
 (defn playlist-component [app owner]
@@ -97,10 +91,30 @@
                               :state {:selected (-> app :playlist-selected)}})
                ))))
 
+(defn update-playlist! [app]
+  (let [subreddit (-> app :subreddit)
+        [success-channel error-channel]
+        (reddit/get-subreddit-videos subreddit)]
+    (go (let [new-playlist (<! success-channel)]
+          (om/update! app :playlist-selected (first new-playlist))
+          (om/update! app :playlist new-playlist)
+          ))
+    error-channel
+    ))
+
+(defn next-video! [app]
+  (let [playlist (app :playlist)
+        current-selection (app :playlist-selected)
+        next-selection (utils/next-element playlist current-selection)]
+    (println "Playing Next: " (-> next-selection :title))
+    (om/update! app :playlist-selected next-selection)
+    ))
+
 (defn root-component [app owner]
   (reify
     om/IInitState
     (init-state [_]
+      (update-playlist! app)
       {:selection-channel (chan)
        :player-channel (chan)
        })
@@ -108,19 +122,31 @@
     (will-mount [_]
       (let [selection-channel (om/get-state owner :selection-channel)
             player-channel (om/get-state owner :player-channel)]
+
+        ;; Selections are propagated from the playlist-entry up via
+        ;; the selection-channel. Change :playlist-selected to the
+        ;; designated selection.
         (go (loop []
               (let [playlist-entry (<! selection-channel)]
                 (om/update! app :playlist-selected playlist-entry)
                 (recur))))
+
+        ;; Event hub. One of the events are passed down from the
+        ;; event-channel in the player-component, in particular,
+        ;; the :video-ended let's us know if we should move onto the
+        ;; next video.
         (go (loop []
-              (let [{:keys [event-type]} (<! player-channel)]
+              (let [{:keys [event-type] :as event} (<! player-channel)]
                 (case event-type
                   :video-ended
                   (let [playlist (om/get-props owner :playlist)
                         current-selection (om/get-props owner :playlist-selected)
                         next-selection (utils/next-element playlist current-selection)]
                     (om/update! app :playlist-selected next-selection)
-                    )))
+                    )
+                  :video-not-started
+                  (next-video! app)
+                  nil))
               (recur)))
         
         ))

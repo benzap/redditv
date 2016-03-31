@@ -3,12 +3,26 @@
   (:require [cljs.core.async :refer [put! chan <! >! timeout close!]]
             [redditv.player :as player]))
 
+(def regex-youtube-url #"^https?://www\.youtube\.com/.*?v=([a-zA-Z0-9]+)&?.*")
+(def regex-youtube-shortened-url #"^https?://youtu\.be/([a-zA-Z0-9]+)\??.*")
+
 (defn video-url->video-id [url]
-  (->> url
-       (re-matches #"^https?://www\.youtube\.com/.*?v=([a-zA-Z0-9]+)&?.*")
-       second))
+  (cond 
+    (re-matches regex-youtube-url url)
+    (->> url (re-matches regex-youtube-url) second)
+    (re-matches regex-youtube-shortened-url url)
+    (->> url (re-matches regex-youtube-shortened-url) second)
+    ))
 
 ;;(video-url->video-id "https://www.youtube.com/watch?v=wM75ulDRkhI&start=10")
+;;(video-url->video-id "https://youtu.be/vC9Qh709gas?t=1m13s")
+
+(defn is-youtube-url? [url]
+  (-> (or (re-matches regex-youtube-url url)
+          (re-matches regex-youtube-shortened-url url))
+      boolean))
+
+;;(is-youtube-url? "https://www.youtube.com/watch?v=wM75ulDRkhI&start=10")
 
 (defrecord YoutubePlayer [context video-url event-channel]
   player/IPlayer
