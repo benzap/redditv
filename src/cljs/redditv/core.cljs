@@ -16,7 +16,7 @@
 (defonce app-state 
   (atom {:subreddit "videos"
          :playlist []
-         :playlist-selected (atom nil)
+         :playlist-selected nil
          }))
 
 (defn player-component [entry owner]
@@ -50,7 +50,7 @@
     om/IWillReceiveProps
     (will-receive-props [this entry]
       (p/dispose (om/get-state owner :player))
-      (when (entry :url)
+      (when-not (nil? entry)
         (let [event-channel (om/get-state owner :event-channel)
               new-player
               (yt/create-youtubeplayer 
@@ -71,7 +71,7 @@
     om/IRenderState
     (render-state [_ {:keys [selected
                              selection-channel]}]
-      (let [classes (if (= selected @entry)
+      (let [classes (if (= (:title selected) (:title (and entry @entry)))
                       "redditv-playlist-entry selected"
                       "redditv-playlist-entry")]
         (dom/div #js {:className classes
@@ -96,7 +96,8 @@
         [success-channel error-channel]
         (reddit/get-subreddit-videos subreddit)]
     (go (let [new-playlist (<! success-channel)]
-          (om/update! app :playlist-selected (first new-playlist))
+          (when-not (-> app :playlist-selected)
+            (om/update! app :playlist-selected (first new-playlist)))
           (om/update! app :playlist new-playlist)
           ))
     error-channel
@@ -139,11 +140,7 @@
               (let [{:keys [event-type] :as event} (<! player-channel)]
                 (case event-type
                   :video-ended
-                  (let [playlist (om/get-props owner :playlist)
-                        current-selection (om/get-props owner :playlist-selected)
-                        next-selection (utils/next-element playlist current-selection)]
-                    (om/update! app :playlist-selected next-selection)
-                    )
+                  (next-video! app)
                   :video-not-started
                   (next-video! app)
                   nil))
