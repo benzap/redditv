@@ -3,8 +3,8 @@
   (:require [cljs.core.async :refer [put! chan <! >! timeout close!]]
             [redditv.player :as player]))
 
-(def regex-youtube-url #"^https?://www\.youtube\.com/.*?v=([a-zA-Z0-9]+)&?.*")
-(def regex-youtube-shortened-url #"^https?://youtu\.be/([a-zA-Z0-9]+)\??.*")
+(def regex-youtube-url #"^https?://www\.youtube\.com/.*?v=([a-zA-Z0-9_]+)&?.*")
+(def regex-youtube-shortened-url #"^https?://youtu\.be/([a-zA-Z0-9_]+)\??.*")
 
 (defn video-url->video-id [url]
   (cond 
