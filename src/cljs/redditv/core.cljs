@@ -63,7 +63,8 @@
 
     om/IRender
     (render [_]
-      (dom/div #js {:id "redditv-player"})
+      (dom/div #js {:id "redditv-player-container"}
+               (dom/div #js {:id "redditv-player"}))
       )))
 
 (defn playlist-entry-component [entry owner]
@@ -94,6 +95,15 @@
                              {:init-state {:selection-channel selection-channel}
                               :state {:selected (-> app :playlist-selected)}})
                ))))
+
+(defn navigation-component [app owner]
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:toggle true})
+    om/IRenderState
+    (render-state [this state])
+    ))
 
 (defn update-playlist! [app owner]
   (let [subreddit (om/get-props owner :subreddit)
@@ -156,8 +166,7 @@
     om/IRenderState
     (render-state [_ {:keys [selection-channel
                              player-channel]}]
-      (dom/div 
-       nil 
+      (dom/div #js {:className ""} 
        [
         (om/build player-component (-> app :playlist-selected)
                   {:init-state {:player-channel player-channel}})

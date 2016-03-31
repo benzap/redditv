@@ -60,11 +60,11 @@ var this__22290__auto____$1 = this;
 return cljs.core._lookup.call(null,this__22290__auto____$1,k__22291__auto__,null);
 });
 
-redditv.youtube.YoutubePlayer.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__22292__auto__,k32709,else__22293__auto__){
+redditv.youtube.YoutubePlayer.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__22292__auto__,k30525,else__22293__auto__){
 var self__ = this;
 var this__22292__auto____$1 = this;
-var G__32711 = (((k32709 instanceof cljs.core.Keyword))?k32709.fqn:null);
-switch (G__32711) {
+var G__30527 = (((k30525 instanceof cljs.core.Keyword))?k30525.fqn:null);
+switch (G__30527) {
 case "context":
 return self__.context;
 
@@ -78,7 +78,7 @@ return self__.event_channel;
 
 break;
 default:
-return cljs.core.get.call(null,self__.__extmap,k32709,else__22293__auto__);
+return cljs.core.get.call(null,self__.__extmap,k30525,else__22293__auto__);
 
 }
 });
@@ -96,10 +96,10 @@ return cljs.core.pr_sequential_writer.call(null,writer__22305__auto__,pr_pair__2
 
 redditv.youtube.YoutubePlayer.prototype.cljs$core$IIterable$ = true;
 
-redditv.youtube.YoutubePlayer.prototype.cljs$core$IIterable$_iterator$arity$1 = (function (G__32708){
+redditv.youtube.YoutubePlayer.prototype.cljs$core$IIterable$_iterator$arity$1 = (function (G__30524){
 var self__ = this;
-var G__32708__$1 = this;
-return (new cljs.core.RecordIter((0),G__32708__$1,3,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"context","context",-830191113),new cljs.core.Keyword(null,"video-url","video-url",1636122700),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114)], null),cljs.core._iterator.call(null,self__.__extmap)));
+var G__30524__$1 = this;
+return (new cljs.core.RecordIter((0),G__30524__$1,3,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"context","context",-830191113),new cljs.core.Keyword(null,"video-url","video-url",1636122700),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114)], null),cljs.core._iterator.call(null,self__.__extmap)));
 });
 
 redditv.youtube.YoutubePlayer.prototype.cljs$core$IMeta$_meta$arity$1 = (function (this__22288__auto__){
@@ -185,21 +185,21 @@ return (new redditv.youtube.YoutubePlayer(self__.context,self__.video_url,self__
 }
 });
 
-redditv.youtube.YoutubePlayer.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__22297__auto__,k__22298__auto__,G__32708){
+redditv.youtube.YoutubePlayer.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__22297__auto__,k__22298__auto__,G__30524){
 var self__ = this;
 var this__22297__auto____$1 = this;
-var pred__32712 = cljs.core.keyword_identical_QMARK_;
-var expr__32713 = k__22298__auto__;
-if(cljs.core.truth_(pred__32712.call(null,new cljs.core.Keyword(null,"context","context",-830191113),expr__32713))){
-return (new redditv.youtube.YoutubePlayer(G__32708,self__.video_url,self__.event_channel,self__.__meta,self__.__extmap,null));
+var pred__30528 = cljs.core.keyword_identical_QMARK_;
+var expr__30529 = k__22298__auto__;
+if(cljs.core.truth_(pred__30528.call(null,new cljs.core.Keyword(null,"context","context",-830191113),expr__30529))){
+return (new redditv.youtube.YoutubePlayer(G__30524,self__.video_url,self__.event_channel,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__32712.call(null,new cljs.core.Keyword(null,"video-url","video-url",1636122700),expr__32713))){
-return (new redditv.youtube.YoutubePlayer(self__.context,G__32708,self__.event_channel,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__30528.call(null,new cljs.core.Keyword(null,"video-url","video-url",1636122700),expr__30529))){
+return (new redditv.youtube.YoutubePlayer(self__.context,G__30524,self__.event_channel,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__32712.call(null,new cljs.core.Keyword(null,"event-channel","event-channel",1215556114),expr__32713))){
-return (new redditv.youtube.YoutubePlayer(self__.context,self__.video_url,G__32708,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__30528.call(null,new cljs.core.Keyword(null,"event-channel","event-channel",1215556114),expr__30529))){
+return (new redditv.youtube.YoutubePlayer(self__.context,self__.video_url,G__30524,self__.__meta,self__.__extmap,null));
 } else {
-return (new redditv.youtube.YoutubePlayer(self__.context,self__.video_url,self__.event_channel,self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__22298__auto__,G__32708),null));
+return (new redditv.youtube.YoutubePlayer(self__.context,self__.video_url,self__.event_channel,self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__22298__auto__,G__30524),null));
 }
 }
 }
@@ -211,10 +211,10 @@ var this__22302__auto____$1 = this;
 return cljs.core.seq.call(null,cljs.core.concat.call(null,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"context","context",-830191113),self__.context],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"video-url","video-url",1636122700),self__.video_url],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"event-channel","event-channel",1215556114),self__.event_channel],null))], null),self__.__extmap));
 });
 
-redditv.youtube.YoutubePlayer.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__22289__auto__,G__32708){
+redditv.youtube.YoutubePlayer.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__22289__auto__,G__30524){
 var self__ = this;
 var this__22289__auto____$1 = this;
-return (new redditv.youtube.YoutubePlayer(self__.context,self__.video_url,self__.event_channel,G__32708,self__.__extmap,self__.__hash));
+return (new redditv.youtube.YoutubePlayer(self__.context,self__.video_url,self__.event_channel,G__30524,self__.__extmap,self__.__hash));
 });
 
 redditv.youtube.YoutubePlayer.prototype.cljs$core$ICollection$_conj$arity$2 = (function (this__22295__auto__,entry__22296__auto__){
@@ -245,15 +245,15 @@ redditv.youtube.__GT_YoutubePlayer = (function redditv$youtube$__GT_YoutubePlaye
 return (new redditv.youtube.YoutubePlayer(context,video_url,event_channel,null,null,null));
 });
 
-redditv.youtube.map__GT_YoutubePlayer = (function redditv$youtube$map__GT_YoutubePlayer(G__32710){
-return (new redditv.youtube.YoutubePlayer(new cljs.core.Keyword(null,"context","context",-830191113).cljs$core$IFn$_invoke$arity$1(G__32710),new cljs.core.Keyword(null,"video-url","video-url",1636122700).cljs$core$IFn$_invoke$arity$1(G__32710),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114).cljs$core$IFn$_invoke$arity$1(G__32710),null,cljs.core.dissoc.call(null,G__32710,new cljs.core.Keyword(null,"context","context",-830191113),new cljs.core.Keyword(null,"video-url","video-url",1636122700),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114)),null));
+redditv.youtube.map__GT_YoutubePlayer = (function redditv$youtube$map__GT_YoutubePlayer(G__30526){
+return (new redditv.youtube.YoutubePlayer(new cljs.core.Keyword(null,"context","context",-830191113).cljs$core$IFn$_invoke$arity$1(G__30526),new cljs.core.Keyword(null,"video-url","video-url",1636122700).cljs$core$IFn$_invoke$arity$1(G__30526),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114).cljs$core$IFn$_invoke$arity$1(G__30526),null,cljs.core.dissoc.call(null,G__30526,new cljs.core.Keyword(null,"context","context",-830191113),new cljs.core.Keyword(null,"video-url","video-url",1636122700),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114)),null));
 });
 
 redditv.youtube.create_youtubeplayer = (function redditv$youtube$create_youtubeplayer(dom_id,video_url,event_channel){
-var context = (new YT.Player(dom_id,{"videoId": redditv.youtube.video_url__GT_video_id.call(null,video_url), "playerVars": {"autoplay": (1)}, "events": {"onStateChange": (function (event){
+var context = (new YT.Player(dom_id,{"videoId": redditv.youtube.video_url__GT_video_id.call(null,video_url), "playerVars": {"autoplay": (1)}, "width": "100%", "height": "100%", "events": {"onStateChange": (function (event){
 var video_state = event.data;
-var G__32717 = video_state;
-switch (G__32717) {
+var G__30533 = video_state;
+switch (G__30533) {
 case (-1):
 return cljs.core.async.put_BANG_.call(null,event_channel,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"event-type","event-type",319722813),new cljs.core.Keyword(null,"video-not-started","video-not-started",1796695018)], null));
 

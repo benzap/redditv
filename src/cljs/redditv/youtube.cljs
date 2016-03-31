@@ -37,6 +37,8 @@
         (YT.Player. dom-id 
                     #js {:videoId (video-url->video-id video-url)
                          :playerVars #js {:autoplay 1}
+                         :width "100%"
+                         :height "100%"
                          :events 
                          #js {:onStateChange
                               (fn [event]
