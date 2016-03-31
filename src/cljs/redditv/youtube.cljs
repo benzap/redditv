@@ -32,7 +32,7 @@
     (.destroy context)
     ))
 
-(defn create-youtubeplayer [dom-id video-url event-channel]
+(defn ^:export create-youtubeplayer [dom-id video-url event-channel]
   (let [context
         (YT.Player. dom-id 
                     #js {:videoId (video-url->video-id video-url)

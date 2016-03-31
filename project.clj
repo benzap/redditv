@@ -49,7 +49,15 @@
                            :asset-path "js/compiled/out"
                            :output-to "resources/public/js/compiled/redditv.js"
                            :output-dir "resources/public/js/compiled/out"
-                           :source-map-timestamp true}}}}
+                           :source-map-timestamp true}}
+               :prod
+               {:source-paths ["src/cljs"]
+                :compiler {:main redditv.core
+                           :asset-path "js/compiled/out"
+                           :output-to "dist/js/compiled/redditv.js"
+                           :output-dir "dist/js/compiled/out"
+                           :optimizations :simple
+                           }}}}
 
   ;; When running figwheel from nREPL, figwheel will read this configuration
   ;; stanza, but it will read it without passing through leiningen's profile
@@ -113,5 +121,5 @@
                           {:app
                            {:source-paths ^:replace ["src/cljs"]
                             :compiler
-                            {:optimizations :advanced
+                            {:optimizations :simple
                              :pretty-print false}}}}}})
