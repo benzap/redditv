@@ -14,7 +14,8 @@
                  [environ "1.0.2"]
                  [org.omcljs/om "1.0.0-alpha31"]
                  [org.clojure/core.async "0.2.374"]
-                 [cljs-http "0.1.40"]]
+                 [cljs-http "0.1.40"]
+                 [secretary "1.2.3"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]
             [lein-environ "1.0.1"]]

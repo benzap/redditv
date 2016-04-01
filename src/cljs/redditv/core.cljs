@@ -9,6 +9,7 @@
             [redditv.youtube :as yt]
             [redditv.utils :as utils]
             [redditv.reddit :as reddit]
+            [redditv.icons :as icons]
             ))
 
 (enable-console-print!)
@@ -90,11 +91,16 @@
   (reify
     om/IRenderState
     (render-state [this {:keys [selection-channel]}]
-      (dom/div #js {:id "redditv-playlist"}
-               (om/build-all playlist-entry-component (-> app :playlist)
-                             {:init-state {:selection-channel selection-channel}
-                              :state {:selected (-> app :playlist-selected)}})
-               ))))
+      (dom/div #js {:id "redditv-playlist-root"}
+               [(dom/div #js {:id "redditv-playlist-leftpane"}
+                         [(icons/google-icon "arrow-back")])
+                (dom/div #js {:id "redditv-playlist-container"}
+                         (om/build-all playlist-entry-component (-> app :playlist)
+                                       {:init-state {:selection-channel selection-channel}
+                                        :state {:selected (-> app :playlist-selected)}})
+                         )
+                (dom/div #js {:id "redditv-playlist-rightpane"}
+                         [])]))))
 
 (defn navigation-component [app owner]
   (reify
