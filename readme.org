@@ -1,1 +1,22 @@
 * RedditV - Subreddit Video Player
+  *This is still a work in progress*
+
+** Programming Tasks
+   - [ ] Keyboard Shortcuts to watch next video, or previous video
+   - [ ] Buttons to watch next video, or previous video
+   - [ ] Left Pane - search bar containing current subreddit to scrape
+     videos from
+   - [ ] Left Pane - button to go to comments section
+   - [ ] Playlist - automatically scroll the listing
+   - [ ] Routes - include routing to subreddits based on anchors
+     ex. benzap.github.io/redditv/#/r/youtubehaiku
+   - [ ] Toggle NSFW videos
+   - [ ] Local Storage for app-state
+   - [ ] Right Pane - Media Controls (next video, prev video)
+   - [ ] Settings dialog (Right Pane) which contains default limit
+     on # videos per subreddit
+   - [ ] Add support for Vimeo Videos
+   - [ ] Add support for Vine Videos
+   - [ ] Add support for other video formats
+   - [ ] youtube - respect the 'start' parameter when playing the
+     video.
