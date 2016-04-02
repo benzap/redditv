@@ -18,6 +18,10 @@
   (atom {:subreddit "videos"
          :playlist []
          :playlist-selected nil
+         :layout 
+         {:toggle-leftpane true
+          :toggle-rightpane true
+          :toggle-playlist true}
          }))
 
 (defn player-component [entry owner]
@@ -70,6 +74,17 @@
 
 (defn playlist-entry-component [entry owner]
   (reify
+    om/IDidUpdate
+    (did-update [this _ _]
+      (let [selected-entry (om/get-state owner :selected)
+            is-selected? (= (:title selected-entry) (:title (and entry @entry)))]
+        (when is-selected?
+          ;; scroll the div to offset correctly
+          (let [dom-child (om/get-node owner)
+                dom-root (.getElementById js/document "redditv-playlist-container")]
+            (utils/align-to-root-left dom-root dom-child))
+          )
+        ))
     om/IRenderState
     (render-state [_ {:keys [selected
                              selection-channel]}]
@@ -80,10 +95,18 @@
                       :title (:title entry)
                       :onClick 
                       (fn [e]
-                        (put! selection-channel @entry))}
+                        (put! selection-channel {:event-type :video-select :entry @entry})
+                        )}
                  [(dom/div #js {:className "entry-title noselect"} (-> entry :title))
                   (dom/img #js {:className "entry-thumbnail"
-                                :src (-> entry :thumbnail)})
+                                :src (let [thumbnail (-> entry :thumbnail)]
+                                       (cond 
+                                         (= thumbnail "nsfw")
+                                         "http://i.imgur.com/KZOsckv.jpg"
+                                         (= thumbnail "default")
+                                         "http://i.imgur.com/9wEJlnk.gif"
+                                         :else
+                                         thumbnail))})
                   ])
       ))))
 
@@ -93,22 +116,41 @@
     (render-state [this {:keys [selection-channel]}]
       (dom/div #js {:id "redditv-playlist-root"}
                [(dom/div #js {:id "redditv-playlist-leftpane"}
-                         [(icons/google-icon "arrow-back")])
-                (dom/div #js {:id "redditv-playlist-container"}
+                         [(dom/div #js {:className "button-pane"
+                                        :title "Hide Panes (not implemented)"}
+                                   (icons/google-icon "zoom_out_map"))
+                          (dom/div #js {:className "button-pane button-pane-tall"
+                                        :title "Previous Video"
+                                        :onClick
+                                        (fn [e]
+                                          (put! selection-channel {:event-type :video-previous}))}
+                                   (icons/google-icon "arrow_back"))
+                          ])
+                (dom/div #js {:id "redditv-playlist-container"
+                              :ref "playlist-scroll-container"}
                          (om/build-all playlist-entry-component (-> app :playlist)
                                        {:init-state {:selection-channel selection-channel}
                                         :state {:selected (-> app :playlist-selected)}})
                          )
                 (dom/div #js {:id "redditv-playlist-rightpane"}
-                         [])]))))
+                         [(dom/div #js {:className "button-pane"
+                                        :title "Hide Playlist (not implemented)"}
+                                   (icons/google-icon "expand_more"))
+                          (dom/div #js {:className "button-pane button-pane-tall"
+                                        :title "Next Video"
+                                        :onClick
+                                        (fn [e]
+                                          (put! selection-channel {:event-type :video-next}))}
+                                   (icons/google-icon "arrow_forward"))
+                          ])]))))
 
 (defn navigation-component [app owner]
   (reify
     om/IInitState
-    (init-state [_]
-      {:toggle true})
+    (init-state [_])
     om/IRenderState
-    (render-state [this state])
+    (render-state [this state]
+      )
     ))
 
 (defn update-playlist! [app owner]
@@ -127,10 +169,14 @@
   (let [playlist (om/get-props owner :playlist)
         current-selection (om/get-props owner :playlist-selected)
         next-selection (utils/next-element playlist current-selection)]
-    (println "Videos:" (map #(:title %) playlist))
-    (println "Current Selection: " (:title current-selection))
-    (println "Playing Next: " (-> next-selection :title))
     (om/update! app :playlist-selected next-selection)
+    ))
+
+(defn previous-video! [app owner]
+  (let [playlist (om/get-props owner :playlist)
+        current-selection (om/get-props owner :playlist-selected)
+        prev-selection (utils/prev-element playlist current-selection)]
+    (om/update! app :playlist-selected prev-selection)
     ))
 
 (defn root-component [app owner]
@@ -150,8 +196,16 @@
         ;; the selection-channel. Change :playlist-selected to the
         ;; designated selection.
         (go (loop []
-              (let [playlist-entry (<! selection-channel)]
-                (om/update! app :playlist-selected playlist-entry)
+              (let [{:keys [event-type] :as event} (<! selection-channel)]
+                (case event-type
+                  :video-select
+                  (let [{:keys [entry]} event]
+                    (om/update! app :playlist-selected entry))
+                  :video-next
+                  (next-video! app owner)
+                  :video-previous
+                  (previous-video! app owner)
+                  nil)
                 (recur))))
 
         ;; Event hub. One of the events are passed down from the
@@ -173,8 +227,7 @@
     (render-state [_ {:keys [selection-channel
                              player-channel]}]
       (dom/div #js {:className ""} 
-       [
-        (om/build player-component (-> app :playlist-selected)
+       [(om/build player-component (-> app :playlist-selected)
                   {:init-state {:player-channel player-channel}})
         (om/build playlist-component app
                   {:init-state {:selection-channel selection-channel}})
