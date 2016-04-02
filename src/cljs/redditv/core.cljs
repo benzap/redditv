@@ -145,13 +145,41 @@
                                    (icons/google-icon "arrow_forward"))
                           ])]))))
 
-(defn navigation-component [app owner]
+(defn leftpane-component [app owner]
   (reify
     om/IInitState
     (init-state [_])
     om/IRenderState
     (render-state [this state]
-      )
+      (dom/div #js {:className "redditv-pane redditv-leftpane"}
+               (dom/div #js {:className "button-pane"
+                             :title "Expand Left Pane"} 
+                        (icons/google-icon "keyboard_arrow_right"))
+               (dom/div #js {:className "button-pane"
+                             :title "Change Subreddit"}
+                        (icons/google-icon "search"))
+               (dom/div #js {:className "button-pane"
+                             :title "View Reddit Comments"
+                             :onClick 
+                             (fn [e]
+                               (let [{:keys [permalink] :as entry} 
+                                     (om/get-props owner :playlist-selected)]
+                                 (.open js/window (str "http://www.reddit.com" permalink) "_blank")
+                                 ))
+                             }
+                        (icons/google-icon "comment"))))
+    ))
+
+(defn rightpane-component [app owner]
+  (reify
+    om/IInitState
+    (init-state [_])
+    om/IRenderState
+    (render-state [this state]
+      (dom/div #js {:className "redditv-pane redditv-rightpane"}
+               (dom/div #js {:className "button-pane"
+                             :title "Expand Right Pane"}
+                        (icons/google-icon "keyboard_arrow_left"))))
     ))
 
 (defn update-playlist! [app owner]
@@ -227,12 +255,29 @@
     om/IRenderState
     (render-state [_ {:keys [selection-channel
                              player-channel]}]
-      (dom/div #js {:className ""} 
-       [(om/build player-component (-> app :playlist-selected)
-                  {:init-state {:player-channel player-channel}})
-        (om/build playlist-component app
-                  {:init-state {:selection-channel selection-channel}})
-        ]))))
+      (dom/div #js {:className ""}
+               [(om/build leftpane-component app)
+                (om/build player-component (-> app :playlist-selected)
+                          {:init-state {:player-channel player-channel}})
+                (om/build rightpane-component app)
+                (om/build playlist-component app
+                          {:init-state {:selection-channel selection-channel}})
+                ]))
+    om/IDidMount
+    (did-mount [_]
+      (.addEventListener 
+       js/window "keydown" 
+       (fn [e] 
+         (let [keycode (.-keyCode e)]
+           (case keycode
+             37 ;;Left
+             (previous-video! app owner)
+             39
+             (next-video! app owner)
+             nil)
+           )))
+      )
+    ))
 
 (om/root
  root-component
