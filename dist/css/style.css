@@ -23,14 +23,6 @@ body {
     height: 100%;
 }
 
-#redditv-player-container {
-    position: absolute;
-    background-color: #1d1d1d;
-    top: 0;
-    width: 100%;
-    bottom: 140px;    
-}
-
 #redditv-player {
     width: 100%;
     height: 100%;
@@ -132,10 +124,10 @@ body {
 }
 
 .button-pane {
-    position: absolute;
+    position: relative;
     height: 40px;
     width: 40px;
-    top: 0;
+    /* top: 0; */
     text-align: center;
     line-height: 40px;
     background-color: #455A64;
@@ -157,8 +149,35 @@ body {
 .button-pane-tall {
     position: absolute;
     height: 100px;
-    top: auto;
     bottom: 0;
     line-height: 100px;
     background-color: #37474F;
+}
+
+#redditv-player-container {
+    position: absolute;
+    background-color: #1d1d1d;
+    top: 0;
+    left: 40px;
+    right: 40px;
+    bottom: 140px;    
+}
+
+/* Panes */
+
+.redditv-pane {
+    position: absolute;
+    top: 0;
+    bottom: 140px;
+    width: 40px;
+}
+
+.redditv-leftpane {
+    left: 0;
+    background-color: black;
+}
+
+.redditv-rightpane {
+    right: 0;
+    background-color: black;
 }
