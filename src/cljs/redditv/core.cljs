@@ -85,6 +85,7 @@
             (utils/align-to-root-left dom-root dom-child))
           )
         ))
+
     om/IRenderState
     (render-state [_ {:keys [selected
                              selection-channel]}]
