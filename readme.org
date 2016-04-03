@@ -1,18 +1,41 @@
 * RedditV - Subreddit Video Player
   *This is still a work in progress*
 
+  You can still check out the beta at http://benzap.github.io/redditv
+
+** Keyboard Controls
+
+   You can use the *Left Arrow Key* and *Right Arrow Keys* to navigate
+   to the previous and next videos
+
+** Routes
+   
+   You can provide videos from a different subreddit by including it
+   within the url like so --> http://benzap.github.io/redditv/#/r/AwfulCommercials
+
+** Known Bugs
+
+   Some things involving the search bar can be quite buggy. Still
+   working them out.
+
+** Supported Videos
+
+   Currently, it only supports youtube videos. I hope to expand on
+   that in the future.
+
 ** Programming Tasks
-   - [ ] Keyboard Shortcuts to watch next video, or previous video
-   - [ ] Buttons to watch next video, or previous video
-   - [ ] Left Pane - search bar containing current subreddit to scrape
+   - [X] Keyboard Shortcuts to watch next video, or previous video
+   - [X] Buttons to watch next video, or previous video
+   - [X] Search bar containing current subreddit to scrape
      videos from
-   - [ ] Left Pane - button to go to comments section
-   - [ ] Playlist - automatically scroll the listing
-   - [ ] Routes - include routing to subreddits based on anchors
-     ex. benzap.github.io/redditv/#/r/youtubehaiku
+   - [X] Left Pane - button to go to comments section
+   - [X] Playlist - automatically scroll the listing
+   - [X] Routes - include routing to subreddits based on anchors
+     ex.
+     - [[http://benzap.github.io/redditv/#/r/youtubehaiku]]
+     - http://benzap.github.io/redditv/#/r/commercialcuts
    - [ ] Toggle NSFW videos
    - [ ] Local Storage for app-state
-   - [ ] Right Pane - Media Controls (next video, prev video)
    - [ ] Settings dialog (Right Pane) which contains default limit
      on # videos per subreddit
    - [ ] Add support for Vimeo Videos
