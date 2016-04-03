@@ -151,33 +151,67 @@ body {
     height: 100px;
     bottom: 0;
     line-height: 100px;
-    background-color: #37474F;
+    background-color: #03A9F4;
+}
+
+.button-pane-tall:hover {
+    background-color: #4FC3F7;
 }
 
 #redditv-player-container {
     position: absolute;
     background-color: #1d1d1d;
-    top: 0;
+    top: 40px;
     left: 40px;
     right: 40px;
     bottom: 140px;    
+}
+
+.redditv-player-left-collapsed {
+}
+
+.redditv-player-left-expanded {
+    left: 180px;
 }
 
 /* Panes */
 
 .redditv-pane {
     position: absolute;
-    top: 0;
+    top: 40px;
     bottom: 140px;
     width: 40px;
-}
-
-.redditv-leftpane {
-    left: 0;
-    background-color: black;
+    background-color: #263238;
 }
 
 .redditv-rightpane {
+    top: 0;
+    left: auto;
     right: 0;
+}
+
+.redditv-header {
+    position: absolute;
+    top: 0;
+    height: 40px;
+    line-height: 40px;
+    left: 0;
+    right: 40px;
+    background-color: #263238;
+}
+
+.redditv-header > span {
+    padding: 0 3px 0 7px;
+    vertical-align: middle;
+    font-size: 24px;
+}
+
+input[type='text'] {
     background-color: black;
+    font-size: 24px;
+    vertical-align: middle;
+    padding: 0 5px 0 5px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
 }
