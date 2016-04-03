@@ -201,7 +201,11 @@
     (render-state [this {:keys [layout-channel]}]
       (dom/div #js {:className "redditv-pane redditv-rightpane"}
                (dom/div #js {:className "button-pane"
-                             :title "About Redditv"}
+                             :title "About Redditv"
+                             :onClick
+                             (fn [e]
+                               (.open js/window (str "http://github.com/benzap/redditv"))
+                               )}
                         (icons/google-icon "help"))))))
 
 (defn handle-search-change [e owner {:keys [subreddit]}]
