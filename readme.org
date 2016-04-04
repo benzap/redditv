@@ -10,7 +10,6 @@
    to the previous and next videos
 
 ** Routes
-   
    You can provide videos from a different subreddit by including it
    within the url like so --> http://benzap.github.io/redditv/#/r/AwfulCommercials
 
@@ -23,6 +22,14 @@
 
    Currently, it only supports youtube videos. I hope to expand on
    that in the future.
+
+** How to run
+   To start and connect your editor to the app, [follow these steps](https://github.com/plexus/chestnut#usage):
+
+   * `lein repl`
+   * Optionally connect with your editor - for emacs, `M-x cider-connect`
+   * In the repl, evaluate `(run)`
+   * Connect your browser to the url given in the repl. Something like `http://localhost:3449`
 
 ** Programming Tasks
    - [X] Keyboard Shortcuts to watch next video, or previous video

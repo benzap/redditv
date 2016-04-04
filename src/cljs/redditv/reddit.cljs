@@ -4,7 +4,7 @@
             [redditv.jsonp :refer [send-jsonp]]
             [redditv.youtube :as yt]))
 
-(def reddit-url "http://www.reddit.com")
+(def reddit-url "https://www.reddit.com")
 
 (defn get-subreddit-posts [subreddit]
   (let [output-channel (chan)
@@ -29,8 +29,7 @@
     (go (let [posts (<! success-channel)
               videos (filterv post-is-video? posts)]
           (put! output-channel videos)))
-    [output-channel error-channel]
-    ))
+    [output-channel error-channel]))
 
 #_(let [[success error] (get-subreddit-videos "videos")]
     (go (let [result (<! success)]
