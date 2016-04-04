@@ -15,11 +15,6 @@
           (put! output-channel (map #(:data %) data))))
     [output-channel error-channel]))
 
-#_(let [[success error] (get-subreddit-posts "videos")]
-    (go (let [result (<! success)]
-          (.log js/console (clj->js result))
-          )))
-
 (defn post-is-video? [post]
   (yt/is-youtube-url? (post :url)))
 
@@ -30,8 +25,3 @@
               videos (filterv post-is-video? posts)]
           (put! output-channel videos)))
     [output-channel error-channel]))
-
-#_(let [[success error] (get-subreddit-videos "videos")]
-    (go (let [result (<! success)]
-          (.log js/console (clj->js result))
-          )))

@@ -23,13 +23,17 @@
    Currently, it only supports youtube videos. I hope to expand on
    that in the future.
 
-** How to run
-   To start and connect your editor to the app, [follow these steps](https://github.com/plexus/chestnut#usage):
+** Contributing
+*** How to run
+    Connect your editor to the app, by [[https://github.com/plexus/chestnut#usage][following these steps]]
 
-   * `lein repl`
-   * Optionally connect with your editor - for emacs, `M-x cider-connect`
-   * In the repl, evaluate `(run)`
-   * Connect your browser to the url given in the repl. Something like `http://localhost:3449`
+    - ~lein repl~
+    - Optionally connect with your editor - for emacs, ~M-x cider-connect~
+    - In the repl, evaluate: ~(run)~
+    - Connect your browser to the url given in the repl. Something
+      like [[http://localhost:3449]]
+    - If you want to manipulate the browser from within the repl, go
+      to your repl, and type ~(browser-repl)~
 
 ** Programming Tasks
    - [X] Keyboard Shortcuts to watch next video, or previous video
@@ -42,6 +46,7 @@
      ex.
      - [[http://benzap.github.io/redditv/#/r/youtubehaiku]]
      - http://benzap.github.io/redditv/#/r/commercialcuts
+   - [X] Add HTTPS Support
    - [ ] Toggle NSFW videos
    - [ ] Local Storage for app-state
    - [ ] Settings dialog (Right Pane) which contains default limit
