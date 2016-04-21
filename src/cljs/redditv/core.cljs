@@ -51,15 +51,13 @@
 ;; Om React Components
 ;;
 
-
 (defn player-component [entry owner]
   (reify
     om/IInitState
     (init-state [_]
       {:player (p/create-nullplayer)
        :event-channel (chan)
-       :layout {:toggle-leftpane false
-                :toggle-rightpane false}})
+       })
 
     om/IWillMount
     (will-mount [this]
@@ -85,7 +83,8 @@
     om/IWillReceiveProps
     (will-receive-props [this entry]
       (p/dispose (om/get-state owner :player))
-      (if-not (nil? entry)
+      (if (and (not (nil? entry))
+               (not= (app :playlist-selected) entry))
         (let [event-channel (om/get-state owner :event-channel)
               new-player
               (yt/create-youtubeplayer 
@@ -97,7 +96,7 @@
         (om/set-state! owner :player (p/create-nullplayer))))
 
     om/IRenderState
-    (render-state [_ {:keys [layout]}]
+    (render-state [_ state]
       (let []
         (dom/div #js {:id "redditv-player-container"}
                  (dom/div #js {:id "redditv-player"})))
@@ -197,6 +196,7 @@
   (reify
     om/IInitState
     (init-state [_])
+
     om/IRenderState
     (render-state [this {:keys [layout-channel]}]
       (dom/div #js {:className "redditv-pane redditv-rightpane"}
@@ -227,53 +227,52 @@
            #(merge % {:playlist new-playlist
                       :playlist-selected (first new-playlist)})
           )))
-    error-channel
-    ))
+    error-channel))
 
 (defn header-component [app owner]
   (reify
     om/IInitState
     (init-state [_]
       {:subreddit "videos"})
+
     om/IRenderState
     (render-state [this {:keys [subreddit] :as state}]
-      (dom/div #js {:className "redditv-header"}
-               [(dom/div #js {:className "button-pane"
-                              :title "Search Subreddit"
-                              :style #js {:display "inline-block"}
-                              :onClick 
-                              (fn [e]
-                                (om/update! app :subreddit subreddit)
-                                (update-playlist! app owner :subreddit subreddit))}
-                         (icons/google-icon "search"))
-                (dom/span nil "/r/")
-                (dom/input #js {:type "text" :value subreddit
-                                :onChange #(handle-search-change % owner state)
-                                :onKeyDown 
+      (let [{:keys [title] :as selected} (app :playlist-selected)]
+        (dom/div #js {:className "redditv-header"}
+                 [(dom/div #js {:className "button-pane"
+                                :title "Search Subreddit"
+                                :style #js {:display "inline-block"}
+                                :onClick
                                 (fn [e]
-                                  (let [key (.-key e)]
-                                    (case key
-                                      "Enter"
-                                      (do 
-                                        (om/update! app :subreddit subreddit)
-                                        (update-playlist! app owner :subreddit subreddit))
-                                      nil))
-                                  )})])
-      )))
+                                  (om/update! app :subreddit subreddit)
+                                  (update-playlist! app owner :subreddit subreddit))}
+                           (icons/google-icon "search"))
+                  (dom/span nil "/r/")
+                  (dom/input #js {:type "text" :value subreddit
+                                  :onChange #(handle-search-change % owner state)
+                                  :onKeyDown 
+                                  (fn [e]
+                                    (let [key (.-key e)]
+                                      (case key
+                                        "Enter"
+                                        (do 
+                                          (om/update! app :subreddit subreddit)
+                                          (update-playlist! app owner :subreddit subreddit))
+                                        nil))
+                                    )})
+                  (dom/span #js {:id "header-entry-title"} title)])))))
 
 (defn next-video! [app owner]
   (let [playlist (om/get-props owner :playlist)
         current-selection (om/get-props owner :playlist-selected)
         next-selection (utils/next-element playlist current-selection)]
-    (om/update! app :playlist-selected next-selection)
-    ))
+    (om/update! app :playlist-selected next-selection)))
 
 (defn previous-video! [app owner]
   (let [playlist (om/get-props owner :playlist)
         current-selection (om/get-props owner :playlist-selected)
         prev-selection (utils/prev-element playlist current-selection)]
-    (om/update! app :playlist-selected prev-selection)
-    ))
+    (om/update! app :playlist-selected prev-selection)))
 
 (defn root-component [app owner]
   (reify
@@ -284,6 +283,7 @@
        :player-channel (chan)
        :layout-channel (chan)
        })
+
     om/IWillMount
     (will-mount [_]
       (let [selection-channel (om/get-state owner :selection-channel)
@@ -320,6 +320,7 @@
               nil))
           (recur))
         ))
+
     om/IRenderState
     (render-state [_ {:keys [selection-channel
                              player-channel
@@ -340,6 +341,7 @@
                           {:init-state {:selection-channel selection-channel
                                         :layout-channel layout-channel}})
                 ]))
+
     om/IDidMount
     (did-mount [_]
       (.addEventListener 
