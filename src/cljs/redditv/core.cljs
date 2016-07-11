@@ -2,9 +2,9 @@
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
-            [cljs.core.async :refer [put! chan <!]]
+            [cljs.core.async :refer [put! chan <! mult tap]]
             [secretary.core :as secretary :refer-macros [defroute]]
-            [goog.events :as events]
+            [goog.events]
             [goog.history.EventType :as EventType]
 
             ;;Local
@@ -13,6 +13,7 @@
             [redditv.utils :as utils]
             [redditv.reddit :as reddit]
             [redditv.icons :as icons]
+            [redditv.events :as events]
             )
   (:import goog.History))
 
@@ -83,8 +84,12 @@
     om/IWillReceiveProps
     (will-receive-props [this entry]
       (p/dispose (om/get-state owner :player))
-      (if (and (not (nil? entry))
-               (not= (app :playlist-selected) entry))
+      (cond
+        ;; If it's nil, set it to a nullplayer
+        (nil? entry)
+        (om/set-state! owner :player (p/create-nullplayer))
+        ;; If it's not a duplicate entry, we create a new player to serve the video
+        (not= (om/get-state owner :playlist-selected) entry)
         (let [event-channel (om/get-state owner :event-channel)
               new-player
               (yt/create-youtubeplayer 
@@ -92,8 +97,7 @@
                (-> entry :url)
                event-channel
                )]
-          (om/set-state! owner :player new-player))
-        (om/set-state! owner :player (p/create-nullplayer))))
+          (om/set-state! owner :player new-player))))
 
     om/IRenderState
     (render-state [_ state]
@@ -126,8 +130,7 @@
                       :title (:title entry)
                       :onClick 
                       (fn [e]
-                        (put! selection-channel {:event-type :video-select :entry @entry})
-                        )}
+                        (put! selection-channel (events/video-select @entry)))}
                  [(dom/div #js {:className "entry-title noselect"} (-> entry :title))
                   (dom/img #js {:className "entry-thumbnail"
                                 :src (let [thumbnail (-> entry :thumbnail)]
@@ -137,9 +140,7 @@
                                          (= thumbnail "default")
                                          "http://i.imgur.com/9wEJlnk.gif"
                                          :else
-                                         thumbnail))})
-                  ])
-      ))))
+                                         thumbnail))})])))))
 
 (defn playlist-component [app owner]
   (reify
@@ -154,7 +155,7 @@
                                         :title "Previous Video"
                                         :onClick
                                         (fn [e]
-                                          (put! selection-channel {:event-type :video-previous}))}
+                                          (put! selection-channel (events/video-previous)))}
                                    (icons/google-icon "arrow_back"))
                           ])
                 (dom/div #js {:id "redditv-playlist-container"
@@ -171,9 +172,8 @@
                                         :title "Next Video"
                                         :onClick
                                         (fn [e]
-                                          (put! selection-channel {:event-type :video-next}))}
-                                   (icons/google-icon "arrow_forward"))
-                          ])]))))
+                                          (put! selection-channel (events/video-next)))}
+                                   (icons/google-icon "arrow_forward"))])]))))
 
 (defn leftpane-component [app owner]
   (reify
@@ -186,11 +186,8 @@
                              (fn [e]
                                (let [{:keys [permalink] :as entry} 
                                      (om/get-props owner :playlist-selected)]
-                                 (.open js/window (str "http://www.reddit.com" permalink) "_blank")
-                                 ))
-                             }
-                        (icons/google-icon "comment")))
-      )))
+                                 (.open js/window (str "http://www.reddit.com" permalink) "_blank")))}
+                        (icons/google-icon "comment"))))))
 
 (defn rightpane-component [app owner]
   (reify
@@ -279,14 +276,19 @@
     om/IInitState
     (init-state [_]
       (update-playlist! app owner)
-      {:selection-channel (chan)
-       :player-channel (chan)
-       :layout-channel (chan)
-       })
+      (let [event-channel (chan)
+            event-bus (mult event-channel)]
+        {:event-channel event-channel
+         :event-bus event-bus
+         :selection-channel (chan)
+         :player-channel (chan)
+         :layout-channel (chan)}))
 
     om/IWillMount
     (will-mount [_]
-      (let [selection-channel (om/get-state owner :selection-channel)
+      (let [event-channel (om/get-state owner :event-channel)
+            event-bus (om/get-state owner :event-bus)
+            selection-channel (om/get-state owner :selection-channel)
             player-channel (om/get-state owner :player-channel)
             layout-channel (om/get-state owner :layout-channel)]
 
@@ -294,16 +296,15 @@
         ;; the selection-channel. Change :playlist-selected to the
         ;; designated selection.
         (go-loop []
-          (let [{:keys [event-type] :as event} (<! selection-channel)]
-            (case event-type
-              :video-select
+          (let [event (<! selection-channel)]
+            (cond
+              (events/is-video-select? event)
               (let [{:keys [entry]} event]
                 (om/update! app :playlist-selected entry))
-              :video-next
+              (events/is-video-next? event)
               (next-video! app owner)
-              :video-previous
-              (previous-video! app owner)
-              nil)
+              (events/is-video-previous? event)
+              (previous-video! app owner))
             (recur)))
 
         ;; Event hub. One of the events are passed down from the
@@ -311,15 +312,13 @@
         ;; the :video-ended let's us know if we should move onto the
         ;; next video.
         (go-loop []
-          (let [{:keys [event-type] :as event} (<! player-channel)]
-            (case event-type
-              :video-ended
+          (let [event (<! player-channel)]
+            (cond
+              (events/is-player-ended? event)
               (next-video! app owner)
-              :video-not-started
-              (next-video! app owner)
-              nil))
-          (recur))
-        ))
+              (events/is-player-not-started? event)
+              (next-video! app owner)))
+          (recur))))
 
     om/IRenderState
     (render-state [_ {:keys [selection-channel
@@ -339,8 +338,7 @@
                            :state {:layout (-> app :layout)}})
                 (om/build playlist-component app
                           {:init-state {:selection-channel selection-channel
-                                        :layout-channel layout-channel}})
-                ]))
+                                        :layout-channel layout-channel}})]))
 
     om/IDidMount
     (did-mount [_]
@@ -353,8 +351,7 @@
              (previous-video! app owner)
              39 ;; Right Arrow Key
              (next-video! app owner)
-             nil)
-           ))))))
+             nil)))))))
 
 (om/root
  root-component

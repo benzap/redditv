@@ -1,7 +1,8 @@
 (ns redditv.youtube
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [cljs.core.async :refer [put! chan <! >! timeout close!]]
-            [redditv.player :as player]))
+            [redditv.player :as player]
+            [redditv.events :as events]))
 
 (def regex-youtube-url #"^https?://www\.youtube\.com/.*?v=([a-zA-Z0-9_-]+)&?.*")
 (def regex-youtube-shortened-url #"^https?://youtu\.be/([a-zA-Z0-9_-]+)\??.*")
@@ -45,18 +46,16 @@
                                 (let [video-state (.-data event)]
                                   (case video-state
                                     -1 ;; NOT STARTED
-                                    (put! event-channel {:event-type :video-not-started})
+                                    (put! event-channel (events/player-not-started))
                                     0 ;; ENDED
-                                    (put! event-channel {:event-type :video-ended})
+                                    (put! event-channel (events/player-ended))
                                     1 ;; PLAYING
-                                    (put! event-channel {:event-type :video-playing})
+                                    (put! event-channel (events/player-playing))
                                     2 ;; PAUSED
-                                    (put! event-channel {:event-type :video-paused})
+                                    (put! event-channel (events/player-paused))
                                     3 ;; BUFFERING
-                                    (put! event-channel {:event-type :video-buffering})
+                                    (put! event-channel (events/player-buffering))
                                     5 ;; CUED
-                                    (put! event-channel {:event-type :video-cued})
-                                  )))}})
-        ]
+                                    (put! event-channel (events/player-cued)))))}})]
     (->YoutubePlayer context video-url event-channel)
     ))
