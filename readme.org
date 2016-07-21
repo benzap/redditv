@@ -2,7 +2,13 @@
   *This is still a work in progress. There is currently no toggle for
   NSFW, so use extreme caution if you are at a workplace!*
 
-  You can still check out the beta at http://benzap.github.io/redditv
+  You can still check out some beta pages at:
+  
+  - http://benzap.github.io/redditv
+  - http://benzap.github.io/redditv/#/r/360video
+  - http://benzap.github.io/redditv/#/r/documentaries
+  - http://benzap.github.io/redditv/#/r/youtubehaiku
+  - http://benzap.github.io/redditv/#/r/commercialcuts
 
 ** Keyboard Controls
 
