@@ -5,7 +5,8 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.7.228" :scope "provided"]
+                 [org.clojure/clojurescript "1.9.293" :scope "provided"]
+                 [org.clojure/core.async "0.2.395"]
                  [ring "1.4.0"]
                  [ring/ring-defaults "0.2.0"]
                  [bk/ring-gzip "0.1.1"]
@@ -13,7 +14,6 @@
                  [compojure "1.5.0"]
                  [environ "1.0.2"]
                  [org.omcljs/om "1.0.0-alpha31"]
-                 [org.clojure/core.async "0.2.374"]
                  [cljs-http "0.1.40"]
                  [secretary "1.2.3"]]
 
