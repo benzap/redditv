@@ -13,12 +13,16 @@
                  [ring.middleware.logger "0.5.0"]
                  [compojure "1.5.1"]
                  [environ "1.1.0"]
-                 [org.omcljs/om "1.0.0-alpha47"]
+
+                 ;; cljs
+                 [garden "1.3.2"]
+                 [rum "0.10.8"]
                  [cljs-http "0.1.42"]
                  [secretary "1.2.3"]]
 
-  :plugins [[lein-cljsbuild "1.1.1"]
-            [lein-environ "1.0.1"]]
+  :plugins [[lein-cljsbuild "1.1.5"]
+            [lein-environ "1.1.0"]
+            [lein-garden "0.3.0"]]
 
   :min-lein-version "2.6.1"
 
@@ -37,6 +41,11 @@
   ;; because that's where our development helper functions like (run) and
   ;; (browser-repl) live.
   :repl-options {:init-ns user}
+
+  :garden
+  {:builds [{:source-paths ["src/clj"]
+             :stylesheet redditv.styles/main
+             :compiler {:output-to "resources/public/css/main.css"}}]}
 
   :cljsbuild {:builds
               {:app
@@ -69,29 +78,7 @@
              ;; :server-port 3449                ;; default
              :server-ip "localhost"              ;; default
              :css-dirs ["resources/public/css"]  ;; watch and update CSS
-
-             ;; Instead of booting a separate server on its own port, we embed
-             ;; the server ring handler inside figwheel's http-kit server, so
-             ;; assets and API endpoints can all be accessed on the same host
-             ;; and port. If you prefer a separate server process then take this
-             ;; out and start the server with `lein run`.
              :ring-handler user/http-handler
-
-             ;; Start an nREPL server into the running figwheel process. We
-             ;; don't do this, instead we do the opposite, running figwheel from
-             ;; an nREPL process, see
-             ;; https://github.com/bhauman/lein-figwheel/wiki/Using-the-Figwheel-REPL-within-NRepl
-             ;; :nrepl-port 7888
-
-             ;; To be able to open files in your editor from the heads up display
-             ;; you will need to put a script on your path.
-             ;; that script will have to take a file path and a line number
-             ;; ie. in  ~/bin/myfile-opener
-             ;; #! /bin/sh
-             ;; emacsclient -n +$2 $1
-             ;;
-             ;; :open-file-command "myfile-opener"
-
              :server-logfile "log/figwheel.log"}
 
   :doo {:build "test"}
