@@ -215,3 +215,12 @@ input[type='text'] {
     outline: none;
     border: none;
 }
+
+#header-entry-title {
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 50%;
+    padding-left: 10px;
+}
