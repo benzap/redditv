@@ -7,14 +7,14 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.293" :scope "provided"]
                  [org.clojure/core.async "0.2.395"]
-                 [ring "1.4.0"]
-                 [ring/ring-defaults "0.2.0"]
+                 [ring "1.5.0"]
+                 [ring/ring-defaults "0.2.1"]
                  [bk/ring-gzip "0.1.1"]
                  [ring.middleware.logger "0.5.0"]
-                 [compojure "1.5.0"]
-                 [environ "1.0.2"]
-                 [org.omcljs/om "1.0.0-alpha31"]
-                 [cljs-http "0.1.40"]
+                 [compojure "1.5.1"]
+                 [environ "1.1.0"]
+                 [org.omcljs/om "1.0.0-alpha47"]
+                 [cljs-http "0.1.42"]
                  [secretary "1.2.3"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]
@@ -67,7 +67,7 @@
 
   :figwheel {;; :http-server-root "public"       ;; serve static assets from resources/public/
              ;; :server-port 3449                ;; default
-             ;; :server-ip "127.0.0.1"           ;; default
+             :server-ip "localhost"              ;; default
              :css-dirs ["resources/public/css"]  ;; watch and update CSS
 
              ;; Instead of booting a separate server on its own port, we embed
