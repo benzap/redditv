@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.7.228 {}
+// Compiled by ClojureScript 1.9.293 {}
 goog.provide('redditv.utils');
 goog.require('cljs.core');
 redditv.utils.dom_clear_children = (function redditv$utils$dom_clear_children(div_id){
@@ -17,8 +17,8 @@ return null;
 redditv.utils.next_element = (function redditv$utils$next_element(xs,x){
 var title = new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(x);
 var playlist_titles = cljs.core.map.call(null,((function (title){
-return (function (p1__29894_SHARP_){
-return new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(p1__29894_SHARP_);
+return (function (p1__42264_SHARP_){
+return new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(p1__42264_SHARP_);
 });})(title))
 ,xs);
 var i = cljs.core.first.call(null,redditv.utils.positions.call(null,cljs.core.PersistentHashSet.fromArray([title], true),playlist_titles));
@@ -33,8 +33,8 @@ return cljs.core.nth.call(null,cljs.core.cycle.call(null,xs),(i + (1)));
 redditv.utils.prev_element = (function redditv$utils$prev_element(xs,x){
 var title = new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(x);
 var playlist_titles = cljs.core.map.call(null,((function (title){
-return (function (p1__29895_SHARP_){
-return new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(p1__29895_SHARP_);
+return (function (p1__42265_SHARP_){
+return new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(p1__42265_SHARP_);
 });})(title))
 ,xs);
 var i = cljs.core.first.call(null,redditv.utils.positions.call(null,cljs.core.PersistentHashSet.fromArray([title], true),playlist_titles));
