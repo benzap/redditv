@@ -6,13 +6,19 @@
             [goog.events]
             [goog.history.EventType :as EventType]
 
-            ;;Local
+            ;; Local
             [redditv.player :as p]
             [redditv.youtube :as yt]
             [redditv.utils :as utils]
             [redditv.reddit :as reddit]
             [redditv.icons :as icons]
             [redditv.events :as events]
+
+            ;; Rum Components
+            [redditv.components.header :refer [c-header]]
+            [redditv.components.sidepane :refer [c-sidepane]]
+            [redditv.components.playlist :refer [c-playlist]]
+            [redditv.components.player :refer [c-player]]
             )
   (:import goog.History))
 
@@ -47,7 +53,12 @@
   (goog.events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
   (doto h (.setEnabled true)))
 
-(rum/defc label [text]
-  [:div {:class "label"} text])
+(rum/defc app []
+  [:.redditv-main
+   (c-header)
+   (c-sidepane)
+   (c-player)
+   (c-playlist)])
 
-(rum/mount (label "hello ben!") (.querySelector js/document "#app"))
+(rum/mount (app) (.querySelector js/document "#app"))
+
