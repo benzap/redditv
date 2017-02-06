@@ -7,6 +7,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.293" :scope "provided"]
                  [org.clojure/core.async "0.2.395"]
+                 [org.clojure/core.match "0.3.0-alpha4"]
                  [ring "1.5.0"]
                  [ring/ring-defaults "0.2.1"]
                  [bk/ring-gzip "0.1.1"]

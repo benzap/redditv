@@ -3,4 +3,5 @@
 
 (rum/defc c-sidepane
   []
-  [:.redditv-sidepane "sidepane"])
+  [:.redditv-sidepane
+   [:i.material-icons "comment"]])

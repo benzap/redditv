@@ -11,6 +11,7 @@
             [redditv.youtube :as yt]
             [redditv.utils :as utils]
             [redditv.reddit :as reddit]
+            [redditv.playlist :as playlist]
             [redditv.icons :as icons]
             [redditv.events :as events]
 
@@ -27,10 +28,11 @@
 (defonce app-state
   (atom {:subreddit "videos"
          :playlist []
-         :playlist-selected nil
-         :layout 
-         {:toggle-playlist true} ;; True --> Expanded
+         :playlist-selected-index 0
+         :toggle-playlist true
          }))
+
+(playlist/reload app-state)
 
 ;;
 ;; Secretary Routes
@@ -55,10 +57,10 @@
 
 (rum/defc app []
   [:.redditv-main
-   (c-header)
+   (c-header app-state)
    (c-sidepane)
    (c-player)
-   (c-playlist)])
+   (c-playlist app-state)])
 
 (rum/mount (app) (.querySelector js/document "#app"))
 
