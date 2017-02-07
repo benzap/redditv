@@ -29,7 +29,9 @@
   (atom {:subreddit "videos"
          :playlist []
          :playlist-selected-index 0
-         :toggle-playlist true
+         :show-playlist true
+         :show-search false
+         :show-settings false
          }))
 
 (playlist/reload app-state)
@@ -58,7 +60,7 @@
 (rum/defc app []
   [:.redditv-main
    (c-header app-state)
-   (c-sidepane)
+   (c-sidepane app-state)
    (c-player)
    (c-playlist app-state)])
 

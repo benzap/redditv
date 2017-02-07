@@ -19,7 +19,8 @@
                  [garden "1.3.2"]
                  [rum "0.10.8"]
                  [cljs-http "0.1.42"]
-                 [secretary "1.2.3"]]
+                 [secretary "1.2.3"]
+                 [cljsjs/react-mdl "1.5.4-1"]]
 
   :plugins [[lein-cljsbuild "1.1.5"]
             [lein-environ "1.1.0"]
