@@ -18,7 +18,7 @@
 
 (defn post-is-video? [post]
   (or
-   ;;(yt/is-youtube-url? (post :url))
+   (yt/is-youtube-url? (post :url))
    (vimeo/is-vimeo-url? (post :url))))
 
 (defn get-subreddit-videos [subreddit]
