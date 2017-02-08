@@ -2,7 +2,8 @@
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [cljs.core.async :refer [put! chan <!]]
             [redditv.jsonp :refer [send-jsonp]]
-            [redditv.youtube :as yt]))
+            [redditv.youtube :as yt]
+            [redditv.vimeo :as vimeo]))
 
 (def reddit-url "https://www.reddit.com")
 
@@ -16,7 +17,9 @@
     [output-channel error-channel]))
 
 (defn post-is-video? [post]
-  (yt/is-youtube-url? (post :url)))
+  (or
+   ;;(yt/is-youtube-url? (post :url))
+   (vimeo/is-vimeo-url? (post :url))))
 
 (defn get-subreddit-videos [subreddit]
   (let [output-channel (chan)

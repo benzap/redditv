@@ -5,6 +5,7 @@
             [redditv.player :as player]
             [redditv.playlist :as playlist]
             [redditv.youtube :as yt]
+            [redditv.vimeo :as vimeo]
             [redditv.events :as events]
             ))
 
@@ -16,6 +17,8 @@
       (player/create-nullplayer)
       (yt/is-youtube-url? url)
       (yt/create-youtubeplayer "redditv-player" url event-channel)
+      (vimeo/is-vimeo-url? url)
+      (vimeo/create-vimeo-player "redditv-player" url event-channel)
     )))
 
 (def mixin-player-handler
@@ -41,7 +44,8 @@
                  (let [app-state (-> state :rum/args first)
                        event-channel (-> state ::event-channel)
                        current-item (playlist/get-selected app-state)]
-                   (player/dispose (-> state ::player-instance))
+                   (when (-> state ::player-instance)
+                     (player/dispose (-> state ::player-instance)))
                    (assoc state ::player-instance
                           (generate-video-player app-state current-item event-channel))))
 

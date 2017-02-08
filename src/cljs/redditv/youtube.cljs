@@ -57,5 +57,4 @@
                                     (put! event-channel (events/player-buffering))
                                     5 ;; CUED
                                     (put! event-channel (events/player-cued)))))}})]
-    (->YoutubePlayer context video-url event-channel)
-    ))
+    (->YoutubePlayer context video-url event-channel)))
