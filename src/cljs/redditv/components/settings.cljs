@@ -28,7 +28,7 @@
 
     ;; Content
     [:.redditv-dialog-content
-     [:h3 "General"]
+     [:h4 "General"]
      (mdl/checkbox {:label "Show NSFW Content"
                     :ripple true})]
     

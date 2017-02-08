@@ -28,11 +28,13 @@
 (defonce app-state
   (atom {:subreddit "videos"
          :playlist []
-         :playlist-selected-index 0
+         :playlist-selected-index -1
          :show-playlist true
          :show-search false
          :show-settings false
          }))
+
+(defonce playlist-index (rum/cursor-in app-state [:playlist-selected-index]))
 
 (playlist/reload app-state)
 
@@ -61,7 +63,7 @@
   [:.redditv-main
    (c-header app-state)
    (c-sidepane app-state)
-   (c-player)
+   (c-player app-state playlist-index)
    (c-playlist app-state)])
 
 (rum/mount (app) (.querySelector js/document "#app"))

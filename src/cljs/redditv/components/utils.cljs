@@ -11,10 +11,12 @@
                   (go-loop []
                     (let [recv-message (<! recv-chan)]
                       (assoc state ::recv-message recv-message)
-                      (rum/request-render react-component)))
+                      (rum/request-render react-component)
+                      (recur)))
                   (assoc state ::recv-chan recv-chan)))
 
    :will-unmount (fn [state]
                    (untap multi-chan (::recv-chan state))
-                   (dissoc state ::recv-chan)
-                   (dissoc state ::recv-message))})
+                   (-> state
+                       (dissoc ::recv-chan)
+                       (dissoc ::recv-message)))})

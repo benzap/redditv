@@ -56,6 +56,14 @@
     :-ms-user-select "none"
     :user-select "none"}]
 
+  [:.selected
+   {:background-color "#fdfdfd"}]
+
+  [:#app
+   {:width "100%"
+    :height "100%"
+    :z-index -2}]
+
   [:.redditv-header
    {:position "absolute"
     :top 0
@@ -93,14 +101,17 @@
     :overflow-y "hidden"
     :white-space "nowrap"}]
 
-  [:.redditv-player
+  [:#redditv-player-container
    {:position "absolute"
-    :z-index -1
     :top (px header-height)
     :left (px sidepane-width)
     :right 0
     :bottom (px playlist-height)
     :background-color "black"}]
+
+  [:#redditv-player
+   {:width "100%"
+    :height "100%"}]
 
   [:.redditv-playlist-item
    {:position "relative"
@@ -214,11 +225,15 @@
   [:.redditv-dialog-content
    {:position "absolute"
     :top (px header-height)
-    :background-color color-background
+    :background-color "#fdfdfd"
     :left 0
     :right 0
     :bottom 0
     :overflow-y "auto"
-    :padding "10px"}]
+    :padding "25px"}
+   [:h3 {:color "#1d1d1d"}]
+   [:h4 {:color "#1d1d1d"}]
+   [:label {:color "#1d1d1d"}]
+   [:span {:color "#1d1d1d"}]]
 
   )

@@ -3,7 +3,10 @@
 
 (defmacro adapt-react [rum-name react-component]
   `(rum/defc ~rum-name [props# & children#]
-     (if-not (empty? children#)
-       (.createElement js/React ~react-component (cljs/clj->js props#) (cljs/array children#))
-       (.createElement js/React ~react-component (cljs/clj->js props#)))))
+     (cond (= (count children#) 0)
+           (.createElement js/React ~react-component (cljs/clj->js props#))
+           (= (count children#) 1)
+           (.createElement js/React ~react-component (cljs/clj->js props#) (first children#))
+           :else
+           (.createElement js/React ~react-component (cljs/clj->js props#) (cljs/array children#)))))
 
