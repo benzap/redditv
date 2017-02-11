@@ -78,7 +78,8 @@
                        37 ;; Left Arrow Key
                        (playlist/select-prev app-state)
                        39 ;; Right Arrow Key
-                       (playlist/select-next app-state))))))})
+                       (playlist/select-next app-state)
+                       nil)))))})
 
 (rum/defc app 
   < mixin-keyboard-controls
