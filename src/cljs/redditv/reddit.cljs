@@ -9,8 +9,7 @@
 
 (defn get-subreddit-posts [subreddit opts]
   (let [{:keys [limit category]
-         :or {limit 100
-              category "hot"}} opts
+         :or {limit 100 category "hot"}} opts
         output-channel (chan)
         url (str reddit-url "/r/" subreddit "/" category "/.json?limit=" limit)
         [success-channel error-channel] (send-jsonp url)]

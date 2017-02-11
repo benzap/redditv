@@ -73,6 +73,34 @@
     :background-color color-foreground
     :line-height (px header-height)}]
 
+  [:.header-logo
+   {:display "inline-block"
+    :background-color (color/darken color-button2-default 30)
+    :height (px header-height)
+    :width (px 100)
+    :font-size (px 24)
+    :padding-left (px 20)
+    :padding-right (px 8)
+    :font-weight "bold"}]
+
+  [:.header-subreddit
+   {:display "inline-block"
+    :background-color color-background
+    :height (px header-height)
+    :padding-left (px 20)
+    :padding-right (px 20)
+    :font-size (px 20)
+    :border-top-right-radius (px 20)
+    :border-bottom-right-radius (px 20)}]
+
+  [:.header-title
+   {:display "inline-block"
+    :height (px header-height)
+    :padding-left (px 20)
+    :font-size (px 20)
+    :white-space "nowrap"
+    }]
+
   [:.redditv-sidepane
    {:position "absolute"
     :z-index 1
@@ -106,6 +134,20 @@
     :bottom 0
     :height (px sidepane-width)
     :background-color color-foreground}]
+
+  [:.redditv-playlist-count
+   {:font-size (px 34)
+    :font-weight "bold"
+    :padding-left (px 12)
+    :padding-bottom (px 5)
+    :line-height (px sidepane-width)}]
+
+  [:.redditv-playlist-progress
+   {:position "absolute"
+    :right 0
+    :top 0
+    :left (px (* sidepane-width 2))
+    :width "100%"}]
 
   [:.redditv-playlist-container
    {:position "absolute"

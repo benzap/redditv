@@ -9,20 +9,21 @@
 (def nsfw-thumbnail-url "http://i.imgur.com/KZOsckv.jpg")
 (def default-thumbnail-url "http://i.imgur.com/9wEJlnk.gif")
 
+(defn mixin-fix-scroll-alignment [state]
+  ;; If the item is selected, aligns the item to the left of the container
+  (let [react-component (:rum/react-component state)
+        dom-node (js/ReactDOM.findDOMNode react-component)
+        parent-node (.querySelector js/document ".redditv-playlist-container")
+        selected? (-> state :rum/args (nth 2))]
+    (when selected?
+      (align-to-root-left parent-node dom-node)))
+  state)
+
 (rum/defcs c-playlist-item
   < 
   {:key-fn (fn [[i item]] (str "playlist-item-" i "-" (:title item)))
-   :did-update 
-   (fn [state]
-     ;; If the item is selected, aligns the item to the left of the container
-     (let [react-component (:rum/react-component state)
-           dom-node (js/ReactDOM.findDOMNode react-component)
-           parent-node (.querySelector js/document ".redditv-playlist-container")
-           selected? (-> state :rum/args (nth 2))]
-       (when selected?
-         (align-to-root-left parent-node dom-node)))
-     state)
-   }
+   :did-update mixin-fix-scroll-alignment
+   :did-mount mixin-fix-scroll-alignment}
   [state [i item] select-chan selected?]
   (let [title (str (-> item :title))
         thumbnail (-> item :thumbnail)
@@ -81,5 +82,15 @@
        [:.redditv-playlist-container {:class (if-not show-playlist "compressed")}
         (for [[index item] playlist-items]
           (c-playlist-item [index item] select-chan (= index playlist-selected-index)))]
-       [:.redditv-playlist-container-compressed])]))
+       [:.redditv-playlist-container-compressed
+        (mdl/icon {:name "skip_previous" :className "redditv-button noselect"
+                   :onClick #(playlist/select-prev app-state)})
+        (mdl/icon {:name "skip_next" :className "redditv-button noselect"
+                   :onClick #(playlist/select-next app-state)})
+        [:span.redditv-playlist-count
+         (str (inc playlist-selected-index) " of " (count playlist-items))]
+        (mdl/progress-bar {:className "redditv-playlist-progress"
+                           :progress (* (/ (inc playlist-selected-index) (count playlist-items))
+                                        100)})
+        ])]))
   

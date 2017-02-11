@@ -18,3 +18,5 @@
 (adapt-react grid js/ReactMDL.Grid)
 
 (adapt-react cell js/ReactMDL.Cell)
+
+(adapt-react progress-bar js/ReactMDL.ProgressBar)
