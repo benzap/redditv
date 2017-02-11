@@ -37,27 +37,37 @@
                   (-> state 
                       (assoc ::event-channel event-channel)
                       (assoc ::player-instance (player/create-nullplayer))
+                      (assoc ::current-item (playlist/get-selected app-state))
                       )
                   ))
 
    :will-update (fn [state]
                  (let [app-state (-> state :rum/args first)
                        event-channel (-> state ::event-channel)
-                       current-item (playlist/get-selected app-state)]
-                   (when (-> state ::player-instance)
-                     (player/dispose (-> state ::player-instance)))
-                   (assoc state ::player-instance
-                          (generate-video-player app-state current-item event-channel))))
+                       current-item (playlist/get-selected app-state)
+                       old-item (-> state ::current-item)]
+                   (if (not= current-item old-item)
+                     (do
+                       (when (-> state ::player-instance)
+                         (player/dispose (-> state ::player-instance)))
+                       (-> state
+                           (assoc ::player-instance
+                                  (generate-video-player app-state current-item event-channel))
+                           (assoc ::current-item current-item)))
+                     state)))
 
    :will-unmount (fn [state]
-                   (dissoc state ::event-channel)
-                   (dissoc state ::player-instance))})
+                   (-> state
+                       (dissoc ::event-channel)
+                       (dissoc ::player-instance)
+                       (dissoc ::current-item)))})
 
 (rum/defcs c-player
   <
   rum/reactive
   mixin-player-handler
-  [state app-state playlist-index]
-  (let [index (rum/react playlist-index)]
-    [:#redditv-player-container
+  [state app-state playlist-index show-playlist]
+  (let [index (rum/react playlist-index)
+        show-playlist (rum/react show-playlist)]
+    [(if show-playlist :#redditv-player-container :#redditv-player-container-compressed)
      [:#redditv-player]]))

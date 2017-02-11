@@ -20,6 +20,9 @@
             [redditv.components.sidepane :refer [c-sidepane]]
             [redditv.components.playlist :refer [c-playlist]]
             [redditv.components.player :refer [c-player]]
+
+            ;; JS Dependencies
+            [cljsjs.react-select]
             )
   (:import goog.History))
 
@@ -30,11 +33,17 @@
          :playlist []
          :playlist-selected-index -1
          :show-playlist true
+         :fullscreen false
          :show-search false
          :show-settings false
+         :settings-show-nsfw true
+         :settings-video-count 100
+         :settings-video-category "hot"
          }))
 
 (defonce playlist-index (rum/cursor-in app-state [:playlist-selected-index]))
+(defonce show-playlist (rum/cursor-in app-state [:show-playlist]))
+
 
 (playlist/reload app-state)
 
@@ -63,7 +72,7 @@
   [:.redditv-main
    (c-header app-state)
    (c-sidepane app-state)
-   (c-player app-state playlist-index)
+   (c-player app-state playlist-index show-playlist)
    (c-playlist app-state)])
 
 (rum/mount (app) (.querySelector js/document "#app"))

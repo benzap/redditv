@@ -14,10 +14,10 @@
   rum/reactive
   (rum/local "" ::search-value)
   [state app-state]
-  (let [{:keys [show-search show-settings subreddit]} (rum/react app-state)
+  (let [{:keys [show-search show-settings subreddit show-playlist]} (rum/react app-state)
         search-value (::search-value state)]
 
-    [:.redditv-sidepane
+    [(if show-playlist :.redditv-sidepane :.redditv-sidepane-compressed)
      ;;Search Button and Toggling
      (mdl/tooltip
       {:label "Search Subreddits" :position "right"}

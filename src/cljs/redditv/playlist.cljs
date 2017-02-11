@@ -3,8 +3,13 @@
   (:require [redditv.reddit :as reddit]))
 
 (defn reload [app-state]
-  (go (let [subreddit (-> @app-state :subreddit)
-            [out err] (reddit/get-subreddit-videos subreddit)
+  (go (let [{:keys [subreddit 
+                    settings-show-nsfw 
+                    settings-video-count
+                    settings-video-category]} @app-state
+            [out err] (reddit/get-subreddit-videos subreddit {:allow-nsfw? settings-show-nsfw
+                                                              :limit settings-video-count
+                                                              :category settings-video-category})
             videos (<! out)]
         (when videos
           (swap! app-state merge {:playlist videos :playlist-selected-index 0})))))
