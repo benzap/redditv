@@ -78,10 +78,10 @@
     [(if show-playlist :.redditv-playlist :.redditv-playlist-compressed)
      [(if show-playlist :.redditv-playlist-rightpane :.redditv-playlist-rightpane-compressed)
       (mdl/icon {:name (if show-playlist "arrow_drop_down" "arrow_drop_up")
-                 :className "redditv-button"
+                 :className "redditv-button noselect"
                  :onClick #(swap! app-state update-in [:show-playlist] not)})
       (mdl/icon {:name (if-not fullscreen "fullscreen" "fullscreen_exit")
-                 :className "redditv-button"
+                 :className "redditv-button noselect"
                  :onClick #(swap! app-state update-in [:fullscreen] not)})
       ]
      (if show-playlist

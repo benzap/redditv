@@ -27,7 +27,7 @@
      ;;Search Button and Toggling
      (mdl/tooltip
       {:label "Search Subreddits" :position "right"}
-      (mdl/icon {:name "search" :className (str "redditv-button "
+      (mdl/icon {:name "search" :className (str "redditv-button noselect "
                                                 (if show-search "button-active-toggle" ""))
                  :onClick #(swap! app-state update-in [:show-search] not)}))
 
@@ -55,7 +55,7 @@
 
      (mdl/tooltip
       {:label "Settings" :position "right"}
-      (mdl/icon {:name "settings" :className (str "redditv-button "
+      (mdl/icon {:name "settings" :className (str "redditv-button noselect "
                                                   (if show-settings "button-active-toggle" ""))
                  :onClick #(swap! app-state update-in [:show-settings] not)}))
 
@@ -63,7 +63,7 @@
 
      (mdl/tooltip
       {:label "View Reddit Comments" :position "right"}
-      (mdl/icon {:name "comment" :className "redditv-button"
+      (mdl/icon {:name "comment" :className "redditv-button noselect"
                  :onClick 
                  (fn []
                    (let [current-video (playlist/get-selected app-state)
