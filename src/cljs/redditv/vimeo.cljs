@@ -26,6 +26,7 @@
   player/IPlayer
   (play [this])
   (pause [this])
+  (fullscreen [this])
   (dispose [this]
     (.remove dom)
     ))
@@ -64,6 +65,7 @@
         player (attach-vimeo-player)]
     (.addEvent player "ready" 
                (fn []
+                 (.addEvent player "playing" #(put! event-channel (events/player-playing)))
                  (.addEvent player "finish" #(put! event-channel (events/player-ended)))
                  (.addEvent player "error" #(put! event-channel (events/player-not-started)))
                  

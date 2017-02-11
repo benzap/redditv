@@ -7,6 +7,7 @@
   (let [{:keys [subreddit]} (rum/react app-state)
         selected (playlist/get-selected app-state)]
     [:.redditv-header
-     [:.header-logo "redditv"]
-     [:.header-subreddit (str "/r/" subreddit)]
-     [:.header-title (str (-> selected :title))]]))
+     [:.redditv-header-flex
+      [:.header-logo "redditv"]
+      [:.header-subreddit (str "/r/" subreddit)]
+      [:.header-title (str (-> selected :title))]]]))

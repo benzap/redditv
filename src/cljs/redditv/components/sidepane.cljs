@@ -12,7 +12,13 @@
 (rum/defcs c-sidepane
   <
   rum/reactive
-  (rum/local "" ::search-value)
+  {:init (fn [state props]
+           (let [search-value (::search-value state)
+                 app-state (-> state :rum/args first)
+                 {:keys [subreddit]} app-state]
+             (assoc state ::search-value (atom subreddit))))
+   :will-unmount (fn [state]
+                   (dissoc state ::search-value))}
   [state app-state]
   (let [{:keys [show-search show-settings subreddit show-playlist]} (rum/react app-state)
         search-value (::search-value state)]

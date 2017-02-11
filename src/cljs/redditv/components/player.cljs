@@ -9,6 +9,8 @@
             [redditv.events :as events]
             ))
 
+(def player-instance (atom nil))
+
 (defn generate-video-player
   [app-state item event-channel]
   (let [url (:url item)]
@@ -24,14 +26,20 @@
 (def mixin-player-handler
   {:did-mount (fn [state]
                 (let [event-channel (chan)
-                      app-state (-> state :rum/args first)]
+                      app-state (-> state :rum/args first)
+                      fullscreen (-> state :rum/args (nth 2) deref)]
                   (go-loop []
                     (let [event (<! event-channel)]
                       ;;events
                       (cond
                         (or (events/is-player-not-started? event)
                             (events/is-player-ended? event))
-                        (playlist/select-next app-state))
+                        (playlist/select-next app-state)
+                        (events/is-player-playing? event)
+                        (when fullscreen
+                          (when-let [instance @player-instance]
+                            (player/fullscreen instance)
+                            )))
                       (recur)))
 
                   (-> state 
@@ -47,16 +55,18 @@
                        current-item (playlist/get-selected app-state)
                        old-item (-> state ::current-item)]
                    (if (not= current-item old-item)
-                     (do
-                       (when (-> state ::player-instance)
-                         (player/dispose (-> state ::player-instance)))
+                     (let [_ (when (-> state ::player-instance) 
+                               (player/dispose (-> state ::player-instance)))
+                           instance
+                           (generate-video-player app-state current-item event-channel)]
+                       (reset! player-instance instance)
                        (-> state
-                           (assoc ::player-instance
-                                  (generate-video-player app-state current-item event-channel))
+                           (assoc ::player-instance instance)
                            (assoc ::current-item current-item)))
                      state)))
 
    :will-unmount (fn [state]
+                   (reset! player-instance nil)
                    (-> state
                        (dissoc ::event-channel)
                        (dissoc ::player-instance)
@@ -66,7 +76,7 @@
   <
   rum/reactive
   mixin-player-handler
-  [state app-state playlist-index show-playlist]
+  [state app-state playlist-index show-playlist fullscreen]
   (let [index (rum/react playlist-index)
         show-playlist (rum/react show-playlist)]
     [(if show-playlist :#redditv-player-container :#redditv-player-container-compressed)

@@ -43,3 +43,7 @@
   (let [child-offset-left (.-offsetLeft child)]
     (aset root "scrollLeft" child-offset-left)
     ))
+
+(defn clear-scroll
+  [root]
+  (aset root "scrollLeft" 0))

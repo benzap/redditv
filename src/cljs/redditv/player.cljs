@@ -5,6 +5,7 @@
 (defprotocol IPlayer
   (play [this])
   (pause [this])
+  (fullscreen [this])
   ;;(seek-forward [this seconds])
   ;;(seek-backwards [this seconds])
   (dispose [this])
@@ -14,6 +15,7 @@
   IPlayer
   (play [this])
   (pause [this])
+  (fullscreen [this])
   (dispose [this])
   )
 

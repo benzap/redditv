@@ -43,7 +43,7 @@
 
 (defonce playlist-index (rum/cursor-in app-state [:playlist-selected-index]))
 (defonce show-playlist (rum/cursor-in app-state [:show-playlist]))
-
+(defonce fullscreen (rum/cursor-in app-state [:fullscreen]))
 
 (playlist/reload app-state)
 
@@ -68,11 +68,25 @@
   (goog.events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
   (doto h (.setEnabled true)))
 
-(rum/defc app []
+(def mixin-keyboard-controls 
+  {:did-mount (fn [state]
+                (.addEventListener 
+                 js/window "keydown"
+                 (fn [e]
+                   (let [keycode (-> e .-keyCode)]
+                     (case keycode
+                       37 ;; Left Arrow Key
+                       (playlist/select-prev app-state)
+                       39 ;; Right Arrow Key
+                       (playlist/select-next app-state))))))})
+
+(rum/defc app 
+  < mixin-keyboard-controls
+  []
   [:.redditv-main
    (c-header app-state)
    (c-sidepane app-state)
-   (c-player app-state playlist-index show-playlist)
+   (c-player app-state playlist-index show-playlist fullscreen)
    (c-playlist app-state)])
 
 (rum/mount (app) (.querySelector js/document "#app"))

@@ -3,7 +3,7 @@
   (:require [cljs.core.async :refer [put! chan <! mult tap untap]]
             [rum.core :as rum]
             [redditv.playlist :as playlist]
-            [redditv.utils :refer [align-to-root-left]]
+            [redditv.utils :refer [align-to-root-left clear-scroll]]
             [redditv.components.mdl :as mdl]))
 
 (def nsfw-thumbnail-url "http://i.imgur.com/KZOsckv.jpg")
@@ -17,6 +17,13 @@
         selected? (-> state :rum/args (nth 2))]
     (when selected?
       (align-to-root-left parent-node dom-node)))
+  state)
+
+(defn mixin-fix-playlist-compressed
+  "Bug Fix for compressed playlist buttons not showing"
+  [state]
+  (when-let [dom (.querySelector js/document ".redditv-playlist-container-compressed")]
+    (aset dom "scrollLeft" 0))
   state)
 
 (rum/defcs c-playlist-item
@@ -62,6 +69,7 @@
 (rum/defcs c-playlist <
   rum/reactive
   (mixin-select-item-handler)
+  {:did-update mixin-fix-playlist-compressed}
   [state app-state]
   (let [{:keys [playlist playlist-selected-index fullscreen
                 show-playlist]} (rum/react app-state)
@@ -71,9 +79,7 @@
      [(if show-playlist :.redditv-playlist-rightpane :.redditv-playlist-rightpane-compressed)
       (mdl/icon {:name (if show-playlist "arrow_drop_down" "arrow_drop_up")
                  :className "redditv-button"
-                 :onClick (fn [] 
-                            (.log js/console app-state)
-                            (swap! app-state update-in [:show-playlist] not))})
+                 :onClick #(swap! app-state update-in [:show-playlist] not)})
       (mdl/icon {:name (if-not fullscreen "fullscreen" "fullscreen_exit")
                  :className "redditv-button"
                  :onClick #(swap! app-state update-in [:fullscreen] not)})
@@ -83,10 +89,11 @@
         (for [[index item] playlist-items]
           (c-playlist-item [index item] select-chan (= index playlist-selected-index)))]
        [:.redditv-playlist-container-compressed
-        (mdl/icon {:name "skip_previous" :className "redditv-button noselect"
-                   :onClick #(playlist/select-prev app-state)})
-        (mdl/icon {:name "skip_next" :className "redditv-button noselect"
-                   :onClick #(playlist/select-next app-state)})
+        [:.redditv-leftpane-compressed
+         (mdl/icon {:name "skip_previous" :className "redditv-button noselect"
+                    :onClick #(playlist/select-prev app-state)})
+         (mdl/icon {:name "skip_next" :className "redditv-button noselect"
+                    :onClick #(playlist/select-next app-state)})]
         [:span.redditv-playlist-count
          (str (inc playlist-selected-index) " of " (count playlist-items))]
         (mdl/progress-bar {:className "redditv-playlist-progress"

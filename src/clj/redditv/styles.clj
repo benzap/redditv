@@ -29,8 +29,8 @@
   [:* 
    {:font-family font-mono
     :color color-light-text
-    ;;:padding 0
-    ;;:margin 0
+    :padding 0
+    :margin 0
     }]
 
   [:html :body
@@ -73,32 +73,39 @@
     :background-color color-foreground
     :line-height (px header-height)}]
 
+  [:.redditv-header-flex
+   {:display "flex"
+    :flex-direction "row"
+    :flex-wrap "nowrap"}]
+
   [:.header-logo
-   {:display "inline-block"
-    :background-color (color/darken color-button2-default 30)
+   {:background-color (color/darken color-button2-default 30)
     :height (px header-height)
-    :width (px 100)
+    :width (px 120)
     :font-size (px 24)
-    :padding-left (px 20)
-    :padding-right (px 8)
+    :text-align "center"
     :font-weight "bold"}]
 
   [:.header-subreddit
-   {:display "inline-block"
-    :background-color color-background
+   {:background-color color-background
     :height (px header-height)
-    :padding-left (px 20)
+    :padding-left (px 16)
     :padding-right (px 20)
+    :text-align "center"
     :font-size (px 20)
     :border-top-right-radius (px 20)
+    :line-height (px header-height)
     :border-bottom-right-radius (px 20)}]
 
   [:.header-title
-   {:display "inline-block"
-    :height (px header-height)
+   {:height (px header-height)
     :padding-left (px 20)
+    :padding-right (px 20)
     :font-size (px 20)
+    :overflow "hidden"
+    :text-overflow "ellipsis"
     :white-space "nowrap"
+    :line-height (px header-height)
     }]
 
   [:.redditv-sidepane
@@ -136,7 +143,12 @@
     :background-color color-foreground}]
 
   [:.redditv-playlist-count
-   {:font-size (px 34)
+   {:display "inline-block"
+    :height (px sidepane-width)
+    :top 0
+    :position "absolute"
+    :left (px (* 2 sidepane-width))
+    :font-size (px 34)
     :font-weight "bold"
     :padding-left (px 12)
     :padding-bottom (px 5)
@@ -144,7 +156,7 @@
 
   [:.redditv-playlist-progress
    {:position "absolute"
-    :right 0
+    :right (px (* sidepane-width 2))
     :top 0
     :left (px (* sidepane-width 2))
     :width "100%"}]
@@ -173,6 +185,13 @@
     :overflow-x "hidden"
     :overflow-y "hidden"
     :white-space "nowrap"}]
+
+  [:.redditv-playlist-leftpane-compressed
+   {:position "absolute"
+    :left 0
+    :height (px playlist-height)
+    :width (px (* sidepane-width 2))}
+   ]
 
   [:.redditv-playlist-rightpane
    {:position "absolute"

@@ -29,6 +29,7 @@
   player/IPlayer
   (play [this])
   (pause [this])
+  (fullscreen [this])
   (dispose [this]
     (.destroy context)
     ))
