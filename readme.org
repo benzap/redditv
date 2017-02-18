@@ -53,11 +53,11 @@
      - [[http://benzap.github.io/redditv/#/r/youtubehaiku]]
      - http://benzap.github.io/redditv/#/r/commercialcuts
    - [X] Add HTTPS Support
-   - [ ] Toggle NSFW videos
+   - [X] Toggle NSFW videos
    - [ ] Local Storage for app-state
-   - [ ] Settings dialog (Right Pane) which contains default limit
+   - [X] Settings dialog (Right Pane) which contains default limit
      on # videos per subreddit
-   - [ ] Add support for Vimeo Videos
+   - [X] Add support for Vimeo Videos
    - [ ] Add support for Vine Videos
    - [ ] Add support for other video formats
    - [ ] youtube - respect the 'start' parameter when playing the
