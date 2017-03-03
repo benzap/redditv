@@ -16,7 +16,7 @@
    
 ** Supported Videos
 
-   Currently, it only supporting:
+   Currently redditv supports:
 - Youtube
 - Vimeo
 
