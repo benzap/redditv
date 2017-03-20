@@ -45,11 +45,11 @@
      - http://benzap.github.io/redditv/#/r/commercialcuts
    - [X] Add HTTPS Support
    - [X] Toggle NSFW videos
-   - [ ] Local Storage for app-state
    - [X] Settings dialog (Right Pane) which contains default limit
      on # videos per subreddit
    - [X] Add support for Vimeo Videos
+   - [X] youtube - respect the 'start' parameter when playing the
+     video.
+   - [ ] Local Storage for app-state
    - [ ] Add support for Vine Videos
    - [ ] Add support for other video formats
-   - [ ] youtube - respect the 'start' parameter when playing the
-     video.
