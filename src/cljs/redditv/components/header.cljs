@@ -10,4 +10,4 @@
      [:.redditv-header-flex
       [:.header-logo "redditv"]
       [:.header-subreddit (str "/r/" subreddit)]
-      [:.header-title (str (-> selected :title))]]]))
+      [:.header-title {:title (:title selected)} (str (:title selected))]]]))
