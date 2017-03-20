@@ -45,8 +45,6 @@
 (defonce show-playlist (rum/cursor-in app-state [:show-playlist]))
 (defonce fullscreen (rum/cursor-in app-state [:fullscreen]))
 
-(playlist/reload app-state)
-
 ;;
 ;; Secretary Routes
 ;;
@@ -89,6 +87,8 @@
    (c-sidepane app-state)
    (c-player app-state playlist-index show-playlist fullscreen)
    (c-playlist app-state)])
+
+(playlist/reload app-state)
 
 (rum/mount (app) (.querySelector js/document "#app"))
 

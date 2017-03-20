@@ -73,7 +73,7 @@
 
      (mdl/tooltip 
       {:label "View Github Source" :position "right"}
-      (mdl/icon {:name "help" :className "redditv-button"
+      (mdl/icon {:name "help" :className "redditv-button noselect"
                  :onClick
                  (fn [] (.open js/window (str "http://github.com/benzap/redditv")))}))
      ]))

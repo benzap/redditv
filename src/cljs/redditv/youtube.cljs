@@ -15,8 +15,56 @@
     (->> url (re-matches regex-youtube-shortened-url) second)
     ))
 
-;;(video-url->video-id "https://www.youtube.com/watch?v=wM75ulDRkhI&start=10")
+;;(video-url->video-id "https://www.youtube.com/watch?v=wM75ulDRkhI&t=10")
 ;;(video-url->video-id "https://youtu.be/vC9Qh709gas?t=1m13s")
+
+(def regex-youtube-starttime #"^https?://.*t=([0-9smh]+)&?.*")
+
+(defn video-url->start-time [url]
+  (if (re-matches regex-youtube-starttime url)
+    (->> url (re-matches regex-youtube-starttime) second)
+    "0"))
+
+;;(video-url->start-time "https://www.youtube.com/watch?v=wM75ulDRkhI&t=2h2m")
+;;(video-url->start-time "https://youtu.be/vC9Qh709gas")
+
+(def regex-hours #".*?([0-9]+)h.*")
+(def regex-minutes #".*?([0-9]+)m.*")
+(def regex-seconds #".*?([0-9]+)s.*")
+
+(def regex-number? #"[0-9]+")
+(defn numstring? [s] 
+  (if (string? s)
+    (->> s (re-matches regex-number?) boolean)
+    false))
+
+(defn parse-int [s]
+  (if (string? s)
+    (.parseInt js/window s)
+    0))
+
+(defn start-time->seconds [time-string]
+  (if-not (numstring? time-string)
+    (let [hours (->> time-string (re-matches regex-hours) second parse-int)
+          minutes (->> time-string (re-matches regex-minutes) second parse-int)
+          seconds (->> time-string (re-matches regex-seconds) second parse-int)]
+      (+ (* hours 3600)
+         (* minutes 60)
+         seconds))
+    (parse-int time-string)))
+
+;;(start-time->seconds "1m23s")
+;;(start-time->seconds "1s23m")
+;;(start-time->seconds "1h23s")
+
+
+(defn video-url->seconds [url]
+  (-> url
+      video-url->start-time
+      start-time->seconds
+      ))
+
+;;(video-url->seconds "https://www.youtube.com/watch?v=wM75ulDRkhI&t=1m15s")
 
 (defn is-youtube-url? [url]
   (-> (or (re-matches regex-youtube-url url)
@@ -38,7 +86,7 @@
   (let [context
         (YT.Player. dom-id 
                     #js {:videoId (video-url->video-id video-url)
-                         :playerVars #js {:autoplay 1}
+                         :playerVars #js {:autoplay 1 :start (video-url->seconds video-url)}
                          :width "100%"
                          :height "100%"
                          :events 
