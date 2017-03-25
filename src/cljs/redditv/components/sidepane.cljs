@@ -1,16 +1,31 @@
 (ns redditv.components.sidepane
   (:require [rum.core :as rum]
+            [redditv.utils :refer [set-hash! force-app-reload!]]
             [redditv.icons :as icons]
             [redditv.playlist :as playlist]
             [redditv.components.settings :refer [c-settings]]
             [redditv.components.mdl :as mdl]))
 
 (defn search-subreddit [app-state subreddit]
-  (swap! app-state assoc :subreddit subreddit)
-  (playlist/reload app-state))
+  (swap! app-state assoc
+         :subreddit subreddit
+         :playlist-selected-index 0)
+  (playlist/reload app-state)
+  (set-hash! (str "/r/" subreddit))
+  (force-app-reload! app-state))
+
+(def mixin-focus-search-bar
+  {:did-update (fn [state]
+                (let [comp     (:rum/react-component state)
+                      dom-node (js/ReactDOM.findDOMNode comp)]
+                  (when-let [search-element (.querySelector dom-node "#input-search-bar")]
+                    (aset search-element "value" "")
+                    (.focus search-element)))
+                state)})
 
 (rum/defcs c-sidepane
   <
+  mixin-focus-search-bar
   rum/reactive
   {:init (fn [state props]
            (let [search-value (::search-value state)
@@ -35,7 +50,7 @@
        [:.redditv-search-dialog.right-border-radius.anim-slideInLeft
         [:input#input-search-bar
          {:type "text"
-          :placeholder "Subreddit Name"
+          :placeholder "SubReddit Name"
           :value @search-value
           :on-change 
           (fn [e]

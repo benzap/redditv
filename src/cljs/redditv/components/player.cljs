@@ -76,8 +76,9 @@
   <
   rum/reactive
   mixin-player-handler
-  [state app-state playlist-index show-playlist fullscreen]
-  (let [index (rum/react playlist-index)
+  [state app-state initial-load? playlist-index show-playlist fullscreen]
+  (let [initial-load? (rum/react initial-load?)
+        index (rum/react playlist-index)
         show-playlist (rum/react show-playlist)]
     [(if show-playlist :#redditv-player-container :#redditv-player-container-compressed)
      [:#redditv-player]]))

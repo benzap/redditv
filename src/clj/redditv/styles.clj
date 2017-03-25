@@ -82,6 +82,9 @@
    {:background-color (color/darken color-button2-default 30)
     :height (px header-height)
     :width (px 120)
+    :flex-shrink 0
+    :flex-basis (px 120)
+    :flex-grow 0
     :font-size (px 24)
     :text-align "center"
     :font-weight "bold"}]

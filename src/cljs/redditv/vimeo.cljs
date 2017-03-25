@@ -71,6 +71,4 @@
                  
                  (.api player "play")
                  ))
-    (.log js/console "player")
-    (.log js/console player)
     (->VimeoPlayer iframe player video-url event-channel)))

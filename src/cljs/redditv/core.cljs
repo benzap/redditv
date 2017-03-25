@@ -7,6 +7,7 @@
             [goog.history.EventType :as EventType]
 
             ;; Local
+            [redditv.utils :refer [parse-int set-hash!]]
             [redditv.player :as p]
             [redditv.youtube :as yt]
             [redditv.utils :as utils]
@@ -29,7 +30,8 @@
 (enable-console-print!)
 
 (defonce app-state
-  (atom {:subreddit "videos"
+  (atom {:initial-load? 0
+         :subreddit "videos"
          :playlist []
          :playlist-selected-index -1
          :show-playlist true
@@ -41,6 +43,7 @@
          :settings-video-category "hot"
          }))
 
+(defonce initial-load? (rum/cursor-in app-state [:initial-load?]))
 (defonce playlist-index (rum/cursor-in app-state [:playlist-selected-index]))
 (defonce show-playlist (rum/cursor-in app-state [:show-playlist]))
 (defonce fullscreen (rum/cursor-in app-state [:fullscreen]))
@@ -51,15 +54,19 @@
 
 (secretary/set-config! :prefix "#")
 
-(defn set-hash!
-  "Set the location hash of a js/window object." 
-  ([v] (set-hash! (.-location js/window)))
-  ([loc v] (aset loc "hash" v)))
+;;(set-hash! (str "/r/" (-> @app-state :subreddit)))
 
 ;; Providing Channels via /r/
 (defroute subreddit-path "/r/:subreddit" 
   [subreddit]
   (swap! app-state assoc :subreddit subreddit))
+
+(defroute subreddit-path-with-index #"/r/([\w\d]+)/(\d+)"
+  [subreddit index]
+  (swap! app-state assoc
+         :subreddit subreddit
+         :playlist-selected-index (parse-int index)
+         ))
 
 ;; Quick and dirty history configuration.
 (let [h (History.)]
@@ -85,7 +92,7 @@
   [:.redditv-main
    (c-header app-state)
    (c-sidepane app-state)
-   (c-player app-state playlist-index show-playlist fullscreen)
+   (c-player app-state initial-load? playlist-index show-playlist fullscreen)
    (c-playlist app-state)])
 
 (playlist/reload app-state)

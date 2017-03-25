@@ -3,7 +3,7 @@
   (:require [cljs.core.async :refer [put! chan <! mult tap untap]]
             [rum.core :as rum]
             [redditv.playlist :as playlist]
-            [redditv.utils :refer [align-to-root-left clear-scroll]]
+            [redditv.utils :refer [align-to-root-left clear-scroll set-hash!]]
             [redditv.components.mdl :as mdl]))
 
 (def nsfw-thumbnail-url "http://i.imgur.com/KZOsckv.jpg")
@@ -57,8 +57,10 @@
                   
                   ;; Loop to apply selected playlist index
                   (go-loop []
-                    (let [selected-playlist-index (<! select-chan)]
-                      (swap! app-state assoc :playlist-selected-index selected-playlist-index)
+                    (let [index (<! select-chan)
+                          subreddit (:subreddit @app-state)]
+                      (swap! app-state assoc :playlist-selected-index index)
+                      (set-hash! (str "/r/" subreddit "/" index))
                       (recur)))
                   
                   (assoc state ::select-chan select-chan)))

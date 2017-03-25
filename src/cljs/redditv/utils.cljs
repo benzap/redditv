@@ -47,3 +47,22 @@
 (defn clear-scroll
   [root]
   (aset root "scrollLeft" 0))
+
+(def regex-number? #"[0-9]+")
+
+(defn numstring? [s] 
+  (if (string? s)
+    (->> s (re-matches regex-number?) boolean)
+    false))
+
+(defn parse-int [s]
+  (if (string? s)
+    (.parseInt js/window s)
+    0))
+
+(defn set-hash! [v]
+  "Set the location hash of a js/window object." 
+  (aset js/window "location" "hash" v))
+
+(defn force-app-reload! [app-state]
+  (swap! app-state update-in [:initial-load?] inc))

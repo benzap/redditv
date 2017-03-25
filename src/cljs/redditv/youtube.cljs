@@ -1,6 +1,7 @@
 (ns redditv.youtube
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [cljs.core.async :refer [put! chan <! >! timeout close!]]
+            [redditv.utils :refer [numstring? parse-int]]
             [redditv.player :as player]
             [redditv.events :as events]))
 
@@ -31,17 +32,7 @@
 (def regex-hours #".*?([0-9]+)h.*")
 (def regex-minutes #".*?([0-9]+)m.*")
 (def regex-seconds #".*?([0-9]+)s.*")
-
 (def regex-number? #"[0-9]+")
-(defn numstring? [s] 
-  (if (string? s)
-    (->> s (re-matches regex-number?) boolean)
-    false))
-
-(defn parse-int [s]
-  (if (string? s)
-    (.parseInt js/window s)
-    0))
 
 (defn start-time->seconds [time-string]
   (if-not (numstring? time-string)
