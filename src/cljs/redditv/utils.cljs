@@ -66,3 +66,11 @@
 
 (defn force-app-reload! [app-state]
   (swap! app-state update-in [:initial-load?] inc))
+
+(defn app-hash [app-state]
+  (let [{:keys [subreddit playlist-selected-index
+                settings-video-category]} @app-state]
+    (if (= settings-video-category "hot")
+      (str "/r/" subreddit "/" playlist-selected-index)
+      (str "/r/" subreddit "/" playlist-selected-index
+           "?sort=" settings-video-category))))

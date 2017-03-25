@@ -1,6 +1,6 @@
 (ns redditv.playlist
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [redditv.utils :refer [set-hash! force-app-reload!]]
+  (:require [redditv.utils :refer [set-hash! force-app-reload! app-hash]]
             [redditv.reddit :as reddit]))
 
 (defn reload [app-state & {:keys [search] :or {search nil}}]
@@ -18,6 +18,7 @@
                  {:playlist videos
                   :playlist-selected-index
                   (if (< playlist-selected-index 0) 0 playlist-selected-index)})
+          (set-hash! (app-hash app-state))
           (force-app-reload! app-state)))))
 
 (defn get-selected [app-state]
@@ -31,7 +32,7 @@
         size (count playlist)
         index (-> playlist-selected-index inc (mod size))]
     (swap! app-state assoc :playlist-selected-index index)
-    (set-hash! (str "/r/" subreddit "/" index))
+    (set-hash! (app-hash app-state))
     index))
 
 (defn select-prev [app-state]
@@ -40,5 +41,5 @@
         index (dec playlist-selected-index)
         index (if (< index 0) (dec size) index)]
     (swap! app-state assoc :playlist-selected-index index)
-    (set-hash! (str "/r/" subreddit "/" index))
+    (set-hash! (app-hash app-state))
     index))
