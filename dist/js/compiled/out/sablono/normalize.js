@@ -9,10 +9,10 @@ goog.require('sablono.util');
  */
 sablono.normalize.compact_map = (function sablono$normalize$compact_map(m){
 if(cljs.core.truth_(m)){
-return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.remove.call(null,(function (p__35889){
-var vec__35890 = p__35889;
-var _ = cljs.core.nth.call(null,vec__35890,(0),null);
-var v = cljs.core.nth.call(null,vec__35890,(1),null);
+return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.remove.call(null,(function (p__35666){
+var vec__35667 = p__35666;
+var _ = cljs.core.nth.call(null,vec__35667,(0),null);
+var v = cljs.core.nth.call(null,vec__35667,(1),null);
 return cljs.core.empty_QMARK_.call(null,v);
 })),m);
 } else {
@@ -63,8 +63,8 @@ return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMP
 if((class$ instanceof cljs.core.Keyword)){
 return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [sablono.normalize.class_name.call(null,class$)], null);
 } else {
-if(((cljs.core.set_QMARK_.call(null,class$)) || (cljs.core.sequential_QMARK_.call(null,class$))) && (cljs.core.every_QMARK_.call(null,(function (p1__35893_SHARP_){
-return ((p1__35893_SHARP_ instanceof cljs.core.Keyword)) || (typeof p1__35893_SHARP_ === 'string');
+if(((cljs.core.set_QMARK_.call(null,class$)) || (cljs.core.sequential_QMARK_.call(null,class$))) && (cljs.core.every_QMARK_.call(null,(function (p1__35670_SHARP_){
+return ((p1__35670_SHARP_ instanceof cljs.core.Keyword)) || (typeof p1__35670_SHARP_ === 'string');
 }),class$))){
 return cljs.core.mapv.call(null,sablono.normalize.class_name,class$);
 } else {
@@ -86,11 +86,11 @@ return class$;
  * Normalize the `attrs` of an element.
  */
 sablono.normalize.attributes = (function sablono$normalize$attributes(attrs){
-var G__35895 = attrs;
+var G__35672 = attrs;
 if(cljs.core.truth_(new cljs.core.Keyword(null,"class","class",-2030961996).cljs$core$IFn$_invoke$arity$1(attrs))){
-return cljs.core.update_in.call(null,G__35895,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"class","class",-2030961996)], null),sablono.normalize.class$);
+return cljs.core.update_in.call(null,G__35672,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"class","class",-2030961996)], null),sablono.normalize.class$);
 } else {
-return G__35895;
+return G__35672;
 }
 });
 /**
@@ -98,14 +98,14 @@ return G__35895;
  */
 sablono.normalize.merge_with_class = (function sablono$normalize$merge_with_class(var_args){
 var args__31211__auto__ = [];
-var len__31204__auto___35898 = arguments.length;
-var i__31205__auto___35899 = (0);
+var len__31204__auto___35675 = arguments.length;
+var i__31205__auto___35676 = (0);
 while(true){
-if((i__31205__auto___35899 < len__31204__auto___35898)){
-args__31211__auto__.push((arguments[i__31205__auto___35899]));
+if((i__31205__auto___35676 < len__31204__auto___35675)){
+args__31211__auto__.push((arguments[i__31205__auto___35676]));
 
-var G__35900 = (i__31205__auto___35899 + (1));
-i__31205__auto___35899 = G__35900;
+var G__35677 = (i__31205__auto___35676 + (1));
+i__31205__auto___35676 = G__35677;
 continue;
 } else {
 }
@@ -120,11 +120,11 @@ sablono.normalize.merge_with_class.cljs$core$IFn$_invoke$arity$variadic = (funct
 var maps__$1 = cljs.core.map.call(null,sablono.normalize.attributes,maps);
 var classes = cljs.core.mapcat.call(null,new cljs.core.Keyword(null,"class","class",-2030961996),maps__$1);
 if(cljs.core.seq.call(null,maps__$1)){
-var G__35897 = cljs.core.reduce.call(null,cljs.core.into,cljs.core.PersistentArrayMap.EMPTY,maps__$1);
+var G__35674 = cljs.core.reduce.call(null,cljs.core.into,cljs.core.PersistentArrayMap.EMPTY,maps__$1);
 if(!(cljs.core.empty_QMARK_.call(null,classes))){
-return cljs.core.assoc.call(null,G__35897,new cljs.core.Keyword(null,"class","class",-2030961996),cljs.core.vec.call(null,classes));
+return cljs.core.assoc.call(null,G__35674,new cljs.core.Keyword(null,"class","class",-2030961996),cljs.core.vec.call(null,classes));
 } else {
-return G__35897;
+return G__35674;
 }
 } else {
 return null;
@@ -133,8 +133,8 @@ return null;
 
 sablono.normalize.merge_with_class.cljs$lang$maxFixedArity = (0);
 
-sablono.normalize.merge_with_class.cljs$lang$applyTo = (function (seq35896){
-return sablono.normalize.merge_with_class.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null,seq35896));
+sablono.normalize.merge_with_class.cljs$lang$applyTo = (function (seq35673){
+return sablono.normalize.merge_with_class.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null,seq35673));
 });
 
 /**
@@ -153,22 +153,22 @@ return null;
  */
 sablono.normalize.match_tag = (function sablono$normalize$match_tag(s){
 var matches = cljs.core.re_seq.call(null,/[#.]?[^#.]+/,cljs.core.name.call(null,s));
-var vec__35906 = ((cljs.core.empty_QMARK_.call(null,matches))?(function(){throw cljs.core.ex_info.call(null,[cljs.core.str("Can't match CSS tag: "),cljs.core.str(s)].join(''),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"tag","tag",-1290361223),s], null))})():(cljs.core.truth_(new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, ["#",null,".",null], null), null).call(null,cljs.core.ffirst.call(null,matches)))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["div",matches], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.first.call(null,matches),cljs.core.rest.call(null,matches)], null)
+var vec__35683 = ((cljs.core.empty_QMARK_.call(null,matches))?(function(){throw cljs.core.ex_info.call(null,[cljs.core.str("Can't match CSS tag: "),cljs.core.str(s)].join(''),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"tag","tag",-1290361223),s], null))})():(cljs.core.truth_(new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, ["#",null,".",null], null), null).call(null,cljs.core.ffirst.call(null,matches)))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["div",matches], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.first.call(null,matches),cljs.core.rest.call(null,matches)], null)
 ));
-var tag_name = cljs.core.nth.call(null,vec__35906,(0),null);
-var names = cljs.core.nth.call(null,vec__35906,(1),null);
-return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [tag_name,sablono.normalize.strip_css.call(null,cljs.core.some.call(null,((function (matches,vec__35906,tag_name,names){
-return (function (p1__35901_SHARP_){
-if(cljs.core._EQ_.call(null,"#",cljs.core.first.call(null,p1__35901_SHARP_))){
-return p1__35901_SHARP_;
+var tag_name = cljs.core.nth.call(null,vec__35683,(0),null);
+var names = cljs.core.nth.call(null,vec__35683,(1),null);
+return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [tag_name,sablono.normalize.strip_css.call(null,cljs.core.some.call(null,((function (matches,vec__35683,tag_name,names){
+return (function (p1__35678_SHARP_){
+if(cljs.core._EQ_.call(null,"#",cljs.core.first.call(null,p1__35678_SHARP_))){
+return p1__35678_SHARP_;
 } else {
 return null;
 }
-});})(matches,vec__35906,tag_name,names))
-,names)),cljs.core.into.call(null,cljs.core.PersistentVector.EMPTY,cljs.core.comp.call(null,cljs.core.filter.call(null,((function (matches,vec__35906,tag_name,names){
-return (function (p1__35902_SHARP_){
-return cljs.core._EQ_.call(null,".",cljs.core.first.call(null,p1__35902_SHARP_));
-});})(matches,vec__35906,tag_name,names))
+});})(matches,vec__35683,tag_name,names))
+,names)),cljs.core.into.call(null,cljs.core.PersistentVector.EMPTY,cljs.core.comp.call(null,cljs.core.filter.call(null,((function (matches,vec__35683,tag_name,names){
+return (function (p1__35679_SHARP_){
+return cljs.core._EQ_.call(null,".",cljs.core.first.call(null,p1__35679_SHARP_));
+});})(matches,vec__35683,tag_name,names))
 ),cljs.core.map.call(null,sablono.normalize.strip_css)),names)], null);
 });
 /**
@@ -189,22 +189,22 @@ return cljs.core._conj.call(null,cljs.core.List.EMPTY,x__30933__auto__);
 /**
  * Ensure an element vector is of the form [tag-name attrs content].
  */
-sablono.normalize.element = (function sablono$normalize$element(p__35909){
-var vec__35916 = p__35909;
-var seq__35917 = cljs.core.seq.call(null,vec__35916);
-var first__35918 = cljs.core.first.call(null,seq__35917);
-var seq__35917__$1 = cljs.core.next.call(null,seq__35917);
-var tag = first__35918;
-var content = seq__35917__$1;
+sablono.normalize.element = (function sablono$normalize$element(p__35686){
+var vec__35693 = p__35686;
+var seq__35694 = cljs.core.seq.call(null,vec__35693);
+var first__35695 = cljs.core.first.call(null,seq__35694);
+var seq__35694__$1 = cljs.core.next.call(null,seq__35694);
+var tag = first__35695;
+var content = seq__35694__$1;
 if(((tag instanceof cljs.core.Keyword)) || ((tag instanceof cljs.core.Symbol)) || (typeof tag === 'string')){
 } else {
 throw cljs.core.ex_info.call(null,[cljs.core.str(tag),cljs.core.str(" is not a valid element name.")].join(''),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"tag","tag",-1290361223),tag,new cljs.core.Keyword(null,"content","content",15833224),content], null));
 }
 
-var vec__35919 = sablono.normalize.match_tag.call(null,tag);
-var tag__$1 = cljs.core.nth.call(null,vec__35919,(0),null);
-var id = cljs.core.nth.call(null,vec__35919,(1),null);
-var class$ = cljs.core.nth.call(null,vec__35919,(2),null);
+var vec__35696 = sablono.normalize.match_tag.call(null,tag);
+var tag__$1 = cljs.core.nth.call(null,vec__35696,(0),null);
+var id = cljs.core.nth.call(null,vec__35696,(1),null);
+var class$ = cljs.core.nth.call(null,vec__35696,(2),null);
 var tag_attrs = sablono.normalize.compact_map.call(null,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"id","id",-1388402092),id,new cljs.core.Keyword(null,"class","class",-2030961996),class$], null));
 var map_attrs = cljs.core.first.call(null,content);
 if(cljs.core.map_QMARK_.call(null,map_attrs)){
