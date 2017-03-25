@@ -52,11 +52,11 @@ var this__30718__auto____$1 = this;
 return cljs.core._lookup.call(null,this__30718__auto____$1,k__30719__auto__,null);
 });
 
-redditv.vimeo.VimeoPlayer.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__30720__auto__,k35710,else__30721__auto__){
+redditv.vimeo.VimeoPlayer.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__30720__auto__,k35686,else__30721__auto__){
 var self__ = this;
 var this__30720__auto____$1 = this;
-var G__35712 = (((k35710 instanceof cljs.core.Keyword))?k35710.fqn:null);
-switch (G__35712) {
+var G__35688 = (((k35686 instanceof cljs.core.Keyword))?k35686.fqn:null);
+switch (G__35688) {
 case "dom":
 return self__.dom;
 
@@ -74,7 +74,7 @@ return self__.event_channel;
 
 break;
 default:
-return cljs.core.get.call(null,self__.__extmap,k35710,else__30721__auto__);
+return cljs.core.get.call(null,self__.__extmap,k35686,else__30721__auto__);
 
 }
 });
@@ -92,10 +92,10 @@ return cljs.core.pr_sequential_writer.call(null,writer__30733__auto__,pr_pair__3
 
 redditv.vimeo.VimeoPlayer.prototype.cljs$core$IIterable$ = cljs.core.PROTOCOL_SENTINEL;
 
-redditv.vimeo.VimeoPlayer.prototype.cljs$core$IIterable$_iterator$arity$1 = (function (G__35709){
+redditv.vimeo.VimeoPlayer.prototype.cljs$core$IIterable$_iterator$arity$1 = (function (G__35685){
 var self__ = this;
-var G__35709__$1 = this;
-return (new cljs.core.RecordIter((0),G__35709__$1,4,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"dom","dom",-1236537922),new cljs.core.Keyword(null,"context","context",-830191113),new cljs.core.Keyword(null,"video-url","video-url",1636122700),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114)], null),(cljs.core.truth_(self__.__extmap)?cljs.core._iterator.call(null,self__.__extmap):cljs.core.nil_iter.call(null))));
+var G__35685__$1 = this;
+return (new cljs.core.RecordIter((0),G__35685__$1,4,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"dom","dom",-1236537922),new cljs.core.Keyword(null,"context","context",-830191113),new cljs.core.Keyword(null,"video-url","video-url",1636122700),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114)], null),(cljs.core.truth_(self__.__extmap)?cljs.core._iterator.call(null,self__.__extmap):cljs.core.nil_iter.call(null))));
 });
 
 redditv.vimeo.VimeoPlayer.prototype.cljs$core$IMeta$_meta$arity$1 = (function (this__30716__auto__){
@@ -187,24 +187,24 @@ return (new redditv.vimeo.VimeoPlayer(self__.dom,self__.context,self__.video_url
 }
 });
 
-redditv.vimeo.VimeoPlayer.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__30725__auto__,k__30726__auto__,G__35709){
+redditv.vimeo.VimeoPlayer.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__30725__auto__,k__30726__auto__,G__35685){
 var self__ = this;
 var this__30725__auto____$1 = this;
-var pred__35713 = cljs.core.keyword_identical_QMARK_;
-var expr__35714 = k__30726__auto__;
-if(cljs.core.truth_(pred__35713.call(null,new cljs.core.Keyword(null,"dom","dom",-1236537922),expr__35714))){
-return (new redditv.vimeo.VimeoPlayer(G__35709,self__.context,self__.video_url,self__.event_channel,self__.__meta,self__.__extmap,null));
+var pred__35689 = cljs.core.keyword_identical_QMARK_;
+var expr__35690 = k__30726__auto__;
+if(cljs.core.truth_(pred__35689.call(null,new cljs.core.Keyword(null,"dom","dom",-1236537922),expr__35690))){
+return (new redditv.vimeo.VimeoPlayer(G__35685,self__.context,self__.video_url,self__.event_channel,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__35713.call(null,new cljs.core.Keyword(null,"context","context",-830191113),expr__35714))){
-return (new redditv.vimeo.VimeoPlayer(self__.dom,G__35709,self__.video_url,self__.event_channel,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__35689.call(null,new cljs.core.Keyword(null,"context","context",-830191113),expr__35690))){
+return (new redditv.vimeo.VimeoPlayer(self__.dom,G__35685,self__.video_url,self__.event_channel,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__35713.call(null,new cljs.core.Keyword(null,"video-url","video-url",1636122700),expr__35714))){
-return (new redditv.vimeo.VimeoPlayer(self__.dom,self__.context,G__35709,self__.event_channel,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__35689.call(null,new cljs.core.Keyword(null,"video-url","video-url",1636122700),expr__35690))){
+return (new redditv.vimeo.VimeoPlayer(self__.dom,self__.context,G__35685,self__.event_channel,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__35713.call(null,new cljs.core.Keyword(null,"event-channel","event-channel",1215556114),expr__35714))){
-return (new redditv.vimeo.VimeoPlayer(self__.dom,self__.context,self__.video_url,G__35709,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__35689.call(null,new cljs.core.Keyword(null,"event-channel","event-channel",1215556114),expr__35690))){
+return (new redditv.vimeo.VimeoPlayer(self__.dom,self__.context,self__.video_url,G__35685,self__.__meta,self__.__extmap,null));
 } else {
-return (new redditv.vimeo.VimeoPlayer(self__.dom,self__.context,self__.video_url,self__.event_channel,self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__30726__auto__,G__35709),null));
+return (new redditv.vimeo.VimeoPlayer(self__.dom,self__.context,self__.video_url,self__.event_channel,self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__30726__auto__,G__35685),null));
 }
 }
 }
@@ -217,10 +217,10 @@ var this__30730__auto____$1 = this;
 return cljs.core.seq.call(null,cljs.core.concat.call(null,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"dom","dom",-1236537922),self__.dom],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"context","context",-830191113),self__.context],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"video-url","video-url",1636122700),self__.video_url],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"event-channel","event-channel",1215556114),self__.event_channel],null))], null),self__.__extmap));
 });
 
-redditv.vimeo.VimeoPlayer.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__30717__auto__,G__35709){
+redditv.vimeo.VimeoPlayer.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__30717__auto__,G__35685){
 var self__ = this;
 var this__30717__auto____$1 = this;
-return (new redditv.vimeo.VimeoPlayer(self__.dom,self__.context,self__.video_url,self__.event_channel,G__35709,self__.__extmap,self__.__hash));
+return (new redditv.vimeo.VimeoPlayer(self__.dom,self__.context,self__.video_url,self__.event_channel,G__35685,self__.__extmap,self__.__hash));
 });
 
 redditv.vimeo.VimeoPlayer.prototype.cljs$core$ICollection$_conj$arity$2 = (function (this__30723__auto__,entry__30724__auto__){
@@ -251,8 +251,8 @@ redditv.vimeo.__GT_VimeoPlayer = (function redditv$vimeo$__GT_VimeoPlayer(dom,co
 return (new redditv.vimeo.VimeoPlayer(dom,context,video_url,event_channel,null,null,null));
 });
 
-redditv.vimeo.map__GT_VimeoPlayer = (function redditv$vimeo$map__GT_VimeoPlayer(G__35711){
-return (new redditv.vimeo.VimeoPlayer(new cljs.core.Keyword(null,"dom","dom",-1236537922).cljs$core$IFn$_invoke$arity$1(G__35711),new cljs.core.Keyword(null,"context","context",-830191113).cljs$core$IFn$_invoke$arity$1(G__35711),new cljs.core.Keyword(null,"video-url","video-url",1636122700).cljs$core$IFn$_invoke$arity$1(G__35711),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114).cljs$core$IFn$_invoke$arity$1(G__35711),null,cljs.core.dissoc.call(null,G__35711,new cljs.core.Keyword(null,"dom","dom",-1236537922),new cljs.core.Keyword(null,"context","context",-830191113),new cljs.core.Keyword(null,"video-url","video-url",1636122700),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114)),null));
+redditv.vimeo.map__GT_VimeoPlayer = (function redditv$vimeo$map__GT_VimeoPlayer(G__35687){
+return (new redditv.vimeo.VimeoPlayer(new cljs.core.Keyword(null,"dom","dom",-1236537922).cljs$core$IFn$_invoke$arity$1(G__35687),new cljs.core.Keyword(null,"context","context",-830191113).cljs$core$IFn$_invoke$arity$1(G__35687),new cljs.core.Keyword(null,"video-url","video-url",1636122700).cljs$core$IFn$_invoke$arity$1(G__35687),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114).cljs$core$IFn$_invoke$arity$1(G__35687),null,cljs.core.dissoc.call(null,G__35687,new cljs.core.Keyword(null,"dom","dom",-1236537922),new cljs.core.Keyword(null,"context","context",-830191113),new cljs.core.Keyword(null,"video-url","video-url",1636122700),new cljs.core.Keyword(null,"event-channel","event-channel",1215556114)),null));
 });
 
 redditv.vimeo.vimeo_iframe_id = "redditv-vimeo-player";
@@ -261,22 +261,22 @@ var iframe = document.createElement("iframe");
 var video_id = redditv.vimeo.video_url__GT_video_id.call(null,video_url);
 var src = [cljs.core.str("https://player.vimeo.com/video/"),cljs.core.str(video_id),cljs.core.str("?api=1"),cljs.core.str("&player_id="),cljs.core.str(redditv.vimeo.vimeo_iframe_id)].join('');
 var target = document.getElementById(dom_id);
-var G__35718_35719 = iframe;
-G__35718_35719.setAttribute("id",redditv.vimeo.vimeo_iframe_id);
+var G__35694_35695 = iframe;
+G__35694_35695.setAttribute("id",redditv.vimeo.vimeo_iframe_id);
 
-G__35718_35719.setAttribute("src",src);
+G__35694_35695.setAttribute("src",src);
 
-G__35718_35719.setAttribute("width","100%");
+G__35694_35695.setAttribute("width","100%");
 
-G__35718_35719.setAttribute("height","100%");
+G__35694_35695.setAttribute("height","100%");
 
-G__35718_35719.setAttribute("frameborder","0");
+G__35694_35695.setAttribute("frameborder","0");
 
-G__35718_35719.setAttribute("webkiteallowfullscreen",true);
+G__35694_35695.setAttribute("webkiteallowfullscreen",true);
 
-G__35718_35719.setAttribute("mozallowfullscreen",true);
+G__35694_35695.setAttribute("mozallowfullscreen",true);
 
-G__35718_35719.setAttribute("allowfullscreen",true);
+G__35694_35695.setAttribute("allowfullscreen",true);
 
 
 iframe.addEventListener("error",((function (iframe,video_id,src,target){
@@ -320,10 +320,6 @@ return cljs.core.async.put_BANG_.call(null,event_channel,redditv.events.player_n
 return player.api("play");
 });})(iframe,player))
 );
-
-console.log("player");
-
-console.log(player);
 
 return redditv.vimeo.__GT_VimeoPlayer.call(null,iframe,player,video_url,event_channel);
 });
