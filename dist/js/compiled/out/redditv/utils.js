@@ -17,8 +17,8 @@ return null;
 redditv.utils.next_element = (function redditv$utils$next_element(xs,x){
 var title = new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(x);
 var playlist_titles = cljs.core.map.call(null,((function (title){
-return (function (p1__37607_SHARP_){
-return new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(p1__37607_SHARP_);
+return (function (p1__35698_SHARP_){
+return new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(p1__35698_SHARP_);
 });})(title))
 ,xs);
 var i = cljs.core.first.call(null,redditv.utils.positions.call(null,cljs.core.PersistentHashSet.fromArray([title], true),playlist_titles));
@@ -33,8 +33,8 @@ return cljs.core.nth.call(null,cljs.core.cycle.call(null,xs),(i + (1)));
 redditv.utils.prev_element = (function redditv$utils$prev_element(xs,x){
 var title = new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(x);
 var playlist_titles = cljs.core.map.call(null,((function (title){
-return (function (p1__37608_SHARP_){
-return new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(p1__37608_SHARP_);
+return (function (p1__35699_SHARP_){
+return new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(p1__35699_SHARP_);
 });})(title))
 ,xs);
 var i = cljs.core.first.call(null,redditv.utils.positions.call(null,cljs.core.PersistentHashSet.fromArray([title], true),playlist_titles));
@@ -54,4 +54,26 @@ return (root["scrollLeft"] = child_offset_left);
 });
 redditv.utils.clear_scroll = (function redditv$utils$clear_scroll(root){
 return (root["scrollLeft"] = (0));
+});
+redditv.utils.regex_number_QMARK_ = /[0-9]+/;
+redditv.utils.numstring_QMARK_ = (function redditv$utils$numstring_QMARK_(s){
+if(typeof s === 'string'){
+return cljs.core.boolean$.call(null,cljs.core.re_matches.call(null,redditv.utils.regex_number_QMARK_,s));
+} else {
+return false;
+}
+});
+redditv.utils.parse_int = (function redditv$utils$parse_int(s){
+if(typeof s === 'string'){
+return window.parseInt(s);
+} else {
+return (0);
+}
+});
+redditv.utils.set_hash_BANG_ = (function redditv$utils$set_hash_BANG_(v){
+
+return (window["location"]["hash"] = v);
+});
+redditv.utils.force_app_reload_BANG_ = (function redditv$utils$force_app_reload_BANG_(app_state){
+return cljs.core.swap_BANG_.call(null,app_state,cljs.core.update_in,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"initial-load?","initial-load?",2130265181)], null),cljs.core.inc);
 });
