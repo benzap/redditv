@@ -7,7 +7,7 @@
             [goog.history.EventType :as EventType]
 
             ;; Local
-            [redditv.utils :refer [parse-int set-hash!]]
+            [redditv.utils :refer [parse-int set-hash! force-app-reload!]]
             [redditv.player :as p]
             [redditv.youtube :as yt]
             [redditv.utils :as utils]
@@ -54,19 +54,23 @@
 
 (secretary/set-config! :prefix "#")
 
-;;(set-hash! (str "/r/" (-> @app-state :subreddit)))
-
 ;; Providing Channels via /r/
 (defroute subreddit-path "/r/:subreddit" 
   [subreddit]
-  (swap! app-state assoc :subreddit subreddit))
+  (swap! app-state assoc :subreddit subreddit)
+  (playlist/reload app-state))
 
 (defroute subreddit-path-with-index #"/r/([\w\d]+)/(\d+)"
   [subreddit index]
   (swap! app-state assoc
          :subreddit subreddit
-         :playlist-selected-index (parse-int index)
-         ))
+         :playlist-selected-index (parse-int index))
+  (playlist/reload app-state))
+
+;; Default route goes to /r/videos
+(defroute default-route "*" []
+  (playlist/reload app-state)
+  (set-hash! (str "/r/" (-> @app-state :subreddit))))
 
 ;; Quick and dirty history configuration.
 (let [h (History.)]
@@ -94,8 +98,6 @@
    (c-sidepane app-state)
    (c-player app-state initial-load? playlist-index show-playlist fullscreen)
    (c-playlist app-state)])
-
-(playlist/reload app-state)
 
 (rum/mount (app) (.querySelector js/document "#app"))
 
