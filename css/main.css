@@ -96,7 +96,7 @@ body {
 
 .redditv-sidepane {
   position: absolute;
-  z-index: 1;
+  z-index: 999;
   top: 40px;
   left: 0;
   bottom: 140px;
@@ -106,7 +106,7 @@ body {
 
 .redditv-sidepane-compressed {
   position: absolute;
-  z-index: 1;
+  z-index: 999;
   top: 40px;
   left: 0;
   bottom: 40px;
@@ -326,6 +326,15 @@ body {
   background-color: hsla(0, 0%, 5.098039%, 0.5);
 }
 
+.redditv-settings-dialog-container-compressed {
+  position: fixed;
+  top: 40px;
+  left: 40px;
+  right: 0;
+  bottom: 40px;
+  background-color: hsla(0, 0%, 5.098039%, 0.5);
+}
+
 .redditv-settings-dialog-page {
   position: relative;
   min-height: 400px;
@@ -335,7 +344,7 @@ body {
 }
 
 .redditv-dialog-close {
-  z-index: 99;
+  z-index: 1000;
   position: absolute;
   top: -12.5px;
   right: -12.5px;
