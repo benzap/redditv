@@ -54,8 +54,9 @@
          (mdl/cell {:col 6} (mdl/slider {:min 10 :max 250 :value settings-video-count
                                          :onChange 
                                          (fn [e] 
-                                           (swap! app-state assoc :settings-video-count
-                                                  (-> e .-target .-value))
+                                           (swap! app-state assoc
+                                                  :settings-video-count (-> e .-target .-value)
+                                                  :playlist-selected-index 0)
                                            (playlist/reload app-state))}))
          (mdl/cell {:col 2} (.span js/React.DOM #js {} (str settings-video-count))))]
 
@@ -64,7 +65,9 @@
         [:select {:value settings-video-category
                   :on-change 
                   (fn [e] 
-                    (swap! app-state assoc :settings-video-category (-> e .-target .-value))
+                    (swap! app-state assoc
+                           :settings-video-category (-> e .-target .-value)
+                           :playlist-selected-index 0)
                     (playlist/reload app-state))}
          [:option {:value "hot"} "Hot"]
          [:option {:value "new"} "New"]

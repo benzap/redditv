@@ -3,7 +3,7 @@
   (:require [redditv.utils :refer [set-hash! force-app-reload! app-hash]]
             [redditv.reddit :as reddit]))
 
-(defn reload [app-state & {:keys [search] :or {search nil}}]
+(defn reload [app-state & {:keys [search reload?] :or {search nil reload? false}}]
   (go (let [{:keys [subreddit 
                     settings-show-nsfw 
                     settings-video-count
@@ -19,7 +19,8 @@
                   :playlist-selected-index
                   (if (< playlist-selected-index 0) 0 playlist-selected-index)})
           (set-hash! (app-hash app-state))
-          (force-app-reload! app-state)))))
+          (when reload?
+            (force-app-reload! app-state))))))
 
 (defn get-selected [app-state]
   (let [index (-> @app-state :playlist-selected-index)

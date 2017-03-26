@@ -61,19 +61,21 @@
          :subreddit subreddit
          :settings-video-category
          (get query-params :sort "hot"))
-  (playlist/reload app-state))
+  (force-app-reload! app-state))
 
 (defroute subreddit-path-with-index #"/r/([\w\d]+)/(\d+)"
-  [subreddit index]
+  [subreddit index query-params]
   (swap! app-state assoc
          :subreddit subreddit
-         :playlist-selected-index (parse-int index))
-  (playlist/reload app-state))
+         :playlist-selected-index (parse-int index)
+         :settings-video-category
+         (get-in query-params [:query-params :sort] "hot"))
+  (force-app-reload! app-state))
 
 ;; Default route goes to /r/videos
 (defroute default-route "*" []
   (playlist/reload app-state)
-  (set-hash! (app-hash app-state)))
+  (force-app-reload! app-state))
 
 ;; Quick and dirty history configuration.
 (let [h (History.)]
@@ -102,5 +104,8 @@
    (c-player app-state initial-load? playlist-index show-playlist fullscreen)
    (c-playlist app-state)])
 
+(playlist/reload app-state :reload? true)
+
 (rum/mount (app) (.querySelector js/document "#app"))
+
 

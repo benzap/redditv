@@ -1,6 +1,6 @@
 (ns redditv.components.sidepane
   (:require [rum.core :as rum]
-            [redditv.utils :refer [set-hash! force-app-reload!]]
+            [redditv.utils :refer [set-hash! force-app-reload! app-hash]]
             [redditv.icons :as icons]
             [redditv.playlist :as playlist]
             [redditv.components.settings :refer [c-settings]]
@@ -11,7 +11,7 @@
          :subreddit subreddit
          :playlist-selected-index 0)
   (playlist/reload app-state)
-  (set-hash! (str "/r/" subreddit))
+  (set-hash! (app-hash app-state))
   (force-app-reload! app-state))
 
 (def mixin-focus-search-bar
