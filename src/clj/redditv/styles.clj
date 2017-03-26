@@ -113,7 +113,7 @@
 
   [:.redditv-sidepane
    {:position "absolute"
-    :z-index 1
+    :z-index 999
     :top (px header-height)
     :left 0
     :bottom (px playlist-height)
@@ -122,7 +122,7 @@
 
   [:.redditv-sidepane-compressed
    {:position "absolute"
-    :z-index 1
+    :z-index 999
     :top (px header-height)
     :left 0
     :bottom (px sidepane-width)
@@ -313,6 +313,14 @@
     :bottom (px playlist-height)
     :background-color (rgba 13 13 13 0.5)}]
 
+  [:.redditv-settings-dialog-container-compressed
+   {:position "fixed"
+    :top (px header-height)
+    :left (px sidepane-width)
+    :right 0
+    :bottom (px sidepane-width)
+    :background-color (rgba 13 13 13 0.5)}]
+
   [:.redditv-settings-dialog-page
    {:position "relative"
     :min-height (px 400)
@@ -321,7 +329,7 @@
     :background-color color-foreground}]
   
   [:.redditv-dialog-close
-   {:z-index 99
+   {:z-index 1000
     :position "absolute"
     :top (px -12.5)
     :right (px -12.5)}]

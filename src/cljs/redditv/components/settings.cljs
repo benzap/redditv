@@ -8,8 +8,12 @@
   [state app-state]
   (let [{:keys [settings-show-nsfw
                 settings-video-count
-                settings-video-category]} (rum/react app-state)]
-    [:.redditv-settings-dialog-container
+                settings-video-category
+                show-playlist]} (rum/react app-state)]
+    [(if show-playlist
+       :.redditv-settings-dialog-container
+       :.redditv-settings-dialog-container-compressed)
+         
      [:.redditv-settings-dialog-page
       
       ;; Close Button
