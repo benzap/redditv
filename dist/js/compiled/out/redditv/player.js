@@ -116,13 +116,13 @@ var this__30718__auto____$1 = this;
 return cljs.core._lookup.call(null,this__30718__auto____$1,k__30719__auto__,null);
 });
 
-redditv.player.NullPlayer.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__30720__auto__,k40916,else__30721__auto__){
+redditv.player.NullPlayer.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__30720__auto__,k39344,else__30721__auto__){
 var self__ = this;
 var this__30720__auto____$1 = this;
-var G__40918 = k40916;
-switch (G__40918) {
+var G__39346 = k39344;
+switch (G__39346) {
 default:
-return cljs.core.get.call(null,self__.__extmap,k40916,else__30721__auto__);
+return cljs.core.get.call(null,self__.__extmap,k39344,else__30721__auto__);
 
 }
 });
@@ -140,10 +140,10 @@ return cljs.core.pr_sequential_writer.call(null,writer__30733__auto__,pr_pair__3
 
 redditv.player.NullPlayer.prototype.cljs$core$IIterable$ = cljs.core.PROTOCOL_SENTINEL;
 
-redditv.player.NullPlayer.prototype.cljs$core$IIterable$_iterator$arity$1 = (function (G__40915){
+redditv.player.NullPlayer.prototype.cljs$core$IIterable$_iterator$arity$1 = (function (G__39343){
 var self__ = this;
-var G__40915__$1 = this;
-return (new cljs.core.RecordIter((0),G__40915__$1,0,cljs.core.PersistentVector.EMPTY,(cljs.core.truth_(self__.__extmap)?cljs.core._iterator.call(null,self__.__extmap):cljs.core.nil_iter.call(null))));
+var G__39343__$1 = this;
+return (new cljs.core.RecordIter((0),G__39343__$1,0,cljs.core.PersistentVector.EMPTY,(cljs.core.truth_(self__.__extmap)?cljs.core._iterator.call(null,self__.__extmap):cljs.core.nil_iter.call(null))));
 });
 
 redditv.player.NullPlayer.prototype.cljs$core$IMeta$_meta$arity$1 = (function (this__30716__auto__){
@@ -235,12 +235,12 @@ return (new redditv.player.NullPlayer(self__.__meta,cljs.core.not_empty.call(nul
 }
 });
 
-redditv.player.NullPlayer.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__30725__auto__,k__30726__auto__,G__40915){
+redditv.player.NullPlayer.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__30725__auto__,k__30726__auto__,G__39343){
 var self__ = this;
 var this__30725__auto____$1 = this;
-var pred__40919 = cljs.core.keyword_identical_QMARK_;
-var expr__40920 = k__30726__auto__;
-return (new redditv.player.NullPlayer(self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__30726__auto__,G__40915),null));
+var pred__39347 = cljs.core.keyword_identical_QMARK_;
+var expr__39348 = k__30726__auto__;
+return (new redditv.player.NullPlayer(self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__30726__auto__,G__39343),null));
 });
 
 redditv.player.NullPlayer.prototype.cljs$core$ISeqable$_seq$arity$1 = (function (this__30730__auto__){
@@ -249,10 +249,10 @@ var this__30730__auto____$1 = this;
 return cljs.core.seq.call(null,cljs.core.concat.call(null,cljs.core.PersistentVector.EMPTY,self__.__extmap));
 });
 
-redditv.player.NullPlayer.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__30717__auto__,G__40915){
+redditv.player.NullPlayer.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__30717__auto__,G__39343){
 var self__ = this;
 var this__30717__auto____$1 = this;
-return (new redditv.player.NullPlayer(G__40915,self__.__extmap,self__.__hash));
+return (new redditv.player.NullPlayer(G__39343,self__.__extmap,self__.__hash));
 });
 
 redditv.player.NullPlayer.prototype.cljs$core$ICollection$_conj$arity$2 = (function (this__30723__auto__,entry__30724__auto__){
@@ -283,8 +283,8 @@ redditv.player.__GT_NullPlayer = (function redditv$player$__GT_NullPlayer(){
 return (new redditv.player.NullPlayer(null,null,null));
 });
 
-redditv.player.map__GT_NullPlayer = (function redditv$player$map__GT_NullPlayer(G__40917){
-return (new redditv.player.NullPlayer(null,cljs.core.dissoc.call(null,G__40917),null));
+redditv.player.map__GT_NullPlayer = (function redditv$player$map__GT_NullPlayer(G__39345){
+return (new redditv.player.NullPlayer(null,cljs.core.dissoc.call(null,G__39345),null));
 });
 
 redditv.player.create_nullplayer = (function redditv$player$create_nullplayer(){
