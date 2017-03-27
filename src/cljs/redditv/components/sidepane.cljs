@@ -10,9 +10,8 @@
   (swap! app-state assoc
          :subreddit subreddit
          :playlist-selected-index 0)
-  (playlist/reload app-state)
-  (set-hash! (app-hash app-state))
-  (force-app-reload! app-state))
+  (playlist/reload app-state :reload? true)
+  (set-hash! (app-hash app-state)))
 
 (def mixin-focus-search-bar
   {:did-update (fn [state]
