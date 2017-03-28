@@ -78,12 +78,7 @@
      (mdl/tooltip
       {:label "View Reddit Comments" :position "right"}
       (mdl/icon {:name "comment" :className "redditv-button noselect"
-                 :onClick 
-                 (fn []
-                   (let [current-video (playlist/get-selected app-state)
-                         {:keys [permalink]} current-video]
-                     (.open js/window (str "http://www.reddit.com" permalink) "_blank")
-                     ))}))
+                 :onClick #(playlist/open-current-video-comments app-state)}))
 
      (mdl/tooltip 
       {:label "View Github Source" :position "right"}

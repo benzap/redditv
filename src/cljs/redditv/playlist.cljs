@@ -1,6 +1,6 @@
 (ns redditv.playlist
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [redditv.utils :refer [set-hash! force-app-reload! app-hash]]
+  (:require [redditv.utils :refer [set-hash! force-app-reload! app-hash open-reddit-comment]]
             [redditv.reddit :as reddit]))
 
 (defn reload [app-state & {:keys [search reload?] :or {search nil reload? false}}]
@@ -44,3 +44,7 @@
     (swap! app-state assoc :playlist-selected-index index)
     (set-hash! (app-hash app-state))
     index))
+
+(defn open-current-video-comments [app-state]
+  (let [video (get-selected app-state)]
+    (open-reddit-comment video)))
