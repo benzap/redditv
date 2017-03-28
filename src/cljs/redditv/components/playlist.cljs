@@ -3,7 +3,7 @@
   (:require [cljs.core.async :refer [put! chan <! mult tap untap]]
             [rum.core :as rum]
             [redditv.playlist :as playlist]
-            [redditv.utils :refer [align-to-root-left clear-scroll set-hash!]]
+            [redditv.utils :refer [align-to-root-left clear-scroll set-hash! app-hash]]
             [redditv.components.mdl :as mdl]))
 
 (def nsfw-thumbnail-url "http://i.imgur.com/KZOsckv.jpg")
@@ -60,7 +60,7 @@
                     (let [index (<! select-chan)
                           subreddit (:subreddit @app-state)]
                       (swap! app-state assoc :playlist-selected-index index)
-                      (set-hash! (str "/r/" subreddit "/" index))
+                      (set-hash! (app-hash app-state))
                       (recur)))
                   
                   (assoc state ::select-chan select-chan)))
