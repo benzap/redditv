@@ -81,3 +81,7 @@
 (defn open-reddit-comment [{:keys [permalink] :as video}]
   (open-link-external-window (str "http://www.reddit.com" permalink)))
 
+(defn query-in-focus? [selector]
+  (if-let [elem (.querySelector js/document selector)]
+    (= (.-activeElement js/document) elem)
+    false))

@@ -20,7 +20,10 @@
                   (if (< playlist-selected-index 0) 0 playlist-selected-index)})
           (set-hash! (app-hash app-state))
           (when reload?
-            (force-app-reload! app-state))))))
+            (force-app-reload! app-state))
+
+          (.log js/console (-> videos first clj->js))
+          ))))
 
 (defn get-selected [app-state]
   (let [index (-> @app-state :playlist-selected-index)

@@ -298,6 +298,7 @@
   [:#input-search-bar
    {:background-color "black"
     :font-size (px 24)
+    :width (px 270)
     :vertical-align "middle"
     :padding "0 5px 0 5px"
     :border-radius (px 3)

@@ -7,7 +7,11 @@
             [goog.history.EventType :as EventType]
 
             ;; Local
-            [redditv.utils :refer [parse-int set-hash! force-app-reload! app-hash]]
+            [redditv.utils :refer [parse-int
+                                   set-hash!
+                                   force-app-reload!
+                                   app-hash
+                                   query-in-focus?]]
             [redditv.player :as p]
             [redditv.youtube :as yt]
             [redditv.utils :as utils]
@@ -87,17 +91,18 @@
                 (.addEventListener 
                  js/window "keydown"
                  (fn [e]
-                   (let [keycode (-> e .-keyCode)]
-                     (case keycode
-                       37 ;; Left Arrow Key
-                       (playlist/select-prev app-state)
-                       39 ;; Right Arrow Key
-                       (playlist/select-next app-state)
-                       83
-                       (swap! app-state assoc :show-search true)
-                       67
-                       #_(playlist/open-current-video-comments app-state)
-                       :else nil)))))})
+                   (when-not (query-in-focus? "#input-search-bar")
+                     (let [keycode (-> e .-keyCode)]
+                       (case keycode
+                         37 ;; Left Arrow Key
+                         (playlist/select-prev app-state)
+                         39 ;; Right Arrow Key
+                         (playlist/select-next app-state)
+                         83
+                         (swap! app-state assoc :show-search true)
+                         67
+                         #_(playlist/open-current-video-comments app-state)
+                         :else nil))))))})
 
 (rum/defc app 
   < mixin-keyboard-controls
