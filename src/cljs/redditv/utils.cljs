@@ -74,3 +74,10 @@
       (str "/r/" subreddit "/" playlist-selected-index)
       (str "/r/" subreddit "/" playlist-selected-index
            "?sort=" settings-video-category))))
+
+(defn open-link-external-window [link]
+  (.open js/window link "_blank"))
+
+(defn open-reddit-comment [{:keys [permalink] :as video}]
+  (open-link-external-window (str "http://www.reddit.com" permalink)))
+
