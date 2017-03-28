@@ -89,3 +89,13 @@ return [cljs.core.str("/r/"),cljs.core.str(subreddit),cljs.core.str("/"),cljs.co
 return [cljs.core.str("/r/"),cljs.core.str(subreddit),cljs.core.str("/"),cljs.core.str(playlist_selected_index),cljs.core.str("?sort="),cljs.core.str(settings_video_category)].join('');
 }
 });
+redditv.utils.open_link_external_window = (function redditv$utils$open_link_external_window(link){
+return window.open(link,"_blank");
+});
+redditv.utils.open_reddit_comment = (function redditv$utils$open_reddit_comment(p__32355){
+var map__32358 = p__32355;
+var map__32358__$1 = ((((!((map__32358 == null)))?((((map__32358.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__32358.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__32358):map__32358);
+var video = map__32358__$1;
+var permalink = cljs.core.get.call(null,map__32358__$1,new cljs.core.Keyword(null,"permalink","permalink",1009167849));
+return redditv.utils.open_link_external_window.call(null,[cljs.core.str("http://www.reddit.com"),cljs.core.str(permalink)].join(''));
+});
