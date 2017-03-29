@@ -99,3 +99,12 @@ var video = map__32358__$1;
 var permalink = cljs.core.get.call(null,map__32358__$1,new cljs.core.Keyword(null,"permalink","permalink",1009167849));
 return redditv.utils.open_link_external_window.call(null,[cljs.core.str("http://www.reddit.com"),cljs.core.str(permalink)].join(''));
 });
+redditv.utils.query_in_focus_QMARK_ = (function redditv$utils$query_in_focus_QMARK_(selector){
+var temp__4655__auto__ = document.querySelector(selector);
+if(cljs.core.truth_(temp__4655__auto__)){
+var elem = temp__4655__auto__;
+return cljs.core._EQ_.call(null,document.activeElement,elem);
+} else {
+return false;
+}
+});
