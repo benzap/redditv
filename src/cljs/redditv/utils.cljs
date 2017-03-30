@@ -91,8 +91,7 @@
 (defn decode-html-string [s]
   (let [parser (js/DOMParser.)
         html-string (str "<!doctype html><body>" s)
-        decoded-string (.parseFromString parser html-string "text/html")
-        _ (.log js/console decoded-string)]
+        decoded-string (.parseFromString parser html-string "text/html")]
     (aget decoded-string "body" "textContent")))
 
 #_(decode-html-string test-uri)
