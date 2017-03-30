@@ -85,3 +85,14 @@
   (if-let [elem (.querySelector js/document selector)]
     (= (.-activeElement js/document) elem)
     false))
+
+#_(def test-uri "Are GMOs Good or Bad? Genetic Engineering &amp; Our Food")
+
+(defn decode-html-string [s]
+  (let [parser (js/DOMParser.)
+        html-string (str "<!doctype html><body>" s)
+        decoded-string (.parseFromString parser html-string "text/html")
+        _ (.log js/console decoded-string)]
+    (aget decoded-string "body" "textContent")))
+
+#_(decode-html-string test-uri)

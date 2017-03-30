@@ -3,7 +3,8 @@
   (:require [cljs.core.async :refer [put! chan <! mult tap untap]]
             [rum.core :as rum]
             [redditv.playlist :as playlist]
-            [redditv.utils :refer [align-to-root-left clear-scroll set-hash! app-hash]]
+            [redditv.utils :refer [align-to-root-left clear-scroll set-hash!
+                                   app-hash decode-html-string]]
             [redditv.components.mdl :as mdl]))
 
 (def nsfw-thumbnail-url "http://i.imgur.com/KZOsckv.jpg")
@@ -32,7 +33,7 @@
    :did-update mixin-fix-scroll-alignment
    :did-mount mixin-fix-scroll-alignment}
   [state [i item] select-chan selected?]
-  (let [title (str (-> item :title))
+  (let [title (-> item :title str decode-html-string)
         thumbnail (-> item :thumbnail)
         thumbnail (case thumbnail
                     "nsfw" nsfw-thumbnail-url
