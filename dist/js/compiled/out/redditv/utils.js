@@ -108,3 +108,9 @@ return cljs.core._EQ_.call(null,document.activeElement,elem);
 return false;
 }
 });
+redditv.utils.decode_html_string = (function redditv$utils$decode_html_string(s){
+var parser = (new DOMParser());
+var html_string = [cljs.core.str("<!doctype html><body>"),cljs.core.str(s)].join('');
+var decoded_string = parser.parseFromString(html_string,"text/html");
+return (decoded_string["body"]["textContent"]);
+});
