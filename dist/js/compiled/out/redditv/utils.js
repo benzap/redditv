@@ -82,6 +82,7 @@ var map__32353 = cljs.core.deref.call(null,app_state);
 var map__32353__$1 = ((((!((map__32353 == null)))?((((map__32353.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__32353.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__32353):map__32353);
 var subreddit = cljs.core.get.call(null,map__32353__$1,new cljs.core.Keyword(null,"subreddit","subreddit",-670654754));
 var playlist_selected_index = cljs.core.get.call(null,map__32353__$1,new cljs.core.Keyword(null,"playlist-selected-index","playlist-selected-index",-1037896961));
+var playlist = cljs.core.get.call(null,map__32353__$1,new cljs.core.Keyword(null,"playlist","playlist",1952276871));
 var settings_video_category = cljs.core.get.call(null,map__32353__$1,new cljs.core.Keyword(null,"settings-video-category","settings-video-category",-1875669518));
 if(cljs.core._EQ_.call(null,settings_video_category,"hot")){
 return [cljs.core.str("/r/"),cljs.core.str(subreddit),cljs.core.str("/"),cljs.core.str(playlist_selected_index)].join('');
@@ -113,4 +114,7 @@ var parser = (new DOMParser());
 var html_string = [cljs.core.str("<!doctype html><body>"),cljs.core.str(s)].join('');
 var decoded_string = parser.parseFromString(html_string,"text/html");
 return (decoded_string["body"]["textContent"]);
+});
+redditv.utils.set_loading_animation_BANG_ = (function redditv$utils$set_loading_animation_BANG_(app_state,x){
+return cljs.core.swap_BANG_.call(null,app_state,cljs.core.assoc_in,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"loading?","loading?",1905707049)], null),x);
 });

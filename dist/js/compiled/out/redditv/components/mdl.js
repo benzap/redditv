@@ -3,186 +3,209 @@ goog.provide('redditv.components.mdl');
 goog.require('cljs.core');
 goog.require('rum.core');
 redditv.components.mdl.checkbox = rum.core.build_defc.call(null,(function() { 
-var G__41004__delegate = function (props__40995__auto__,children__40996__auto__){
-return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(0)))?React.createElement(ReactMDL.Checkbox,cljs.core.clj__GT_js.call(null,props__40995__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(1)))?React.createElement(ReactMDL.Checkbox,cljs.core.clj__GT_js.call(null,props__40995__auto__),cljs.core.first.call(null,children__40996__auto__)):React.createElement(ReactMDL.Checkbox,cljs.core.clj__GT_js.call(null,props__40995__auto__),[children__40996__auto__])
+var G__37417__delegate = function (props__37408__auto__,children__37409__auto__){
+return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(0)))?React.createElement(ReactMDL.Checkbox,cljs.core.clj__GT_js.call(null,props__37408__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(1)))?React.createElement(ReactMDL.Checkbox,cljs.core.clj__GT_js.call(null,props__37408__auto__),cljs.core.first.call(null,children__37409__auto__)):React.createElement(ReactMDL.Checkbox,cljs.core.clj__GT_js.call(null,props__37408__auto__),[children__37409__auto__])
 )));
 };
-var G__41004 = function (props__40995__auto__,var_args){
-var children__40996__auto__ = null;
+var G__37417 = function (props__37408__auto__,var_args){
+var children__37409__auto__ = null;
 if (arguments.length > 1) {
-var G__41005__i = 0, G__41005__a = new Array(arguments.length -  1);
-while (G__41005__i < G__41005__a.length) {G__41005__a[G__41005__i] = arguments[G__41005__i + 1]; ++G__41005__i;}
-  children__40996__auto__ = new cljs.core.IndexedSeq(G__41005__a,0);
+var G__37418__i = 0, G__37418__a = new Array(arguments.length -  1);
+while (G__37418__i < G__37418__a.length) {G__37418__a[G__37418__i] = arguments[G__37418__i + 1]; ++G__37418__i;}
+  children__37409__auto__ = new cljs.core.IndexedSeq(G__37418__a,0);
 } 
-return G__41004__delegate.call(this,props__40995__auto__,children__40996__auto__);};
-G__41004.cljs$lang$maxFixedArity = 1;
-G__41004.cljs$lang$applyTo = (function (arglist__41006){
-var props__40995__auto__ = cljs.core.first(arglist__41006);
-var children__40996__auto__ = cljs.core.rest(arglist__41006);
-return G__41004__delegate(props__40995__auto__,children__40996__auto__);
+return G__37417__delegate.call(this,props__37408__auto__,children__37409__auto__);};
+G__37417.cljs$lang$maxFixedArity = 1;
+G__37417.cljs$lang$applyTo = (function (arglist__37419){
+var props__37408__auto__ = cljs.core.first(arglist__37419);
+var children__37409__auto__ = cljs.core.rest(arglist__37419);
+return G__37417__delegate(props__37408__auto__,children__37409__auto__);
 });
-G__41004.cljs$core$IFn$_invoke$arity$variadic = G__41004__delegate;
-return G__41004;
+G__37417.cljs$core$IFn$_invoke$arity$variadic = G__37417__delegate;
+return G__37417;
 })()
 ,null,"checkbox");
 redditv.components.mdl.fab_button = rum.core.build_defc.call(null,(function() { 
-var G__41007__delegate = function (props__40995__auto__,children__40996__auto__){
-return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(0)))?React.createElement(ReactMDL.FABButton,cljs.core.clj__GT_js.call(null,props__40995__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(1)))?React.createElement(ReactMDL.FABButton,cljs.core.clj__GT_js.call(null,props__40995__auto__),cljs.core.first.call(null,children__40996__auto__)):React.createElement(ReactMDL.FABButton,cljs.core.clj__GT_js.call(null,props__40995__auto__),[children__40996__auto__])
+var G__37420__delegate = function (props__37408__auto__,children__37409__auto__){
+return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(0)))?React.createElement(ReactMDL.FABButton,cljs.core.clj__GT_js.call(null,props__37408__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(1)))?React.createElement(ReactMDL.FABButton,cljs.core.clj__GT_js.call(null,props__37408__auto__),cljs.core.first.call(null,children__37409__auto__)):React.createElement(ReactMDL.FABButton,cljs.core.clj__GT_js.call(null,props__37408__auto__),[children__37409__auto__])
 )));
 };
-var G__41007 = function (props__40995__auto__,var_args){
-var children__40996__auto__ = null;
+var G__37420 = function (props__37408__auto__,var_args){
+var children__37409__auto__ = null;
 if (arguments.length > 1) {
-var G__41008__i = 0, G__41008__a = new Array(arguments.length -  1);
-while (G__41008__i < G__41008__a.length) {G__41008__a[G__41008__i] = arguments[G__41008__i + 1]; ++G__41008__i;}
-  children__40996__auto__ = new cljs.core.IndexedSeq(G__41008__a,0);
+var G__37421__i = 0, G__37421__a = new Array(arguments.length -  1);
+while (G__37421__i < G__37421__a.length) {G__37421__a[G__37421__i] = arguments[G__37421__i + 1]; ++G__37421__i;}
+  children__37409__auto__ = new cljs.core.IndexedSeq(G__37421__a,0);
 } 
-return G__41007__delegate.call(this,props__40995__auto__,children__40996__auto__);};
-G__41007.cljs$lang$maxFixedArity = 1;
-G__41007.cljs$lang$applyTo = (function (arglist__41009){
-var props__40995__auto__ = cljs.core.first(arglist__41009);
-var children__40996__auto__ = cljs.core.rest(arglist__41009);
-return G__41007__delegate(props__40995__auto__,children__40996__auto__);
+return G__37420__delegate.call(this,props__37408__auto__,children__37409__auto__);};
+G__37420.cljs$lang$maxFixedArity = 1;
+G__37420.cljs$lang$applyTo = (function (arglist__37422){
+var props__37408__auto__ = cljs.core.first(arglist__37422);
+var children__37409__auto__ = cljs.core.rest(arglist__37422);
+return G__37420__delegate(props__37408__auto__,children__37409__auto__);
 });
-G__41007.cljs$core$IFn$_invoke$arity$variadic = G__41007__delegate;
-return G__41007;
+G__37420.cljs$core$IFn$_invoke$arity$variadic = G__37420__delegate;
+return G__37420;
 })()
 ,null,"fab-button");
 redditv.components.mdl.icon = rum.core.build_defc.call(null,(function() { 
-var G__41010__delegate = function (props__40995__auto__,children__40996__auto__){
-return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(0)))?React.createElement(ReactMDL.Icon,cljs.core.clj__GT_js.call(null,props__40995__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(1)))?React.createElement(ReactMDL.Icon,cljs.core.clj__GT_js.call(null,props__40995__auto__),cljs.core.first.call(null,children__40996__auto__)):React.createElement(ReactMDL.Icon,cljs.core.clj__GT_js.call(null,props__40995__auto__),[children__40996__auto__])
+var G__37423__delegate = function (props__37408__auto__,children__37409__auto__){
+return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(0)))?React.createElement(ReactMDL.Icon,cljs.core.clj__GT_js.call(null,props__37408__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(1)))?React.createElement(ReactMDL.Icon,cljs.core.clj__GT_js.call(null,props__37408__auto__),cljs.core.first.call(null,children__37409__auto__)):React.createElement(ReactMDL.Icon,cljs.core.clj__GT_js.call(null,props__37408__auto__),[children__37409__auto__])
 )));
 };
-var G__41010 = function (props__40995__auto__,var_args){
-var children__40996__auto__ = null;
+var G__37423 = function (props__37408__auto__,var_args){
+var children__37409__auto__ = null;
 if (arguments.length > 1) {
-var G__41011__i = 0, G__41011__a = new Array(arguments.length -  1);
-while (G__41011__i < G__41011__a.length) {G__41011__a[G__41011__i] = arguments[G__41011__i + 1]; ++G__41011__i;}
-  children__40996__auto__ = new cljs.core.IndexedSeq(G__41011__a,0);
+var G__37424__i = 0, G__37424__a = new Array(arguments.length -  1);
+while (G__37424__i < G__37424__a.length) {G__37424__a[G__37424__i] = arguments[G__37424__i + 1]; ++G__37424__i;}
+  children__37409__auto__ = new cljs.core.IndexedSeq(G__37424__a,0);
 } 
-return G__41010__delegate.call(this,props__40995__auto__,children__40996__auto__);};
-G__41010.cljs$lang$maxFixedArity = 1;
-G__41010.cljs$lang$applyTo = (function (arglist__41012){
-var props__40995__auto__ = cljs.core.first(arglist__41012);
-var children__40996__auto__ = cljs.core.rest(arglist__41012);
-return G__41010__delegate(props__40995__auto__,children__40996__auto__);
+return G__37423__delegate.call(this,props__37408__auto__,children__37409__auto__);};
+G__37423.cljs$lang$maxFixedArity = 1;
+G__37423.cljs$lang$applyTo = (function (arglist__37425){
+var props__37408__auto__ = cljs.core.first(arglist__37425);
+var children__37409__auto__ = cljs.core.rest(arglist__37425);
+return G__37423__delegate(props__37408__auto__,children__37409__auto__);
 });
-G__41010.cljs$core$IFn$_invoke$arity$variadic = G__41010__delegate;
-return G__41010;
+G__37423.cljs$core$IFn$_invoke$arity$variadic = G__37423__delegate;
+return G__37423;
 })()
 ,null,"icon");
 redditv.components.mdl.tooltip = rum.core.build_defc.call(null,(function() { 
-var G__41013__delegate = function (props__40995__auto__,children__40996__auto__){
-return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(0)))?React.createElement(ReactMDL.Tooltip,cljs.core.clj__GT_js.call(null,props__40995__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(1)))?React.createElement(ReactMDL.Tooltip,cljs.core.clj__GT_js.call(null,props__40995__auto__),cljs.core.first.call(null,children__40996__auto__)):React.createElement(ReactMDL.Tooltip,cljs.core.clj__GT_js.call(null,props__40995__auto__),[children__40996__auto__])
+var G__37426__delegate = function (props__37408__auto__,children__37409__auto__){
+return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(0)))?React.createElement(ReactMDL.Tooltip,cljs.core.clj__GT_js.call(null,props__37408__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(1)))?React.createElement(ReactMDL.Tooltip,cljs.core.clj__GT_js.call(null,props__37408__auto__),cljs.core.first.call(null,children__37409__auto__)):React.createElement(ReactMDL.Tooltip,cljs.core.clj__GT_js.call(null,props__37408__auto__),[children__37409__auto__])
 )));
 };
-var G__41013 = function (props__40995__auto__,var_args){
-var children__40996__auto__ = null;
+var G__37426 = function (props__37408__auto__,var_args){
+var children__37409__auto__ = null;
 if (arguments.length > 1) {
-var G__41014__i = 0, G__41014__a = new Array(arguments.length -  1);
-while (G__41014__i < G__41014__a.length) {G__41014__a[G__41014__i] = arguments[G__41014__i + 1]; ++G__41014__i;}
-  children__40996__auto__ = new cljs.core.IndexedSeq(G__41014__a,0);
+var G__37427__i = 0, G__37427__a = new Array(arguments.length -  1);
+while (G__37427__i < G__37427__a.length) {G__37427__a[G__37427__i] = arguments[G__37427__i + 1]; ++G__37427__i;}
+  children__37409__auto__ = new cljs.core.IndexedSeq(G__37427__a,0);
 } 
-return G__41013__delegate.call(this,props__40995__auto__,children__40996__auto__);};
-G__41013.cljs$lang$maxFixedArity = 1;
-G__41013.cljs$lang$applyTo = (function (arglist__41015){
-var props__40995__auto__ = cljs.core.first(arglist__41015);
-var children__40996__auto__ = cljs.core.rest(arglist__41015);
-return G__41013__delegate(props__40995__auto__,children__40996__auto__);
+return G__37426__delegate.call(this,props__37408__auto__,children__37409__auto__);};
+G__37426.cljs$lang$maxFixedArity = 1;
+G__37426.cljs$lang$applyTo = (function (arglist__37428){
+var props__37408__auto__ = cljs.core.first(arglist__37428);
+var children__37409__auto__ = cljs.core.rest(arglist__37428);
+return G__37426__delegate(props__37408__auto__,children__37409__auto__);
 });
-G__41013.cljs$core$IFn$_invoke$arity$variadic = G__41013__delegate;
-return G__41013;
+G__37426.cljs$core$IFn$_invoke$arity$variadic = G__37426__delegate;
+return G__37426;
 })()
 ,null,"tooltip");
 redditv.components.mdl.slider = rum.core.build_defc.call(null,(function() { 
-var G__41016__delegate = function (props__40995__auto__,children__40996__auto__){
-return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(0)))?React.createElement(ReactMDL.Slider,cljs.core.clj__GT_js.call(null,props__40995__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(1)))?React.createElement(ReactMDL.Slider,cljs.core.clj__GT_js.call(null,props__40995__auto__),cljs.core.first.call(null,children__40996__auto__)):React.createElement(ReactMDL.Slider,cljs.core.clj__GT_js.call(null,props__40995__auto__),[children__40996__auto__])
+var G__37429__delegate = function (props__37408__auto__,children__37409__auto__){
+return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(0)))?React.createElement(ReactMDL.Slider,cljs.core.clj__GT_js.call(null,props__37408__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(1)))?React.createElement(ReactMDL.Slider,cljs.core.clj__GT_js.call(null,props__37408__auto__),cljs.core.first.call(null,children__37409__auto__)):React.createElement(ReactMDL.Slider,cljs.core.clj__GT_js.call(null,props__37408__auto__),[children__37409__auto__])
 )));
 };
-var G__41016 = function (props__40995__auto__,var_args){
-var children__40996__auto__ = null;
+var G__37429 = function (props__37408__auto__,var_args){
+var children__37409__auto__ = null;
 if (arguments.length > 1) {
-var G__41017__i = 0, G__41017__a = new Array(arguments.length -  1);
-while (G__41017__i < G__41017__a.length) {G__41017__a[G__41017__i] = arguments[G__41017__i + 1]; ++G__41017__i;}
-  children__40996__auto__ = new cljs.core.IndexedSeq(G__41017__a,0);
+var G__37430__i = 0, G__37430__a = new Array(arguments.length -  1);
+while (G__37430__i < G__37430__a.length) {G__37430__a[G__37430__i] = arguments[G__37430__i + 1]; ++G__37430__i;}
+  children__37409__auto__ = new cljs.core.IndexedSeq(G__37430__a,0);
 } 
-return G__41016__delegate.call(this,props__40995__auto__,children__40996__auto__);};
-G__41016.cljs$lang$maxFixedArity = 1;
-G__41016.cljs$lang$applyTo = (function (arglist__41018){
-var props__40995__auto__ = cljs.core.first(arglist__41018);
-var children__40996__auto__ = cljs.core.rest(arglist__41018);
-return G__41016__delegate(props__40995__auto__,children__40996__auto__);
+return G__37429__delegate.call(this,props__37408__auto__,children__37409__auto__);};
+G__37429.cljs$lang$maxFixedArity = 1;
+G__37429.cljs$lang$applyTo = (function (arglist__37431){
+var props__37408__auto__ = cljs.core.first(arglist__37431);
+var children__37409__auto__ = cljs.core.rest(arglist__37431);
+return G__37429__delegate(props__37408__auto__,children__37409__auto__);
 });
-G__41016.cljs$core$IFn$_invoke$arity$variadic = G__41016__delegate;
-return G__41016;
+G__37429.cljs$core$IFn$_invoke$arity$variadic = G__37429__delegate;
+return G__37429;
 })()
 ,null,"slider");
 redditv.components.mdl.grid = rum.core.build_defc.call(null,(function() { 
-var G__41019__delegate = function (props__40995__auto__,children__40996__auto__){
-return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(0)))?React.createElement(ReactMDL.Grid,cljs.core.clj__GT_js.call(null,props__40995__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(1)))?React.createElement(ReactMDL.Grid,cljs.core.clj__GT_js.call(null,props__40995__auto__),cljs.core.first.call(null,children__40996__auto__)):React.createElement(ReactMDL.Grid,cljs.core.clj__GT_js.call(null,props__40995__auto__),[children__40996__auto__])
+var G__37432__delegate = function (props__37408__auto__,children__37409__auto__){
+return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(0)))?React.createElement(ReactMDL.Grid,cljs.core.clj__GT_js.call(null,props__37408__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(1)))?React.createElement(ReactMDL.Grid,cljs.core.clj__GT_js.call(null,props__37408__auto__),cljs.core.first.call(null,children__37409__auto__)):React.createElement(ReactMDL.Grid,cljs.core.clj__GT_js.call(null,props__37408__auto__),[children__37409__auto__])
 )));
 };
-var G__41019 = function (props__40995__auto__,var_args){
-var children__40996__auto__ = null;
+var G__37432 = function (props__37408__auto__,var_args){
+var children__37409__auto__ = null;
 if (arguments.length > 1) {
-var G__41020__i = 0, G__41020__a = new Array(arguments.length -  1);
-while (G__41020__i < G__41020__a.length) {G__41020__a[G__41020__i] = arguments[G__41020__i + 1]; ++G__41020__i;}
-  children__40996__auto__ = new cljs.core.IndexedSeq(G__41020__a,0);
+var G__37433__i = 0, G__37433__a = new Array(arguments.length -  1);
+while (G__37433__i < G__37433__a.length) {G__37433__a[G__37433__i] = arguments[G__37433__i + 1]; ++G__37433__i;}
+  children__37409__auto__ = new cljs.core.IndexedSeq(G__37433__a,0);
 } 
-return G__41019__delegate.call(this,props__40995__auto__,children__40996__auto__);};
-G__41019.cljs$lang$maxFixedArity = 1;
-G__41019.cljs$lang$applyTo = (function (arglist__41021){
-var props__40995__auto__ = cljs.core.first(arglist__41021);
-var children__40996__auto__ = cljs.core.rest(arglist__41021);
-return G__41019__delegate(props__40995__auto__,children__40996__auto__);
+return G__37432__delegate.call(this,props__37408__auto__,children__37409__auto__);};
+G__37432.cljs$lang$maxFixedArity = 1;
+G__37432.cljs$lang$applyTo = (function (arglist__37434){
+var props__37408__auto__ = cljs.core.first(arglist__37434);
+var children__37409__auto__ = cljs.core.rest(arglist__37434);
+return G__37432__delegate(props__37408__auto__,children__37409__auto__);
 });
-G__41019.cljs$core$IFn$_invoke$arity$variadic = G__41019__delegate;
-return G__41019;
+G__37432.cljs$core$IFn$_invoke$arity$variadic = G__37432__delegate;
+return G__37432;
 })()
 ,null,"grid");
 redditv.components.mdl.cell = rum.core.build_defc.call(null,(function() { 
-var G__41022__delegate = function (props__40995__auto__,children__40996__auto__){
-return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(0)))?React.createElement(ReactMDL.Cell,cljs.core.clj__GT_js.call(null,props__40995__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(1)))?React.createElement(ReactMDL.Cell,cljs.core.clj__GT_js.call(null,props__40995__auto__),cljs.core.first.call(null,children__40996__auto__)):React.createElement(ReactMDL.Cell,cljs.core.clj__GT_js.call(null,props__40995__auto__),[children__40996__auto__])
+var G__37435__delegate = function (props__37408__auto__,children__37409__auto__){
+return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(0)))?React.createElement(ReactMDL.Cell,cljs.core.clj__GT_js.call(null,props__37408__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(1)))?React.createElement(ReactMDL.Cell,cljs.core.clj__GT_js.call(null,props__37408__auto__),cljs.core.first.call(null,children__37409__auto__)):React.createElement(ReactMDL.Cell,cljs.core.clj__GT_js.call(null,props__37408__auto__),[children__37409__auto__])
 )));
 };
-var G__41022 = function (props__40995__auto__,var_args){
-var children__40996__auto__ = null;
+var G__37435 = function (props__37408__auto__,var_args){
+var children__37409__auto__ = null;
 if (arguments.length > 1) {
-var G__41023__i = 0, G__41023__a = new Array(arguments.length -  1);
-while (G__41023__i < G__41023__a.length) {G__41023__a[G__41023__i] = arguments[G__41023__i + 1]; ++G__41023__i;}
-  children__40996__auto__ = new cljs.core.IndexedSeq(G__41023__a,0);
+var G__37436__i = 0, G__37436__a = new Array(arguments.length -  1);
+while (G__37436__i < G__37436__a.length) {G__37436__a[G__37436__i] = arguments[G__37436__i + 1]; ++G__37436__i;}
+  children__37409__auto__ = new cljs.core.IndexedSeq(G__37436__a,0);
 } 
-return G__41022__delegate.call(this,props__40995__auto__,children__40996__auto__);};
-G__41022.cljs$lang$maxFixedArity = 1;
-G__41022.cljs$lang$applyTo = (function (arglist__41024){
-var props__40995__auto__ = cljs.core.first(arglist__41024);
-var children__40996__auto__ = cljs.core.rest(arglist__41024);
-return G__41022__delegate(props__40995__auto__,children__40996__auto__);
+return G__37435__delegate.call(this,props__37408__auto__,children__37409__auto__);};
+G__37435.cljs$lang$maxFixedArity = 1;
+G__37435.cljs$lang$applyTo = (function (arglist__37437){
+var props__37408__auto__ = cljs.core.first(arglist__37437);
+var children__37409__auto__ = cljs.core.rest(arglist__37437);
+return G__37435__delegate(props__37408__auto__,children__37409__auto__);
 });
-G__41022.cljs$core$IFn$_invoke$arity$variadic = G__41022__delegate;
-return G__41022;
+G__37435.cljs$core$IFn$_invoke$arity$variadic = G__37435__delegate;
+return G__37435;
 })()
 ,null,"cell");
 redditv.components.mdl.progress_bar = rum.core.build_defc.call(null,(function() { 
-var G__41025__delegate = function (props__40995__auto__,children__40996__auto__){
-return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(0)))?React.createElement(ReactMDL.ProgressBar,cljs.core.clj__GT_js.call(null,props__40995__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__40996__auto__),(1)))?React.createElement(ReactMDL.ProgressBar,cljs.core.clj__GT_js.call(null,props__40995__auto__),cljs.core.first.call(null,children__40996__auto__)):React.createElement(ReactMDL.ProgressBar,cljs.core.clj__GT_js.call(null,props__40995__auto__),[children__40996__auto__])
+var G__37438__delegate = function (props__37408__auto__,children__37409__auto__){
+return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(0)))?React.createElement(ReactMDL.ProgressBar,cljs.core.clj__GT_js.call(null,props__37408__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(1)))?React.createElement(ReactMDL.ProgressBar,cljs.core.clj__GT_js.call(null,props__37408__auto__),cljs.core.first.call(null,children__37409__auto__)):React.createElement(ReactMDL.ProgressBar,cljs.core.clj__GT_js.call(null,props__37408__auto__),[children__37409__auto__])
 )));
 };
-var G__41025 = function (props__40995__auto__,var_args){
-var children__40996__auto__ = null;
+var G__37438 = function (props__37408__auto__,var_args){
+var children__37409__auto__ = null;
 if (arguments.length > 1) {
-var G__41026__i = 0, G__41026__a = new Array(arguments.length -  1);
-while (G__41026__i < G__41026__a.length) {G__41026__a[G__41026__i] = arguments[G__41026__i + 1]; ++G__41026__i;}
-  children__40996__auto__ = new cljs.core.IndexedSeq(G__41026__a,0);
+var G__37439__i = 0, G__37439__a = new Array(arguments.length -  1);
+while (G__37439__i < G__37439__a.length) {G__37439__a[G__37439__i] = arguments[G__37439__i + 1]; ++G__37439__i;}
+  children__37409__auto__ = new cljs.core.IndexedSeq(G__37439__a,0);
 } 
-return G__41025__delegate.call(this,props__40995__auto__,children__40996__auto__);};
-G__41025.cljs$lang$maxFixedArity = 1;
-G__41025.cljs$lang$applyTo = (function (arglist__41027){
-var props__40995__auto__ = cljs.core.first(arglist__41027);
-var children__40996__auto__ = cljs.core.rest(arglist__41027);
-return G__41025__delegate(props__40995__auto__,children__40996__auto__);
+return G__37438__delegate.call(this,props__37408__auto__,children__37409__auto__);};
+G__37438.cljs$lang$maxFixedArity = 1;
+G__37438.cljs$lang$applyTo = (function (arglist__37440){
+var props__37408__auto__ = cljs.core.first(arglist__37440);
+var children__37409__auto__ = cljs.core.rest(arglist__37440);
+return G__37438__delegate(props__37408__auto__,children__37409__auto__);
 });
-G__41025.cljs$core$IFn$_invoke$arity$variadic = G__41025__delegate;
-return G__41025;
+G__37438.cljs$core$IFn$_invoke$arity$variadic = G__37438__delegate;
+return G__37438;
 })()
 ,null,"progress-bar");
+redditv.components.mdl.spinner = rum.core.build_defc.call(null,(function() { 
+var G__37441__delegate = function (props__37408__auto__,children__37409__auto__){
+return sablono.interpreter.interpret.call(null,((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(0)))?React.createElement(ReactMDL.Spinner,cljs.core.clj__GT_js.call(null,props__37408__auto__)):((cljs.core._EQ_.call(null,cljs.core.count.call(null,children__37409__auto__),(1)))?React.createElement(ReactMDL.Spinner,cljs.core.clj__GT_js.call(null,props__37408__auto__),cljs.core.first.call(null,children__37409__auto__)):React.createElement(ReactMDL.Spinner,cljs.core.clj__GT_js.call(null,props__37408__auto__),[children__37409__auto__])
+)));
+};
+var G__37441 = function (props__37408__auto__,var_args){
+var children__37409__auto__ = null;
+if (arguments.length > 1) {
+var G__37442__i = 0, G__37442__a = new Array(arguments.length -  1);
+while (G__37442__i < G__37442__a.length) {G__37442__a[G__37442__i] = arguments[G__37442__i + 1]; ++G__37442__i;}
+  children__37409__auto__ = new cljs.core.IndexedSeq(G__37442__a,0);
+} 
+return G__37441__delegate.call(this,props__37408__auto__,children__37409__auto__);};
+G__37441.cljs$lang$maxFixedArity = 1;
+G__37441.cljs$lang$applyTo = (function (arglist__37443){
+var props__37408__auto__ = cljs.core.first(arglist__37443);
+var children__37409__auto__ = cljs.core.rest(arglist__37443);
+return G__37441__delegate(props__37408__auto__,children__37409__auto__);
+});
+G__37441.cljs$core$IFn$_invoke$arity$variadic = G__37441__delegate;
+return G__37441;
+})()
+,null,"spinner");

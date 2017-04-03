@@ -35,7 +35,8 @@
 (enable-console-print!)
 
 (defonce app-state
-  (atom {:initial-load? 0
+  (atom {:loading? true
+         :initial-load? 0
          :subreddit "videos"
          :playlist []
          :playlist-selected-index 0

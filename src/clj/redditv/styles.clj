@@ -111,6 +111,14 @@
     :line-height (px header-height)
     }]
 
+  [:#spinner-loading 
+   {:line-height (px header-height)
+    :margin-top (px 6)
+    :flex-shrink 0
+    :flex-grow 0
+    :margin-left "auto"
+    :margin-right (px 17)}]
+
   [:.redditv-sidepane
    {:position "absolute"
     :z-index 999
@@ -374,4 +382,5 @@
              :padding-right (px 10)
              :margin-left (px 80)}]
    [:option {:font-size (px 16)}]]
+
   )

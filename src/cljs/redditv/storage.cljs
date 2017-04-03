@@ -1,7 +1,10 @@
 (ns redditv.storage)
 
-(def has-local-storage? 
-  (instance? js/Storage js/localStorage))
+(def enabled? false)
+
+(def has-local-storage?
+  (and enabled?
+       (instance? js/Storage js/localStorage)))
 
 (def app-state-key "redditv-app-state")
 

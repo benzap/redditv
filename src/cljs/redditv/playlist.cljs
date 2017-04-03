@@ -1,9 +1,12 @@
 (ns redditv.playlist
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [redditv.utils :refer [set-hash! force-app-reload! app-hash open-reddit-comment]]
+  (:require [redditv.utils :refer [set-hash! force-app-reload! 
+                                   app-hash open-reddit-comment
+                                   set-loading-animation!]]
             [redditv.reddit :as reddit]))
 
 (defn reload [app-state & {:keys [search reload?] :or {search nil reload? false}}]
+  (set-loading-animation! app-state true)
   (go (let [{:keys [subreddit 
                     settings-show-nsfw 
                     settings-video-count
@@ -24,7 +27,8 @@
           (when reload?
             (force-app-reload! app-state))
           #_(.log js/console (clj->js videos))
-          ))))
+          ))
+      (set-loading-animation! app-state false)))
 
 (defn has-video-with-id? [app-state id]
   (let [playlist (-> @app-state :playlist)]

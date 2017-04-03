@@ -101,3 +101,6 @@
     (aget decoded-string "body" "textContent")))
 
 #_(decode-html-string test-uri)
+
+(defn set-loading-animation! [app-state x]
+  (swap! app-state assoc-in [:loading?] x))

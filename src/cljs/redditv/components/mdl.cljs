@@ -20,3 +20,5 @@
 (adapt-react cell js/ReactMDL.Cell)
 
 (adapt-react progress-bar js/ReactMDL.ProgressBar)
+
+(adapt-react spinner js/ReactMDL.Spinner)
