@@ -8,7 +8,9 @@
                     settings-show-nsfw 
                     settings-video-count
                     settings-video-category
-                    playlist-selected-index]} @app-state
+                    playlist-selected-index
+                    playlist-selected-id
+                    ]} @app-state
             [out err] (reddit/get-subreddit-videos subreddit {:allow-nsfw? settings-show-nsfw
                                                               :limit settings-video-count
                                                               :category settings-video-category})
@@ -21,15 +23,28 @@
           (set-hash! (app-hash app-state))
           (when reload?
             (force-app-reload! app-state))
-
-          (.log js/console (-> videos first clj->js))
+          #_(.log js/console (clj->js videos))
           ))))
 
+(defn has-video-with-id? [app-state id]
+  (let [playlist (-> @app-state :playlist)]
+    (->> playlist (filter #(= (:id %) id)) first boolean)))
+
+(defn get-index-of-id [app-state id]
+  (loop [i 0]
+    (let [video-id (-> @app-state :playlist (nth i) :id)]
+      (cond (= video-id id) i
+            (>= i (-> @app-state :playlist count dec)) nil
+            :else (recur (inc i))))))
+
 (defn get-selected [app-state]
-  (let [index (-> @app-state :playlist-selected-index)
-        playlist (-> @app-state :playlist)]
+  (let [playlist (-> @app-state :playlist)
+        index (-> @app-state :playlist-selected-index (mod (count playlist)))
+        id (-> @app-state :playlist-selected-id)]
+
+    ;;TODO: Grab selection based on video id
     (when (> (count playlist) 0)
-      (-> @app-state :playlist (nth index)))))
+      (nth playlist index))))
 
 (defn select-next [app-state]
   (let [{:keys [playlist-selected-index playlist subreddit]} @app-state

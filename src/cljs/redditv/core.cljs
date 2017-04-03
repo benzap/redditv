@@ -19,6 +19,7 @@
             [redditv.playlist :as playlist]
             [redditv.icons :as icons]
             [redditv.events :as events]
+            [redditv.storage :as storage]
 
             ;; Rum Components
             [redditv.components.header :refer [c-header]]
@@ -38,6 +39,7 @@
          :subreddit "videos"
          :playlist []
          :playlist-selected-index 0
+         :playlist-selected-id nil
          :show-playlist true
          :fullscreen false
          :show-search false
@@ -65,20 +67,36 @@
          :subreddit subreddit
          :settings-video-category
          (get query-params :sort "hot"))
-  (force-app-reload! app-state))
+  (force-app-reload! app-state)
+  (storage/save-app-state! @app-state))
 
 (defroute subreddit-path-with-index #"/r/([\w\d]+)/(\d+)"
   [subreddit index query-params]
   (swap! app-state assoc
          :subreddit subreddit
          :playlist-selected-index (parse-int index)
+         :playlist-selected-id nil
          :settings-video-category
          (get-in query-params [:query-params :sort] "hot"))
-  (force-app-reload! app-state))
+  (force-app-reload! app-state)
+  (storage/save-app-state! @app-state))
+
+(defroute subreddit-path-with-search #"/r/([\w\d]+)/(\d)/([\w\d]+)"
+  [subreddit index id query-params]
+  (swap! app-state assoc
+         :subreddit subreddit
+         :playlist-selected-index (parse-int index)
+         :playlist-selected-id id
+         :settings-video-category
+         (get-in query-params [:query-params :sort] "hot"))
+  (force-app-reload! app-state)
+  (storage/save-app-state! @app-state))
 
 ;; Default route goes to /r/videos
 (defroute default-route "*" []
-  (playlist/reload app-state)
+  (if-let [state (storage/load-app-state)]
+    (reset! app-state state)
+    (playlist/reload app-state))
   (force-app-reload! app-state))
 
 ;; Quick and dirty history configuration.

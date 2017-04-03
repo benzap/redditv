@@ -1,6 +1,6 @@
 (ns redditv.reddit
   (:require-macros [cljs.core.async.macros :refer [go]])
-  (:require [cljs.core.async :refer [put! chan <!]]
+  (:require [cljs.core.async :refer [put! chan <! close!]]
             [redditv.jsonp :refer [send-jsonp]]
             [redditv.youtube :as yt]
             [redditv.vimeo :as vimeo]))
@@ -37,3 +37,31 @@
                        videos)]
           (put! output-channel videos)))
     [output-channel error-channel]))
+
+(defn get-subreddit-post-by-id [id]
+  (let [output-channel (chan)
+        url (str reddit-url "/comments/" id "/.json")
+        [success-channel error-channel] (send-jsonp url)]
+    (go (let [result (js->clj (<! success-channel) :keywordize-keys true)
+              data (-> result first :data :children first :data)]
+          (if data
+            (put! output-channel data)
+            (close! output-channel))))
+    [output-channel error-channel]))
+
+(defn get-subreddit-video-by-id [id]
+  (let [output-channel (chan)
+        [success-channel error-channel] (get-subreddit-post-by-id id)]
+    (go (if-let [video (<! success-channel)]
+          (if (post-is-video? video)
+            (put! output-channel video)
+            (close! output-channel))
+          (close! output-channel)))
+    [output-channel error-channel]))
+
+#_(let [[result err] (get-subreddit-video-by-id "6341y1fsdf")]
+    (go (if-let [data (<! result)]
+          (.log js/console (clj->js data))
+          (.log js/console "Video does not exist"))
+        (when-let [err (<! err)]
+          (.log js/console err))))

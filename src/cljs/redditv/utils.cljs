@@ -69,10 +69,16 @@
 
 (defn app-hash [app-state]
   (let [{:keys [subreddit playlist-selected-index
+                playlist
                 settings-video-category]} @app-state]
     (if (= settings-video-category "hot")
-      (str "/r/" subreddit "/" playlist-selected-index)
-      (str "/r/" subreddit "/" playlist-selected-index
+      (str "/r/" subreddit
+           "/" playlist-selected-index
+           ;;"/" (-> playlist (nth playlist-selected-index) :id)
+           )
+      (str "/r/" subreddit
+           "/" playlist-selected-index
+           ;;"/" (-> playlist (nth playlist-selected-index) :id)
            "?sort=" settings-video-category))))
 
 (defn open-link-external-window [link]
