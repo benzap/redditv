@@ -94,6 +94,15 @@ body {
   line-height: 40px;
 }
 
+#spinner-loading {
+  line-height: 40px;
+  margin-top: 6px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin-left: auto;
+  margin-right: 17px;
+}
+
 .redditv-sidepane {
   position: absolute;
   z-index: 999;
@@ -307,13 +316,14 @@ body {
 }
 
 #input-search-bar {
-  background-color: black;
-  font-size: 24px;
   vertical-align: middle;
+  font-size: 24px;
+  background-color: black;
+  width: 270px;
   padding: 0 5px 0 5px;
-  border-radius: 3px;
   outline: none;
   border: none;
+  border-radius: 3px;
   margin: 6px;
 }
 
