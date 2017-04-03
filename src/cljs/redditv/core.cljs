@@ -116,10 +116,10 @@
                          (playlist/select-prev app-state)
                          39 ;; Right Arrow Key
                          (playlist/select-next app-state)
-                         83
+                         83 ;; Letter 's'
                          (swap! app-state assoc :show-search true)
-                         67
-                         #_(playlist/open-current-video-comments app-state)
+                         67 ;; Letter 'c'
+                         (playlist/open-current-video-comments app-state)
                          :else nil))))))})
 
 (rum/defc app 
