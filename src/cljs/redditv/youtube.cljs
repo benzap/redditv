@@ -5,7 +5,9 @@
             [redditv.player :as player]
             [redditv.events :as events]))
 
-(def regex-youtube-url #"^https?://www\.youtube\.com/.*?v=([a-zA-Z0-9_-]+)&?.*")
+(def test-url "https://youtube.com/watch?v=zB4I68XVPzQ")
+
+(def regex-youtube-url #"^https?://w{0,3}\.?youtube\.com/.*?v=([a-zA-Z0-9_-]+)&?.*")
 (def regex-youtube-shortened-url #"^https?://youtu\.be/([a-zA-Z0-9_-]+)\??.*")
 
 (defn video-url->video-id [url]
@@ -16,6 +18,7 @@
     (->> url (re-matches regex-youtube-shortened-url) second)
     ))
 
+(video-url->video-id test-url)
 ;;(video-url->video-id "https://www.youtube.com/watch?v=wM75ulDRkhI&t=10")
 ;;(video-url->video-id "https://youtu.be/vC9Qh709gas?t=1m13s")
 
@@ -61,6 +64,9 @@
   (-> (or (re-matches regex-youtube-url url)
           (re-matches regex-youtube-shortened-url url))
       boolean))
+
+
+(is-youtube-url? test-url)
 
 ;;(is-youtube-url? "https://www.youtube.com/watch?v=wM75ulDRkhI&start=10")
 
