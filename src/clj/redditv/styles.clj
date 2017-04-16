@@ -76,7 +76,7 @@
   [:.redditv-header-fullscreen
    {:position "absolute"
     :z-index 999
-    :top 0
+    :top (px 30)
     :left 0
     :right 0
     :height (px header-height)
@@ -424,4 +424,28 @@
              :margin-left (px 80)}]
    [:option {:font-size (px 16)}]]
 
+  [:.redditv-fullscreen-controls
+   {:display "flex"
+    :flex-direction "column"
+    :justify-content "center"
+    :position "absolute"
+    :z-index 999
+    :right 0
+    :width (px sidepane-width)
+    :top (px (* sidepane-width 2))
+    :bottom (px (* sidepane-width 2))
+    :overflow "hidden"}]
+
+  [:.redditv-button-fullscreen
+   {:position "relative"
+    :z-index 999
+    :height (px sidepane-width)
+    :width (px sidepane-width)
+    :text-align "center"
+    :line-height (px sidepane-width)
+    :background-color (rgba 13 13 13 0.33)
+    :cursor "pointer"}
+   [:&:hover
+    {:background-color (rgba 13 13 13 0.66)}]]
+  
   )

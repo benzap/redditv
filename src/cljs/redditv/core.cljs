@@ -27,6 +27,7 @@
             [redditv.components.sidepane :refer [c-sidepane]]
             [redditv.components.playlist :refer [c-playlist]]
             [redditv.components.player :refer [c-player]]
+            [redditv.components.fullscreen-controls :refer [c-fullscreen-controls]]
 
             ;; JS Dependencies
             [cljsjs.react-select]
@@ -133,7 +134,8 @@
    (c-header app-state)
    (c-sidepane app-state)
    (c-player app-state initial-load? playlist-index show-playlist fullscreen)
-   (c-playlist app-state)])
+   (c-playlist app-state)
+   (c-fullscreen-controls app-state)])
 
 (playlist/reload app-state :reload? true)
 
