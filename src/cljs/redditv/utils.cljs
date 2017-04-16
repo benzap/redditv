@@ -104,3 +104,18 @@
 
 (defn set-loading-animation! [app-state x]
   (swap! app-state assoc-in [:loading?] x))
+
+(defn app-css-class-layout [app-state class-name & {:keys [compressed? fullscreen?]
+                                                    :or {compressed? true
+                                                         fullscreen? true}}]
+  (let [class-name (cond (keyword? class-name) (name class-name)
+                         (string? class-name) (str class-name))]
+  (cond
+    ;; Apply "-fullscreen"
+    (and fullscreen? (-> @app-state :fullscreen))
+    (keyword (str class-name "-fullscreen"))
+    (and compressed? (-> @app-state :show-playlist not))
+    (keyword (str class-name "-compressed"))
+    :else
+    (keyword class-name)
+    )))

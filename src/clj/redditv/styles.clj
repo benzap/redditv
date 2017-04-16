@@ -1,8 +1,8 @@
 (ns redditv.styles
   (:require
-    [garden.def :refer [defstyles]]
-    [garden.color :as color :refer [hsl rgb rgba]]
-    [garden.units :refer [px]]))
+   [garden.def :refer [defstyles]]
+   [garden.color :as color :refer [hsl rgb rgba]]
+   [garden.units :refer [px]]))
 
 (def font-mono "'Roboto', sans-serif")
 
@@ -73,9 +73,25 @@
     :background-color color-foreground
     :line-height (px header-height)}]
 
+  [:.redditv-header-fullscreen
+   {:position "absolute"
+    :z-index 999
+    :top 0
+    :left 0
+    :right 0
+    :height (px header-height)
+    :background-color (rgba 0 0 0 0)
+    :line-height (px header-height)}]
+
   [:.redditv-header-flex
    {:display "flex"
     :flex-direction "row"
+    :flex-wrap "nowrap"}]
+
+  [:.redditv-header-flex-fullscreen
+   {:display "flex"
+    :flex-direction "row"
+    :justify-content "center"
     :flex-wrap "nowrap"}]
 
   [:.header-logo
@@ -101,6 +117,17 @@
     :border-bottom-right-radius (px 20)}]
 
   [:.header-title
+   {:height (px header-height)
+    :padding-left (px 20)
+    :padding-right (px 20)
+    :font-size (px 20)
+    :overflow "hidden"
+    :text-overflow "ellipsis"
+    :white-space "nowrap"
+    :line-height (px header-height)
+    }]
+
+  [:.header-title-fullscreen
    {:height (px header-height)
     :padding-left (px 20)
     :padding-right (px 20)
@@ -137,6 +164,9 @@
     :width (px sidepane-width)
     :background-color color-foreground}]
 
+  [:.redditv-sidepane-fullscreen
+   {:display "none"}]
+
   [:.redditv-playlist
    {:position "absolute"
     :left 0
@@ -153,6 +183,9 @@
     :height (px sidepane-width)
     :background-color color-foreground}]
 
+  [:.redditv-playlist-fullscreen
+   {:display "none"}]
+
   [:.redditv-playlist-count
    {:display "inline-block"
     :height (px sidepane-width)
@@ -167,10 +200,10 @@
 
   [:.redditv-playlist-progress
    {:position "absolute"
-    :right (px (* sidepane-width 2))
+    :right 0
     :top 0
     :left (px (* sidepane-width 2))
-    :width "100%"}]
+    :width "initial"}]
 
   [:.redditv-playlist-container
    {:position "absolute"
@@ -184,7 +217,7 @@
     :white-space "nowrap"}
    [:.compressed
     {:height (px sidepane-width)
-    :right (px (* 2 sidepane-width))}]]
+     :right (px (* 2 sidepane-width))}]]
 
   [:.redditv-playlist-container-compressed
    {:position "absolute"
@@ -232,6 +265,14 @@
     :left (px sidepane-width)
     :right 0
     :bottom (px sidepane-width)
+    :background-color "black"}]
+
+[:#redditv-player-container-fullscreen
+   {:position "absolute"
+    :top 0
+    :left 0
+    :right 0
+    :bottom 0
     :background-color "black"}]
 
   [:#redditv-player

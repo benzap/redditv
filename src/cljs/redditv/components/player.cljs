@@ -7,6 +7,7 @@
             [redditv.youtube :as yt]
             [redditv.vimeo :as vimeo]
             [redditv.events :as events]
+            [redditv.utils :refer [app-css-class-layout]]
             ))
 
 (def player-instance (atom nil))
@@ -79,6 +80,7 @@
   [state app-state initial-load? playlist-index show-playlist fullscreen]
   (let [initial-load? (rum/react initial-load?)
         index (rum/react playlist-index)
-        show-playlist (rum/react show-playlist)]
-    [(if show-playlist :#redditv-player-container :#redditv-player-container-compressed)
+        show-playlist (rum/react show-playlist)
+        fullscreen (rum/react fullscreen)]
+    [(app-css-class-layout app-state :#redditv-player-container)
      [:#redditv-player]]))

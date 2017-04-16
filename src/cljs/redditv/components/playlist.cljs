@@ -4,7 +4,8 @@
             [rum.core :as rum]
             [redditv.playlist :as playlist]
             [redditv.utils :refer [align-to-root-left clear-scroll set-hash!
-                                   app-hash decode-html-string]]
+                                   app-hash decode-html-string
+                                   app-css-class-layout]]
             [redditv.components.mdl :as mdl]))
 
 (def nsfw-thumbnail-url "http://i.imgur.com/KZOsckv.jpg")
@@ -78,7 +79,7 @@
                 show-playlist]} (rum/react app-state)
         playlist-items (map-indexed vector playlist)
         select-chan (::select-chan state)]
-    [(if show-playlist :.redditv-playlist :.redditv-playlist-compressed)
+    [(app-css-class-layout app-state :.redditv-playlist)
      [(if show-playlist :.redditv-playlist-rightpane :.redditv-playlist-rightpane-compressed)
       (mdl/icon {:name (if show-playlist "arrow_drop_down" "arrow_drop_up")
                  :className "redditv-button noselect"

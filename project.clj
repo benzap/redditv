@@ -29,7 +29,7 @@
 
   :min-lein-version "2.6.1"
 
-  :source-paths ["src/clj" "src/cljs" "dev"]
+  :source-paths ["src/clj" "src/cljc" "src/cljs" "dev"]
 
   :test-paths ["test/clj"]
 
@@ -52,7 +52,7 @@
 
   :cljsbuild {:builds
               {:app
-               {:source-paths ["src/cljs"]
+               {:source-paths ["src/cljc" "src/cljs"]
 
                 :figwheel true
                 ;; Alternatively, you can configure a function to run every time figwheel reloads.
@@ -64,7 +64,7 @@
                            :output-dir "resources/public/js/compiled/out"
                            :source-map-timestamp true}}
                :prod
-               {:source-paths ["src/cljs"]
+               {:source-paths ["src/cljc" "src/cljs"]
                 :compiler {:main redditv.core
                            :asset-path "js/compiled/out"
                            :output-to "dist/js/compiled/redditv.js"
@@ -98,7 +98,7 @@
 
               :cljsbuild {:builds
                           {:test
-                           {:source-paths ["src/cljs" "test/cljs"]
+                           {:source-paths ["src/cljc" "test/cljs"]
                             :compiler
                             {:output-to "resources/public/js/compiled/testable.js"
                              :main redditv.test-runner
@@ -111,7 +111,7 @@
               :aot :all
               :cljsbuild {:builds
                           {:app
-                           {:source-paths ^:replace ["src/cljs"]
+                           {:source-paths ^:replace ["src/cljc" "src/cljs"]
                             :compiler
                             {:optimizations :simple
                              :pretty-print false}}}}}})

@@ -4,7 +4,8 @@
             [redditv.icons :as icons]
             [redditv.playlist :as playlist]
             [redditv.components.settings :refer [c-settings]]
-            [redditv.components.mdl :as mdl]))
+            [redditv.components.mdl :as mdl]
+            [redditv.utils :refer [app-css-class-layout]]))
 
 (defn search-subreddit [app-state subreddit]
   (swap! app-state assoc
@@ -37,7 +38,7 @@
   (let [{:keys [show-search show-settings subreddit show-playlist]} (rum/react app-state)
         search-value (::search-value state)]
 
-    [(if show-playlist :.redditv-sidepane :.redditv-sidepane-compressed)
+    [(app-css-class-layout app-state :.redditv-sidepane)
      ;;Search Button and Toggling
      (mdl/tooltip
       {:label "Search Subreddits" :position "right"}

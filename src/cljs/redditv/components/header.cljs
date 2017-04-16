@@ -9,9 +9,14 @@
   (let [{:keys [subreddit loading?]} (rum/react app-state)
         selected (playlist/get-selected app-state)
         title (-> selected :title str decode-html-string)]
-    [:.redditv-header
-     [:.redditv-header-flex
-      [:.header-logo "redditv"]
-      [:.header-subreddit (str "/r/" subreddit)]
-      [:.header-title {:title title} title]
-      (when loading? (mdl/spinner {:id "spinner-loading"}))]]))
+    (if-not (-> @app-state :fullscreen)
+      [:.redditv-header
+       [:.redditv-header-flex
+        [:.header-logo "redditv"]
+        [:.header-subreddit (str "/r/" subreddit)]
+        [:.header-title {:title title} title]
+        (when loading? (mdl/spinner {:id "spinner-loading"}))]]
+      ;; Fullscreen Header Layout
+      [:.redditv-header-fullscreen
+       [:.redditv-header-flex-fullscreen
+        [:.header-title-fullscreen {:title title} title]]])))

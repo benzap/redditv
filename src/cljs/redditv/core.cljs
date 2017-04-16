@@ -11,7 +11,8 @@
                                    set-hash!
                                    force-app-reload!
                                    app-hash
-                                   query-in-focus?]]
+                                   query-in-focus?
+                                   app-css-class-layout]]
             [redditv.player :as p]
             [redditv.youtube :as yt]
             [redditv.utils :as utils]
@@ -113,6 +114,8 @@
                    (when-not (query-in-focus? "#input-search-bar")
                      (let [keycode (-> e .-keyCode)]
                        (case keycode
+                         27 ;; ESC Key
+                         (swap! app-state assoc :fullscreen false)
                          37 ;; Left Arrow Key
                          (playlist/select-prev app-state)
                          39 ;; Right Arrow Key
@@ -121,7 +124,7 @@
                          (swap! app-state assoc :show-search true)
                          67 ;; Letter 'c'
                          (playlist/open-current-video-comments app-state)
-                         :else nil))))))})
+                         nil))))))})
 
 (rum/defc app 
   < mixin-keyboard-controls
@@ -135,5 +138,3 @@
 (playlist/reload app-state :reload? true)
 
 (rum/mount (app) (.querySelector js/document "#app"))
-
-
