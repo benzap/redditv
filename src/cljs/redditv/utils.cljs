@@ -1,5 +1,6 @@
 (ns redditv.utils
-  (:require [clojure.string :as string]))
+  (:require [goog.functions]
+            [clojure.string :as string]))
 
 (defn dom-clear-children 
   [div-id]
@@ -100,11 +101,15 @@
   "Set the location hash of a js/window object." 
   (aset js/window "location" "hash" v))
 
-(defn force-app-reload! [app-state]
+(defn -force-app-reload! [app-state]
   (swap! app-state update-in [:initial-load?] inc))
 
+(def force-app-reload! (goog.functions.debounce -force-app-reload!))
+
 (defn app-hash [app-state]
-  (let [{:keys [subreddit playlist-selected-index
+  (let [{:keys [subreddit
+                playlist-selected-index
+                playlist-selected-search
                 playlist
                 settings-video-category
                 settings-video-count
@@ -112,7 +117,7 @@
                 settings-show-nsfw]} @app-state]
     (str "/r/" subreddit
          "/" playlist-selected-index
-         ;;"/" (-> playlist (nth playlist-selected-index) :id)
+         (when playlist-selected-search (str "/" (.encodeURIComponent js/window playlist-selected-search)))
          (gen-query-params 
           {:sort (when (not= settings-video-category "hot") settings-video-category)
            :count (when (not= settings-video-count 100) settings-video-count)

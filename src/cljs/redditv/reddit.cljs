@@ -9,7 +9,7 @@
 
 (def reddit-url "https://www.reddit.com")
 
-(defn generate-url [subreddit {:keys [limit category]
+(defn generate-subreddit-url [subreddit {:keys [limit category]
                                :or {limit 100 category "hot"}}]
   (let [base-url (str reddit-url "/r/" subreddit)
         link-categories #{"hot" "new" "rising"}
@@ -21,11 +21,24 @@
                                             :sort sort
                                             :t time})))))
                              
-#_(generate-url "videos" {:category "top_yearly" :limit 100})
+#_(generate-subreddit-url "videos" {:category "top_yearly" :limit 100})
+
+(defn generate-search-url [subreddit search & {:keys [category]
+                                               :or {category "relevance_all"}}]
+  (let [base-url (str reddit-url "/r/" subreddit "/search")
+        search (.encodeURIComponent js/window search)
+        [sort time] (string/split category #"_")]
+    (str base-url ".json" (gen-query-params
+                           {:q search
+                            :sort sort
+                            :t (or time "relevance")
+                            :restrict_sr "on"}))))
+
+(generate-search-url "videos" "doggo")
 
 (defn get-subreddit-posts [subreddit opts]
   (let [output-channel (chan)
-        url (generate-url subreddit opts)
+        url (generate-subreddit-url subreddit opts)
         [success-channel error-channel] (send-jsonp url)]
     (go (let [result (js->clj (<! success-channel) :keywordize-keys true)
               data (-> result :data :children vec)]
@@ -73,7 +86,29 @@
           (close! output-channel)))
     [output-channel error-channel]))
 
-#_(let [[result err] (get-subreddit-video-by-id "6341y1f")]
+(defn get-search-posts [subreddit search opts]
+  (let [output-channel (chan)
+        url (generate-search-url subreddit search)
+        _ (.log js/console "search-url" url)
+        [success-channel error-channel] (send-jsonp url)]
+    (go (let [result (js->clj (<! success-channel) :keywordize-keys true)
+              data (-> result :data :children vec)]
+          (put! output-channel (map #(:data %) data))))
+    [output-channel error-channel]))
+
+(defn get-search-videos [subreddit search opts]
+  (let [{:keys [allow-nsfw?]} opts
+        output-channel (chan)
+        [success-channel error-channel] (get-search-posts subreddit search opts)]
+    (go (let [posts (<! success-channel)
+              videos (filterv post-is-video? posts)
+              videos (if-not allow-nsfw? 
+                       (filterv (complement post-is-nsfw?) videos)
+                       videos)]
+          (put! output-channel videos)))
+    [output-channel error-channel]))
+
+#_(let [[result err] (get-search-videos "youtubehaiku" "doggo")]
     (go (if-let [data (<! result)]
           (.log js/console (clj->js data))
           (.log js/console "Video does not exist"))

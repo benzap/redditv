@@ -12,11 +12,13 @@
                     settings-video-count
                     settings-video-category
                     playlist-selected-index
-                    playlist-selected-id
+                    playlist-selected-search
                     ]} @app-state
-            [out err] (reddit/get-subreddit-videos subreddit {:allow-nsfw? settings-show-nsfw
-                                                              :limit settings-video-count
-                                                              :category settings-video-category})
+            [out err] (if-not playlist-selected-search
+                        (reddit/get-subreddit-videos subreddit {:allow-nsfw? settings-show-nsfw
+                                                                :limit settings-video-count
+                                                                :category settings-video-category})
+                        (reddit/get-search-videos subreddit playlist-selected-search {}))
             videos (<! out)]
         (when videos
           (swap! app-state merge 
@@ -43,10 +45,8 @@
 
 (defn get-selected [app-state]
   (let [playlist (-> @app-state :playlist)
-        index (-> @app-state :playlist-selected-index (mod (count playlist)))
-        id (-> @app-state :playlist-selected-id)]
+        index (-> @app-state :playlist-selected-index (mod (count playlist)))]
 
-    ;;TODO: Grab selection based on video id
     (when (> (count playlist) 0)
       (nth playlist index))))
 

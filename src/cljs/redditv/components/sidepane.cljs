@@ -10,7 +10,8 @@
 (defn search-subreddit [app-state subreddit]
   (swap! app-state assoc
          :subreddit subreddit
-         :playlist-selected-index 0)
+         :playlist-selected-index 0
+         :playlist-selected-search nil)
   (playlist/reload app-state :reload? true)
   (set-hash! (app-hash app-state)))
 
@@ -50,7 +51,7 @@
        [:.redditv-search-dialog.right-border-radius.anim-slideInLeft
         [:input#input-search-bar
          {:type "text"
-          :placeholder "SubReddit Name"
+          :placeholder "Subreddit Name"
           :value @search-value
           :on-change 
           (fn [e]

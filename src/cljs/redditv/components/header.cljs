@@ -26,6 +26,7 @@
   (swap! app-state assoc
          :subreddit subreddit
          :playlist-selected-index 0
+         :playlist-selected-search nil
          :show-subreddits false)
   (playlist/reload app-state :reload? true)
   (set-hash! (app-hash app-state)))

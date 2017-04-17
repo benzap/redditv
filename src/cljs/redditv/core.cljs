@@ -43,7 +43,7 @@
          :subreddit "videos"
          :playlist []
          :playlist-selected-index 0
-         :playlist-selected-id nil
+         :playlist-selected-search nil
          :show-playlist true
          :fullscreen false
          :show-search false
@@ -79,7 +79,7 @@
   (swap! app-state assoc
          :subreddit subreddit
          :playlist-selected-index (parse-int index)
-         :playlist-selected-id nil
+         :playlist-selected-search nil
          :settings-video-category (get-in query-params [:query-params :sort] "hot")
          :settings-video-count (parse-int (get-in query-params [:query-params :count] "100"))
          :fullscreen (parse-bool (get-in query-params [:query-params :fullscreen] "false"))
@@ -88,12 +88,12 @@
   (storage/save-app-state! @app-state))
 
 (defroute subreddit-path-with-search #"/r/([\w\d]+)/(\d)/([\w\d]+)"
-  [subreddit index id query-params]
+  [subreddit index search query-params]
   (swap! app-state assoc
          :subreddit subreddit
          :playlist-selected-index (parse-int index)
-         :playlist-selected-id id
-         :settings-video-category (get-in query-params [:query-params :sort] "hot"))
+         :playlist-selected-search search
+         :settings-video-category "hot")
   (force-app-reload! app-state)
   (storage/save-app-state! @app-state))
 
