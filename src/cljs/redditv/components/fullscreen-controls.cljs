@@ -20,6 +20,10 @@
                   :title "Play Previous Video"
                   :onClick #(playlist/select-prev app-state)})
 
+       (mdl/icon {:name "comment" :className "redditv-button-fullscreen noselect"
+                  :title "View Reddit Comments"
+                  :onClick #(playlist/open-current-video-comments app-state)})
+
        (mdl/icon {:name "fullscreen_exit" :className "redditv-button-fullscreen noselect"
                   :title "Exit Fullscreen"
                   :onClick #(swap! app-state assoc :fullscreen false)})
