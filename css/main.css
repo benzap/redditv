@@ -91,14 +91,16 @@ body {
 
 .header-subreddit {
   line-height: 40px;
-  text-align: center;
-  font-size: 20px;
-  border-top-right-radius: 20px;
-  background-color: #607D8B;
-  padding-right: 20px;
-  padding-left: 16px;
-  border-bottom-right-radius: 20px;
   height: 40px;
+  text-align: center;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+  cursor: pointer;
+  font-size: 20px;
+  background-color: #607D8B;
+  padding-right: 10px;
+  display: flex;
+  padding-left: 15px;
 }
 
 .header-title {
@@ -503,4 +505,50 @@ body {
 
 .redditv-button-fullscreen:hover {
   background-color: hsla(0, 0%, 5.098039%, 0.66);
+}
+
+.redditv-header-button {
+  line-height: 40px;
+  height: 40px;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.redditv-header-button:hover {
+  color: hsla(0, 0%, 5.098039%, 1.0);
+}
+
+.header-subreddit-listing {
+  position: fixed;
+  z-index: 199;
+  top: 40px;
+  left: 120px;
+  height: 200px;
+  width: 200px;
+}
+
+.header-subreddit-container {
+  position: relative;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.header-subreddit-listing-element {
+  line-height: 24px;
+  padding-bottom: 5px;
+  height: 24px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  overflow: hidden;
+  font-size: 18px;
+  background-color: hsla(0, 0%, 14.117647%, 0.66);
+  padding-right: 10px;
+  padding-left: 15px;
+  padding-top: 5px;
+}
+
+.header-subreddit-listing-element:hover {
+  background-color: hsla(0, 0%, 14.117647%, 1.0);
 }
