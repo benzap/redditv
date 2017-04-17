@@ -18,7 +18,7 @@
                         (reddit/get-subreddit-videos subreddit {:allow-nsfw? settings-show-nsfw
                                                                 :limit settings-video-count
                                                                 :category settings-video-category})
-                        (reddit/get-search-videos subreddit playlist-selected-search {}))
+                        (reddit/get-search-videos subreddit playlist-selected-search {:allow-nsfw? settings-show-nsfw}))
             videos (<! out)]
         (when videos
           (swap! app-state merge 
