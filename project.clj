@@ -68,8 +68,8 @@
                 :compiler {:main redditv.core
                            :asset-path "js/compiled/out"
                            :output-to "dist/js/compiled/redditv.js"
-                           :output-dir "dist/js/compiled/out"
-                           :optimizations :simple
+                           :optimizations :whitespace
+                           :pretty-print true
                            }}}}
 
   ;; When running figwheel from nREPL, figwheel will read this configuration
