@@ -17,10 +17,13 @@
 (def header-height 40)
 (def playlist-height 140)
 (def sidepane-width 40)
+(def header-logo-width 120)
 
 (def color-entry-hover "#90A4AE")
 
 (def default-border-radius 16)
+
+(def subreddit-bar-radius 3)
 
 ;; Search Bar
 (def search-bar-width 300)
@@ -97,7 +100,7 @@
   [:.header-logo
    {:background-color (color/darken color-button2-default 30)
     :height (px header-height)
-    :width (px 120)
+    :width (px header-logo-width)
     :flex-shrink 0
     :flex-basis (px 120)
     :flex-grow 0
@@ -106,10 +109,12 @@
     :font-weight "bold"}]
 
   [:.header-subreddit
-   {:background-color color-background
+   {:display "flex"
+    :cursor "pointer"
+    :background-color color-background
     :height (px header-height)
-    :padding-left (px 16)
-    :padding-right (px 20)
+    :padding-left (px 15)
+    :padding-right (px 10)
     :text-align "center"
     :font-size (px 20)
     :border-top-right-radius (px 20)
@@ -448,4 +453,50 @@
    [:&:hover
     {:background-color (rgba 13 13 13 0.66)}]]
   
+  [:.redditv-header-button
+   {:line-height (px header-height)
+    :height (px header-height)
+    :padding-left (px 5)
+    :cursor "pointer"}
+   [:&:hover
+    {:color (rgba 13 13 13 1.0)}]]
+
+  [:.header-subreddit-listing
+   {:position "fixed"
+    :z-index 199
+    :top (px header-height)
+    :left (px header-logo-width)
+    :height (px 200)
+    :width (px 200)
+    }]
+
+  [:.header-subreddit-container
+   {
+    ;;:display "flex"
+    :position "relative"
+    ;;:width "100%"
+    :height "100%"
+    :overflow-x "hidden"
+    :overflow-y "auto"
+    ;;:flex-direction "column"
+    }]
+
+  [:.header-subreddit-listing-element
+   {:padding-top (px 5)
+    :padding-bottom (px 5)
+    :padding-left (px 15)
+    :padding-right (px 10)
+    :overflow "hidden"
+    :text-overflow "ellipsis"
+    :white-space "nowrap"
+    :font-size (px 18)
+    :background-color (rgba 36 36 36 0.66)
+    :cursor "pointer"
+    :line-height (px 24)
+    :height (px 24)}
+   [:&:hover
+    {:background-color (rgba 36 36 36 1.00)}]]
+
+
+
   )

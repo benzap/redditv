@@ -68,6 +68,7 @@
                 :compiler {:main redditv.core
                            :asset-path "js/compiled/out"
                            :output-to "dist/js/compiled/redditv.js"
+                           :output-dir "dist/js/compiled/out"
                            :optimizations :whitespace
                            :pretty-print true
                            }}}}
