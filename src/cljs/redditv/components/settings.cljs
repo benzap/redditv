@@ -1,7 +1,8 @@
 (ns redditv.components.settings
   (:require [rum.core :as rum]
             [redditv.playlist :as playlist]
-            [redditv.components.mdl :as mdl]))
+            [redditv.components.mdl :as mdl]
+            [redditv.utils :refer [parse-int]]))
 
 (rum/defcs c-settings
   < rum/reactive
@@ -18,7 +19,7 @@
       
       ;; Close Button
       [:.redditv-dialog-close
-       (mdl/fab-button 
+       (mdl/fab-button
         {:ripple true 
          :colored true
          :onClick (fn [e] (swap! app-state assoc :show-settings false))}
@@ -55,11 +56,12 @@
          {}
          (mdl/cell {:col 4} (.span js/React.DOM #js {:style #js {:fontSize "16px"}}
                                    "# Playlist Videos"))
-         (mdl/cell {:col 6} (mdl/slider {:min 10 :max 250 :value settings-video-count
+         (mdl/cell {:col 6} (mdl/slider {:min 10 :max 100 :value settings-video-count
                                          :onChange 
                                          (fn [e] 
                                            (swap! app-state assoc
-                                                  :settings-video-count (-> e .-target .-value)
+                                                  :settings-video-count
+                                                  (-> e .-target .-value parse-int)
                                                   :playlist-selected-index 0)
                                            (playlist/reload app-state))}))
          (mdl/cell {:col 2} (.span js/React.DOM #js {} (str settings-video-count))))]
@@ -76,7 +78,21 @@
          [:option {:value "hot"} "Hot"]
          [:option {:value "new"} "New"]
          [:option {:value "rising"} "Rising"]
-         [:option {:value "controversial"} "Controversial"]
-         [:option {:value "top"} "Top"]]]
+         
+         ;; Controversial
+         [:option {:value "controversial_hour"} "Controversial (Past Hour)"]
+         [:option {:value "controversial_day"} "Controversial (Past 24 Hours)"]
+         [:option {:value "controversial_week"} "Controversial (Past Week)"]
+         [:option {:value "controversial_month"} "Controversial (Past Month)"]
+         [:option {:value "controversial_year"} "Controversial (Past Year)"]
+         [:option {:value "controversial_all"} "Controversial (All Time)"]
+
+         ;; Top
+         [:option {:value "top_hour"} "Top (Past Hour)"]
+         [:option {:value "top_day"} "Top (Past 24 Hours)"]
+         [:option {:value "top_week"} "Top (Past Week)"]
+         [:option {:value "top_month"} "Top (Past Month)"]
+         [:option {:value "top_year"} "Top (Past Year)"]
+         [:option {:value "top_all"} "Top (All Time)"]]]
       
       ]]]))

@@ -8,6 +8,7 @@
 
             ;; Local
             [redditv.utils :refer [parse-int
+                                   parse-bool
                                    set-hash!
                                    force-app-reload!
                                    app-hash
@@ -68,8 +69,8 @@
   [subreddit query-params]
   (swap! app-state assoc
          :subreddit subreddit
-         :settings-video-category
-         (get query-params :sort "hot"))
+         :settings-video-category (get query-params :sort "hot")
+         :settings-video-count (parse-int (get query-params :count "100")))
   (force-app-reload! app-state)
   (storage/save-app-state! @app-state))
 
@@ -79,8 +80,10 @@
          :subreddit subreddit
          :playlist-selected-index (parse-int index)
          :playlist-selected-id nil
-         :settings-video-category
-         (get-in query-params [:query-params :sort] "hot"))
+         :settings-video-category (get-in query-params [:query-params :sort] "hot")
+         :settings-video-count (parse-int (get-in query-params [:query-params :count] "100"))
+         :fullscreen (parse-bool (get-in query-params [:query-params :fullscreen] "false"))
+         )
   (force-app-reload! app-state)
   (storage/save-app-state! @app-state))
 
@@ -90,8 +93,7 @@
          :subreddit subreddit
          :playlist-selected-index (parse-int index)
          :playlist-selected-id id
-         :settings-video-category
-         (get-in query-params [:query-params :sort] "hot"))
+         :settings-video-category (get-in query-params [:query-params :sort] "hot"))
   (force-app-reload! app-state)
   (storage/save-app-state! @app-state))
 

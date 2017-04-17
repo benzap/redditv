@@ -1,17 +1,31 @@
 (ns redditv.reddit
   (:require-macros [cljs.core.async.macros :refer [go]])
-  (:require [cljs.core.async :refer [put! chan <! close!]]
+  (:require [clojure.string :as string]
+            [cljs.core.async :refer [put! chan <! close!]]
             [redditv.jsonp :refer [send-jsonp]]
             [redditv.youtube :as yt]
-            [redditv.vimeo :as vimeo]))
+            [redditv.vimeo :as vimeo]
+            [redditv.utils :refer [gen-query-params]]))
 
 (def reddit-url "https://www.reddit.com")
 
+(defn generate-url [subreddit {:keys [limit category]
+                               :or {limit 100 category "hot"}}]
+  (let [base-url (str reddit-url "/r/" subreddit)
+        link-categories #{"hot" "new" "rising"}
+        [sort time] (string/split category #"_")]
+    (if (link-categories category)
+      (str base-url "/" sort "/.json" (gen-query-params {:limit limit}))
+      (str base-url "/" sort "/.json" (gen-query-params
+                                           {:limit limit
+                                            :sort sort
+                                            :t time})))))
+                             
+#_(generate-url "videos" {:category "top_yearly" :limit 100})
+
 (defn get-subreddit-posts [subreddit opts]
-  (let [{:keys [limit category]
-         :or {limit 100 category "hot"}} opts
-        output-channel (chan)
-        url (str reddit-url "/r/" subreddit "/" category "/.json?limit=" limit)
+  (let [output-channel (chan)
+        url (generate-url subreddit opts)
         [success-channel error-channel] (send-jsonp url)]
     (go (let [result (js->clj (<! success-channel) :keywordize-keys true)
               data (-> result :data :children vec)]
@@ -59,7 +73,7 @@
           (close! output-channel)))
     [output-channel error-channel]))
 
-#_(let [[result err] (get-subreddit-video-by-id "6341y1fsdf")]
+#_(let [[result err] (get-subreddit-video-by-id "6341y1f")]
     (go (if-let [data (<! result)]
           (.log js/console (clj->js data))
           (.log js/console "Video does not exist"))
