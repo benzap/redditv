@@ -32,7 +32,8 @@
                            {:q search
                             :sort sort
                             :t (or time "relevance")
-                            :restrict_sr "on"}))))
+                            :restrict_sr "on"
+                            :limit 100}))))
 
 (generate-search-url "videos" "doggo")
 
@@ -89,7 +90,6 @@
 (defn get-search-posts [subreddit search opts]
   (let [output-channel (chan)
         url (generate-search-url subreddit search)
-        _ (.log js/console "search-url" url)
         [success-channel error-channel] (send-jsonp url)]
     (go (let [result (js->clj (<! success-channel) :keywordize-keys true)
               data (-> result :data :children vec)]
