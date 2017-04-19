@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="1266.6841"
-     inkscape:cy="944.43011"
+     inkscape:zoom="0.35"
+     inkscape:cx="1127.4807"
+     inkscape:cy="865.40762"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -68,22 +68,22 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,761.81102)">
+    <path
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.08964241px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 845.99451,133.79074 c 0,0 423.40619,-104.123954 867.53249,-258.74511 87.7158,172.563133 72.5834,418.70991 1.4286,554.10083 C 1283.2481,272.16385 845.99451,133.79074 845.99451,133.79074 Z"
+       id="path4147"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.63446379;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.2189349"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.63446379;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.2189349"
        id="rect4138"
        width="1177.0504"
        height="715.84094"
        x="113.9381"
        y="-207.96729"
        ry="81.422668" />
-    <path
-       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.08964241px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 845.99451,133.79074 c 0,0 423.40619,-104.123954 867.53249,-258.74511 87.7158,172.563133 72.5834,418.70991 1.4286,554.10083 C 1283.2481,272.16385 845.99451,133.79074 845.99451,133.79074 Z"
-       id="path4147"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccc" />
     <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.63446379;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.2189349"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.63446379;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.2189349"
        id="rect4149"
        width="72.725273"
        height="201.51083"
