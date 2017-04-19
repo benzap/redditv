@@ -5,11 +5,23 @@
             [redditv.player :as player]
             [redditv.events :as events]))
 
+;; Embedly videos that don't appear to actually work
+(def blacklist
+  #{"liveleak.com"
+    "clips.twitch.tv"
+    "twitch.tv"})
+
 (defn is-embedly-post? [item]
-  (-> item :secure_media :oembed :html boolean))
+  (and
+   (or
+    (-> item :secure_media :oembed :html boolean)
+    (-> item :media :oembed :html boolean))
+   (not (-> item :domain blacklist))))
 
 (defn post->embedded-html [item]
-  (-> item :secure_media :oembed :html))
+  (or
+   (-> item :secure_media :oembed :html)
+   (-> item :media :oembed :html)))
 
 (defrecord EmbedlyPlayer [dom context video-item event-channel]
   player/IPlayer
@@ -46,18 +58,23 @@
         player (attach-embedly-player)]
     (.on player "ready"
          (fn []
-           (.log js/console "Player Ready")
+           (if (.supports player "event" "play")
+             (.on player "play" #(put! event-channel (events/player-playing)))
+             #(put! event-channel (events/player-ended)))
 
-           (.on player "play" #(put! event-channel (events/player-playing)))
            (if (.supports player "event" "ended")
              (.on player "ended" #(put! event-channel (events/player-ended)))
              #(put! event-channel (events/player-ended)))
+
            (.on player "error" #(put! event-channel (events/player-not-started)))
 
            (.setLoop player false)
            (.play player)
+
            ;; Sometimes the video doesn't play when you call 'play' right away
            (.setTimeout js/window (fn [] (.play player)) 500)
+
+           (aset js/window "redditv_embedly_player" player)
            ))
     (->EmbedlyPlayer iframe player item event-channel)
     ))

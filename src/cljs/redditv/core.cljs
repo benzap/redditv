@@ -144,3 +144,7 @@
 (playlist/reload app-state :reload? true)
 
 (rum/mount (app) (.querySelector js/document "#app"))
+
+(def search (partial playlist/search-subreddit app-state))
+(aset js/window "search" search)
+

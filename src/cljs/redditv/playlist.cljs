@@ -70,3 +70,7 @@
 (defn open-current-video-comments [app-state]
   (let [video (get-selected app-state)]
     (open-reddit-comment video)))
+
+(defn search-subreddit [app-state search]
+  (swap! app-state assoc :playlist-selected-search search)
+  (reload app-state :reload? true))
