@@ -50,6 +50,5 @@
    - [X] Add support for Vimeo Videos
    - [X] youtube - respect the 'start' parameter when playing the
      video.
-   - [ ] Local Storage for app-state
-   - [ ] Add support for Vine Videos
-   - [ ] Add support for other video formats
+   - [X] Local Storage for app-state
+   - [X] Add support for other video formats
