@@ -81,12 +81,16 @@
         select-chan (::select-chan state)]
     [(app-css-class-layout app-state :.redditv-playlist)
      [(if show-playlist :.redditv-playlist-rightpane :.redditv-playlist-rightpane-compressed)
-      (mdl/icon {:name (if show-playlist "arrow_drop_down" "arrow_drop_up")
-                 :className "redditv-button noselect"
-                 :onClick #(swap! app-state update-in [:show-playlist] not)})
-      (mdl/icon {:name (if-not fullscreen "fullscreen" "fullscreen_exit")
-                 :className "redditv-button noselect"
-                 :onClick #(swap! app-state update-in [:fullscreen] not)})
+      (mdl/tooltip
+       {:label (if show-playlist "Hide Playlist" "Show Playlist") :position "left" :large false}
+       (mdl/icon {:name (if show-playlist "arrow_drop_down" "arrow_drop_up")
+                  :className "redditv-button noselect"
+                  :onClick #(swap! app-state update-in [:show-playlist] not)}))
+      (mdl/tooltip
+       {:label "Enter Fullscreen" :position "left" :large false}
+       (mdl/icon {:name (if-not fullscreen "fullscreen" "fullscreen_exit")
+                  :className "redditv-button noselect"
+                  :onClick #(swap! app-state update-in [:fullscreen] not)}))
       ]
      (if show-playlist
        [:.redditv-playlist-container {:class (if-not show-playlist "compressed")}
@@ -94,10 +98,14 @@
           (c-playlist-item [index item] select-chan (= index playlist-selected-index)))]
        [:.redditv-playlist-container-compressed
         [:.redditv-leftpane-compressed
-         (mdl/icon {:name "skip_previous" :className "redditv-button noselect"
-                    :onClick #(playlist/select-prev app-state)})
-         (mdl/icon {:name "skip_next" :className "redditv-button noselect"
-                    :onClick #(playlist/select-next app-state)})]
+         (mdl/tooltip
+          {:label "Previous Video" :position "top" :large false}
+          (mdl/icon {:name "skip_previous" :className "redditv-button noselect"
+                     :onClick #(playlist/select-prev app-state)}))
+         (mdl/tooltip
+          {:label "Next Video" :position "top" :large false}
+          (mdl/icon {:name "skip_next" :className "redditv-button noselect"
+                     :onClick #(playlist/select-next app-state)}))]
         [:span.redditv-playlist-count
          (str (inc playlist-selected-index) " of " (count playlist-items))]
         (mdl/progress-bar {:className "redditv-playlist-progress"

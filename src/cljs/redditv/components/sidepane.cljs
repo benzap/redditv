@@ -42,9 +42,11 @@
     [(app-css-class-layout app-state :.redditv-sidepane)
      ;;Search Button and Toggling
      (mdl/tooltip
-      {:label "Search Subreddits" :position "right"}
-      (mdl/icon {:name "search" :className (str "redditv-button noselect "
-                                                (if show-search "button-active-toggle" ""))
+      {:label "Search Subreddits" :position "right" :large false
+       :className (if show-search "hide-tooltip")}
+      (mdl/icon {:name "search"
+                 :className (str "redditv-button noselect "
+                                 (if show-search "button-active-toggle" ""))
                  :onClick #(swap! app-state update-in [:show-search] not)}))
 
      (when show-search
@@ -70,7 +72,8 @@
 
 
      (mdl/tooltip
-      {:label "Settings" :position "right"}
+      {:label "Settings" :position "right" :large false
+       :className (if show-settings "hide-tooltip")}
       (mdl/icon {:name "settings" :className (str "redditv-button noselect "
                                                   (if show-settings "button-active-toggle" ""))
                  :onClick #(swap! app-state update-in [:show-settings] not)}))
@@ -78,12 +81,12 @@
      (when show-settings (c-settings app-state))
 
      (mdl/tooltip
-      {:label "View Reddit Comments" :position "right"}
+      {:label "View Comments" :position "right" :large false}
       (mdl/icon {:name "comment" :className "redditv-button noselect"
                  :onClick #(playlist/open-current-video-comments app-state)}))
 
      (mdl/tooltip 
-      {:label "View Github Source" :position "right"}
+      {:label "View Github Source" :position "right" :large false}
       (mdl/icon {:name "help" :className "redditv-button noselect"
                  :onClick
                  (fn [] (.open js/window (str "http://github.com/benzap/redditv")))}))

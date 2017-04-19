@@ -2,7 +2,7 @@
   (:require [cljs.core :as cljs]))
 
 (defmacro adapt-react [rum-name react-component]
-  `(rum/defc ~rum-name [props# & children#]
+  `(defn ~rum-name [props# & children#]
      (cond (= (count children#) 0)
            (.createElement js/React ~react-component (cljs/clj->js props#))
            (= (count children#) 1)

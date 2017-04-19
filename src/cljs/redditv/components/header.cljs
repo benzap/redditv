@@ -50,9 +50,12 @@
         [:.header-logo "redditv"]
         [:.header-subreddit.noselect {:on-click #(swap! app-state update-in [:show-subreddits] not)}
          (str "/r/" subreddit)
-         (mdl/icon {:name (if show-subreddits "expand_less" "expand_more")
-                    :className "redditv-header-button noselect"
-                    :title "Pick Popular Subreddit"})]
+         (mdl/tooltip
+          {:label "Choose Subreddit" :position "bottom" :large false
+           :className (if show-subreddits "hide-tooltip")}
+          (mdl/icon {:name (if show-subreddits "expand_less" "expand_more")
+                     :className "redditv-header-button noselect"
+                     :title "Pick Popular Subreddit"}))]
         [:.header-title {:title title} title]
         (when show-subreddits
           [:.header-subreddit-listing

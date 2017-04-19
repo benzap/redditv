@@ -2,7 +2,10 @@
   (:require
    [garden.def :refer [defstyles]]
    [garden.color :as color :refer [hsl rgb rgba]]
-   [garden.units :refer [px]]))
+   [garden.units :refer [px]]
+   [garden.selectors :refer [defpseudoelement]]))
+
+(defpseudoelement selection)
 
 (def font-mono "'Roboto', sans-serif")
 
@@ -83,7 +86,6 @@
     :left 0
     :right 0
     :height (px header-height)
-    :background-color (rgba 0 0 0 0)
     :line-height (px header-height)}]
 
   [:.redditv-header-flex
@@ -133,14 +135,18 @@
     }]
 
   [:.header-title-fullscreen
-   {:height (px header-height)
+   {
+    ;;:height (px header-height)
+    ;;:text-overflow "ellipsis"
     :padding-left (px 20)
     :padding-right (px 20)
     :font-size (px 20)
     :overflow "hidden"
-    :text-overflow "ellipsis"
-    :white-space "nowrap"
+    :text-align "center"
+    :white-space "wrap"
     :line-height (px header-height)
+    :background-color (rgba 0 0 0 0.33)
+    :border-radius (px 5)
     }]
 
   [:#spinner-loading 
@@ -497,6 +503,17 @@
    [:&:hover
     {:background-color (rgba 36 36 36 1.00)}]]
 
+  [:.mdl-tooltip
+   {:will-change "unset"
+    :background-color (rgba 69 90 100 1.0)
+    :font-size (px 16)}]
 
+  [:.redditv-tooltip-fullscreen>span
+   {:background-color (rgba 13 13 13 0.66)}]
 
+  [:.hide-tooltip>span
+   {:display "none"}]
+
+  ["::selection"
+   {:background (rgba 64 196 255 0.66)}]
   )
