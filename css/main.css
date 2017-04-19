@@ -60,7 +60,6 @@ body {
   left: 0;
   right: 0;
   height: 40px;
-  background-color: hsla(0, 0%, 0%, 0);
   line-height: 40px;
 }
 
@@ -115,14 +114,15 @@ body {
 }
 
 .header-title-fullscreen {
-  height: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
+  line-height: 40px;
+  text-align: center;
+  white-space: wrap;
   font-size: 20px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 40px;
+  background-color: hsla(0, 0%, 0%, 0.33);
+  padding-right: 20px;
+  padding-left: 20px;
+  border-radius: 5px;
 }
 
 #spinner-loading {
@@ -551,4 +551,22 @@ body {
 
 .header-subreddit-listing-element:hover {
   background-color: hsla(0, 0%, 14.117647%, 1.0);
+}
+
+.mdl-tooltip {
+  will-change: unset;
+  background-color: hsla(199.35484, 18.343195%, 33.137257%, 1.0);
+  font-size: 16px;
+}
+
+.redditv-tooltip-fullscreen>span {
+  background-color: hsla(0, 0%, 5.098039%, 0.66);
+}
+
+.hide-tooltip>span {
+  display: none;
+}
+
+::selection {
+  background: hsla(198.53403, 100%, 62.54902%, 0.66);
 }
