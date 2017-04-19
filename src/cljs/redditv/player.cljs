@@ -6,8 +6,6 @@
   (play [this])
   (pause [this])
   (fullscreen [this])
-  ;;(seek-forward [this seconds])
-  ;;(seek-backwards [this seconds])
   (dispose [this])
   )
 

@@ -66,8 +66,7 @@
       boolean))
 
 
-(is-youtube-url? test-url)
-
+;;(is-youtube-url? test-url)
 ;;(is-youtube-url? "https://www.youtube.com/watch?v=wM75ulDRkhI&start=10")
 
 (defrecord YoutubePlayer [context video-url event-channel]

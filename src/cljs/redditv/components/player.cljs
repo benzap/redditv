@@ -6,6 +6,7 @@
             [redditv.playlist :as playlist]
             [redditv.youtube :as yt]
             [redditv.vimeo :as vimeo]
+            [redditv.embedly :as embedly]
             [redditv.events :as events]
             [redditv.utils :refer [app-css-class-layout]]
             ))
@@ -22,6 +23,8 @@
       (yt/create-youtubeplayer "redditv-player" url event-channel)
       (vimeo/is-vimeo-url? url)
       (vimeo/create-vimeo-player "redditv-player" url event-channel)
+      (embedly/is-embedly-post? item)
+      (embedly/create-embedly-player "redditv-player" item event-channel)
     )))
 
 (def mixin-player-handler
