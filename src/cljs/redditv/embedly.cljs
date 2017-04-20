@@ -60,11 +60,11 @@
          (fn []
            (if (.supports player "event" "play")
              (.on player "play" #(put! event-channel (events/player-playing)))
-             #(put! event-channel (events/player-ended)))
+             (put! event-channel (events/player-ended)))
 
            (if (.supports player "event" "ended")
              (.on player "ended" #(put! event-channel (events/player-ended)))
-             #(put! event-channel (events/player-ended)))
+             (put! event-channel (events/player-ended)))
 
            (.on player "error" #(put! event-channel (events/player-not-started)))
 
