@@ -7,8 +7,12 @@
 (def subreddits 
   [
    "videos"
-   "youtubehaiku"
    "documentaries"
+   "youtubehaiku"
+   "youtubememes"
+   "nottimanderic"
+   "interdimensionalcable"
+   "playitagainsam"
    "deepintoyoutube"
    "cringe"
    "commercialcuts"
