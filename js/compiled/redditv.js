@@ -87977,6 +87977,7 @@ redditv.embedly.create_embedly_player = function redditv$embedly$create_embedly_
           };
         }(html, iframe, player));
       } else {
+        cljs.core.async.put_BANG_.call(null, event_channel, redditv.events.player_ended.call(null));
       }
       if (cljs.core.truth_(player.supports("event", "ended"))) {
         player.on("ended", function(html, iframe, player) {
@@ -87985,6 +87986,7 @@ redditv.embedly.create_embedly_player = function redditv$embedly$create_embedly_
           };
         }(html, iframe, player));
       } else {
+        cljs.core.async.put_BANG_.call(null, event_channel, redditv.events.player_ended.call(null));
       }
       player.on("error", function(html, iframe, player) {
         return function() {
@@ -90190,8 +90192,8 @@ goog.require("rum.core");
 goog.require("redditv.utils");
 goog.require("redditv.playlist");
 goog.require("redditv.components.mdl");
-redditv.components.header.subreddits = new cljs.core.PersistentVector(null, 28, 5, cljs.core.PersistentVector.EMPTY_NODE, ["videos", "youtubehaiku", "documentaries", "deepintoyoutube", "cringe", "commercialcuts", "listentothis", "music", "indie", "360video", "accidentalcomedy", "artisanvideos", "contagiouslaughter", "edm", "electronicmusic", "gaming", "idiotsfightingthings", "lectures", "metal", "movies", "outrun", "philosophy", "publicfreakout", "sports", "television", "trailers", "trap", "wtf"], 
-null);
+redditv.components.header.subreddits = cljs.core.PersistentVector.fromArray(["videos", "documentaries", "youtubehaiku", "youtubememes", "nottimanderic", "interdimensionalcable", "playitagainsam", "deepintoyoutube", "cringe", "commercialcuts", "listentothis", "music", "indie", "360video", "accidentalcomedy", "artisanvideos", "contagiouslaughter", "edm", "electronicmusic", "gaming", "idiotsfightingthings", "lectures", "metal", "movies", "outrun", "philosophy", "publicfreakout", "sports", "television", 
+"trailers", "trap", "wtf"], true);
 redditv.components.header.search_subreddit = function redditv$components$header$search_subreddit(app_state, subreddit) {
   cljs.core.swap_BANG_.call(null, app_state, cljs.core.assoc, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754), subreddit, new cljs.core.Keyword(null, "playlist-selected-index", "playlist-selected-index", -1037896961), 0, new cljs.core.Keyword(null, "playlist-selected-search", "playlist-selected-search", 1442408399), null, new cljs.core.Keyword(null, "show-subreddits", "show-subreddits", 2026479407), false);
   redditv.playlist.reload.call(null, app_state, new cljs.core.Keyword(null, "reload?", "reload?", -1559406964), true);
@@ -90203,27 +90205,27 @@ redditv.components.header.subreddit_listing = function redditv$components$header
   }, new cljs.core.Keyword(null, "title", "title", 636505583), name], null), [cljs.core.str("/r/"), cljs.core.str(name)].join("")], null);
 };
 redditv.components.header.c_header = rum.core.build_defc.call(null, function(app_state) {
-  var map__37534 = rum.core.react.call(null, app_state);
-  var map__37534__$1 = (!(map__37534 == null) ? map__37534.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__37534.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__37534) : map__37534;
-  var subreddit = cljs.core.get.call(null, map__37534__$1, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754));
-  var loading_QMARK_ = cljs.core.get.call(null, map__37534__$1, new cljs.core.Keyword(null, "loading?", "loading?", 1905707049));
-  var show_subreddits = cljs.core.get.call(null, map__37534__$1, new cljs.core.Keyword(null, "show-subreddits", "show-subreddits", 2026479407));
+  var map__37762 = rum.core.react.call(null, app_state);
+  var map__37762__$1 = (!(map__37762 == null) ? map__37762.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__37762.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__37762) : map__37762;
+  var subreddit = cljs.core.get.call(null, map__37762__$1, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754));
+  var loading_QMARK_ = cljs.core.get.call(null, map__37762__$1, new cljs.core.Keyword(null, "loading?", "loading?", 1905707049));
+  var show_subreddits = cljs.core.get.call(null, map__37762__$1, new cljs.core.Keyword(null, "show-subreddits", "show-subreddits", 2026479407));
   var selected = redditv.playlist.get_selected.call(null, app_state);
   var title = redditv.utils.decode_html_string.call(null, [cljs.core.str((new cljs.core.Keyword(null, "title", "title", 636505583)).cljs$core$IFn$_invoke$arity$1(selected))].join(""));
   return sablono.interpreter.interpret.call(null, cljs.core.not.call(null, (new cljs.core.Keyword(null, "fullscreen", "fullscreen", -4371054)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, app_state))) ? new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".redditv-header", ".redditv-header", -2088515554), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".redditv-header-flex", 
   ".redditv-header-flex", 402624970), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".header-logo", ".header-logo", -1712277668), "redditv"], null), new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".header-subreddit.noselect", ".header-subreddit.noselect", -486130685), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "on-click", "on-click", 1632826543), 
-  function(map__37534, map__37534__$1, subreddit, loading_QMARK_, show_subreddits, selected, title) {
+  function(map__37762, map__37762__$1, subreddit, loading_QMARK_, show_subreddits, selected, title) {
     return function() {
       return cljs.core.swap_BANG_.call(null, app_state, cljs.core.update_in, new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "show-subreddits", "show-subreddits", 2026479407)], null), cljs.core.not);
     };
-  }(map__37534, map__37534__$1, subreddit, loading_QMARK_, show_subreddits, selected, title)], null), [cljs.core.str("/r/"), cljs.core.str(subreddit)].join(""), redditv.components.mdl.tooltip.call(null, new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "label", "label", 1718410804), "Choose Subreddit", new cljs.core.Keyword(null, "position", "position", -2011731912), "bottom", new cljs.core.Keyword(null, "large", "large", -196820544), false, new cljs.core.Keyword(null, "className", 
+  }(map__37762, map__37762__$1, subreddit, loading_QMARK_, show_subreddits, selected, title)], null), [cljs.core.str("/r/"), cljs.core.str(subreddit)].join(""), redditv.components.mdl.tooltip.call(null, new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "label", "label", 1718410804), "Choose Subreddit", new cljs.core.Keyword(null, "position", "position", -2011731912), "bottom", new cljs.core.Keyword(null, "large", "large", -196820544), false, new cljs.core.Keyword(null, "className", 
   "className", -1983287057), cljs.core.truth_(show_subreddits) ? "hide-tooltip" : null], null), redditv.components.mdl.icon.call(null, new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "name", "name", 1843675177), cljs.core.truth_(show_subreddits) ? "expand_less" : "expand_more", new cljs.core.Keyword(null, "className", "className", -1983287057), "redditv-header-button noselect", new cljs.core.Keyword(null, "title", "title", 636505583), "Pick Popular Subreddit"], null)))], null), 
   new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".header-title", ".header-title", 719021241), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "title", "title", 636505583), title], null), title], null), cljs.core.truth_(show_subreddits) ? new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".header-subreddit-listing", ".header-subreddit-listing", 1439102420), 
-  new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".header-subreddit-container", ".header-subreddit-container", 1425303357), cljs.core.map.call(null, function(map__37534, map__37534__$1, subreddit, loading_QMARK_, show_subreddits, selected, title) {
-    return function(p1__37533_SHARP_) {
-      return redditv.components.header.subreddit_listing.call(null, app_state, p1__37533_SHARP_);
+  new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".header-subreddit-container", ".header-subreddit-container", 1425303357), cljs.core.map.call(null, function(map__37762, map__37762__$1, subreddit, loading_QMARK_, show_subreddits, selected, title) {
+    return function(p1__37761_SHARP_) {
+      return redditv.components.header.subreddit_listing.call(null, app_state, p1__37761_SHARP_);
     };
-  }(map__37534, map__37534__$1, subreddit, loading_QMARK_, show_subreddits, selected, title), redditv.components.header.subreddits)], null)], null) : null, cljs.core.truth_(loading_QMARK_) ? redditv.components.mdl.spinner.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "id", "id", -1388402092), "spinner-loading"], null)) : null], null)], null) : new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".redditv-header-fullscreen", 
+  }(map__37762, map__37762__$1, subreddit, loading_QMARK_, show_subreddits, selected, title), redditv.components.header.subreddits)], null)], null) : null, cljs.core.truth_(loading_QMARK_) ? redditv.components.mdl.spinner.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "id", "id", -1388402092), "spinner-loading"], null)) : null], null)], null) : new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".redditv-header-fullscreen", 
   ".redditv-header-fullscreen", 10611479), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".redditv-header-flex-fullscreen", ".redditv-header-flex-fullscreen", -1264400196), new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, ".header-title-fullscreen", ".header-title-fullscreen", -1297030137), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "title", "title", 
   636505583), title], null), title], null)], null)], null));
 }, new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [rum.core.reactive], null), "c-header");
@@ -91476,21 +91478,21 @@ if (typeof redditv.core.fullscreen !== "undefined") {
   redditv.core.fullscreen = rum.core.cursor_in.call(null, redditv.core.app_state, new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "fullscreen", "fullscreen", -4371054)], null));
 }
 secretary.core.set_config_BANG_.call(null, new cljs.core.Keyword(null, "prefix", "prefix", -265908465), "#");
-var action__37686__auto___37928 = function(params__37687__auto__) {
-  if (cljs.core.map_QMARK_.call(null, params__37687__auto__)) {
-    var map__37922 = params__37687__auto__;
-    var map__37922__$1 = (!(map__37922 == null) ? map__37922.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__37922.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__37922) : map__37922;
-    var subreddit = cljs.core.get.call(null, map__37922__$1, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754));
-    var query_params = cljs.core.get.call(null, map__37922__$1, new cljs.core.Keyword(null, "query-params", "query-params", 900640534));
+var action__37891__auto___38062 = function(params__37892__auto__) {
+  if (cljs.core.map_QMARK_.call(null, params__37892__auto__)) {
+    var map__38056 = params__37892__auto__;
+    var map__38056__$1 = (!(map__38056 == null) ? map__38056.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__38056.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__38056) : map__38056;
+    var subreddit = cljs.core.get.call(null, map__38056__$1, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754));
+    var query_params = cljs.core.get.call(null, map__38056__$1, new cljs.core.Keyword(null, "query-params", "query-params", 900640534));
     cljs.core.swap_BANG_.call(null, redditv.core.app_state, cljs.core.assoc, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754), subreddit, new cljs.core.Keyword(null, "settings-video-category", "settings-video-category", -1875669518), cljs.core.get.call(null, query_params, new cljs.core.Keyword(null, "sort", "sort", 953465918), "hot"), new cljs.core.Keyword(null, "settings-video-count", "settings-video-count", 1798809692), redditv.utils.parse_int.call(null, cljs.core.get.call(null, 
     query_params, new cljs.core.Keyword(null, "count", "count", 2139924085), "100")));
     redditv.utils.force_app_reload_BANG_.call(null, redditv.core.app_state);
     return redditv.storage.save_app_state_BANG_.call(null, cljs.core.deref.call(null, redditv.core.app_state));
   } else {
-    if (cljs.core.vector_QMARK_.call(null, params__37687__auto__)) {
-      var vec__37924 = params__37687__auto__;
-      var subreddit = cljs.core.nth.call(null, vec__37924, 0, null);
-      var query_params = cljs.core.nth.call(null, vec__37924, 1, null);
+    if (cljs.core.vector_QMARK_.call(null, params__37892__auto__)) {
+      var vec__38058 = params__37892__auto__;
+      var subreddit = cljs.core.nth.call(null, vec__38058, 0, null);
+      var query_params = cljs.core.nth.call(null, vec__38058, 1, null);
       cljs.core.swap_BANG_.call(null, redditv.core.app_state, cljs.core.assoc, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754), subreddit, new cljs.core.Keyword(null, "settings-video-category", "settings-video-category", -1875669518), cljs.core.get.call(null, query_params, new cljs.core.Keyword(null, "sort", "sort", 953465918), "hot"), new cljs.core.Keyword(null, "settings-video-count", "settings-video-count", 1798809692), redditv.utils.parse_int.call(null, cljs.core.get.call(null, 
       query_params, new cljs.core.Keyword(null, "count", "count", 2139924085), "100")));
       redditv.utils.force_app_reload_BANG_.call(null, redditv.core.app_state);
@@ -91500,17 +91502,17 @@ var action__37686__auto___37928 = function(params__37687__auto__) {
     }
   }
 };
-secretary.core.add_route_BANG_.call(null, "/r/:subreddit", action__37686__auto___37928);
-redditv.core.subreddit_path = function(action__37686__auto___37928) {
+secretary.core.add_route_BANG_.call(null, "/r/:subreddit", action__37891__auto___38062);
+redditv.core.subreddit_path = function(action__37891__auto___38062) {
   return function redditv$core$subreddit_path(var_args) {
     var args__31211__auto__ = [];
-    var len__31204__auto___37929 = arguments.length;
-    var i__31205__auto___37930 = 0;
+    var len__31204__auto___38063 = arguments.length;
+    var i__31205__auto___38064 = 0;
     while (true) {
-      if (i__31205__auto___37930 < len__31204__auto___37929) {
-        args__31211__auto__.push(arguments[i__31205__auto___37930]);
-        var G__37931 = i__31205__auto___37930 + 1;
-        i__31205__auto___37930 = G__37931;
+      if (i__31205__auto___38064 < len__31204__auto___38063) {
+        args__31211__auto__.push(arguments[i__31205__auto___38064]);
+        var G__38065 = i__31205__auto___38064 + 1;
+        i__31205__auto___38064 = G__38065;
         continue;
       } else {
       }
@@ -91519,36 +91521,36 @@ redditv.core.subreddit_path = function(action__37686__auto___37928) {
     var argseq__31212__auto__ = 0 < args__31211__auto__.length ? new cljs.core.IndexedSeq(args__31211__auto__.slice(0), 0, null) : null;
     return redditv.core.subreddit_path.cljs$core$IFn$_invoke$arity$variadic(argseq__31212__auto__);
   };
-}(action__37686__auto___37928);
-redditv.core.subreddit_path.cljs$core$IFn$_invoke$arity$variadic = function(action__37686__auto___37928) {
-  return function(args__37685__auto__) {
-    return cljs.core.apply.call(null, secretary.core.render_route_STAR_, "/r/:subreddit", args__37685__auto__);
+}(action__37891__auto___38062);
+redditv.core.subreddit_path.cljs$core$IFn$_invoke$arity$variadic = function(action__37891__auto___38062) {
+  return function(args__37890__auto__) {
+    return cljs.core.apply.call(null, secretary.core.render_route_STAR_, "/r/:subreddit", args__37890__auto__);
   };
-}(action__37686__auto___37928);
+}(action__37891__auto___38062);
 redditv.core.subreddit_path.cljs$lang$maxFixedArity = 0;
-redditv.core.subreddit_path.cljs$lang$applyTo = function(action__37686__auto___37928) {
-  return function(seq37927) {
-    return redditv.core.subreddit_path.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null, seq37927));
+redditv.core.subreddit_path.cljs$lang$applyTo = function(action__37891__auto___38062) {
+  return function(seq38061) {
+    return redditv.core.subreddit_path.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null, seq38061));
   };
-}(action__37686__auto___37928);
-var action__37686__auto___37938 = function(params__37687__auto__) {
-  if (cljs.core.map_QMARK_.call(null, params__37687__auto__)) {
-    var map__37932 = params__37687__auto__;
-    var map__37932__$1 = (!(map__37932 == null) ? map__37932.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__37932.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__37932) : map__37932;
-    var subreddit = cljs.core.get.call(null, map__37932__$1, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754));
-    var index = cljs.core.get.call(null, map__37932__$1, new cljs.core.Keyword(null, "index", "index", -1531685915));
-    var query_params = cljs.core.get.call(null, map__37932__$1, new cljs.core.Keyword(null, "query-params", "query-params", 900640534));
+}(action__37891__auto___38062);
+var action__37891__auto___38072 = function(params__37892__auto__) {
+  if (cljs.core.map_QMARK_.call(null, params__37892__auto__)) {
+    var map__38066 = params__37892__auto__;
+    var map__38066__$1 = (!(map__38066 == null) ? map__38066.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__38066.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__38066) : map__38066;
+    var subreddit = cljs.core.get.call(null, map__38066__$1, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754));
+    var index = cljs.core.get.call(null, map__38066__$1, new cljs.core.Keyword(null, "index", "index", -1531685915));
+    var query_params = cljs.core.get.call(null, map__38066__$1, new cljs.core.Keyword(null, "query-params", "query-params", 900640534));
     cljs.core.swap_BANG_.call(null, redditv.core.app_state, cljs.core.assoc, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754), subreddit, new cljs.core.Keyword(null, "playlist-selected-index", "playlist-selected-index", -1037896961), redditv.utils.parse_int.call(null, index), new cljs.core.Keyword(null, "playlist-selected-search", "playlist-selected-search", 1442408399), null, new cljs.core.Keyword(null, "settings-video-category", "settings-video-category", -1875669518), cljs.core.get_in.call(null, 
     query_params, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "query-params", "query-params", 900640534), new cljs.core.Keyword(null, "sort", "sort", 953465918)], null), "hot"), new cljs.core.Keyword(null, "settings-video-count", "settings-video-count", 1798809692), redditv.utils.parse_int.call(null, cljs.core.get_in.call(null, query_params, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, 
     "query-params", "query-params", 900640534), new cljs.core.Keyword(null, "count", "count", 2139924085)], null), "100")), new cljs.core.Keyword(null, "fullscreen", "fullscreen", -4371054), redditv.utils.parse_bool.call(null, cljs.core.get_in.call(null, query_params, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "query-params", "query-params", 900640534), new cljs.core.Keyword(null, "fullscreen", "fullscreen", -4371054)], null), "false")));
     redditv.utils.force_app_reload_BANG_.call(null, redditv.core.app_state);
     return redditv.storage.save_app_state_BANG_.call(null, cljs.core.deref.call(null, redditv.core.app_state));
   } else {
-    if (cljs.core.vector_QMARK_.call(null, params__37687__auto__)) {
-      var vec__37934 = params__37687__auto__;
-      var subreddit = cljs.core.nth.call(null, vec__37934, 0, null);
-      var index = cljs.core.nth.call(null, vec__37934, 1, null);
-      var query_params = cljs.core.nth.call(null, vec__37934, 2, null);
+    if (cljs.core.vector_QMARK_.call(null, params__37892__auto__)) {
+      var vec__38068 = params__37892__auto__;
+      var subreddit = cljs.core.nth.call(null, vec__38068, 0, null);
+      var index = cljs.core.nth.call(null, vec__38068, 1, null);
+      var query_params = cljs.core.nth.call(null, vec__38068, 2, null);
       cljs.core.swap_BANG_.call(null, redditv.core.app_state, cljs.core.assoc, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754), subreddit, new cljs.core.Keyword(null, "playlist-selected-index", "playlist-selected-index", -1037896961), redditv.utils.parse_int.call(null, index), new cljs.core.Keyword(null, "playlist-selected-search", "playlist-selected-search", 1442408399), null, new cljs.core.Keyword(null, "settings-video-category", "settings-video-category", -1875669518), cljs.core.get_in.call(null, 
       query_params, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "query-params", "query-params", 900640534), new cljs.core.Keyword(null, "sort", "sort", 953465918)], null), "hot"), new cljs.core.Keyword(null, "settings-video-count", "settings-video-count", 1798809692), redditv.utils.parse_int.call(null, cljs.core.get_in.call(null, query_params, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, 
       "query-params", "query-params", 900640534), new cljs.core.Keyword(null, "count", "count", 2139924085)], null), "100")), new cljs.core.Keyword(null, "fullscreen", "fullscreen", -4371054), redditv.utils.parse_bool.call(null, cljs.core.get_in.call(null, query_params, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "query-params", "query-params", 900640534), new cljs.core.Keyword(null, "fullscreen", "fullscreen", -4371054)], null), 
@@ -91560,17 +91562,17 @@ var action__37686__auto___37938 = function(params__37687__auto__) {
     }
   }
 };
-secretary.core.add_route_BANG_.call(null, /\/r\/([\w\d]+)\/(\d+)/, action__37686__auto___37938);
-redditv.core.subreddit_path_with_index = function(action__37686__auto___37938) {
+secretary.core.add_route_BANG_.call(null, /\/r\/([\w\d]+)\/(\d+)/, action__37891__auto___38072);
+redditv.core.subreddit_path_with_index = function(action__37891__auto___38072) {
   return function redditv$core$subreddit_path_with_index(var_args) {
     var args__31211__auto__ = [];
-    var len__31204__auto___37939 = arguments.length;
-    var i__31205__auto___37940 = 0;
+    var len__31204__auto___38073 = arguments.length;
+    var i__31205__auto___38074 = 0;
     while (true) {
-      if (i__31205__auto___37940 < len__31204__auto___37939) {
-        args__31211__auto__.push(arguments[i__31205__auto___37940]);
-        var G__37941 = i__31205__auto___37940 + 1;
-        i__31205__auto___37940 = G__37941;
+      if (i__31205__auto___38074 < len__31204__auto___38073) {
+        args__31211__auto__.push(arguments[i__31205__auto___38074]);
+        var G__38075 = i__31205__auto___38074 + 1;
+        i__31205__auto___38074 = G__38075;
         continue;
       } else {
       }
@@ -91579,38 +91581,38 @@ redditv.core.subreddit_path_with_index = function(action__37686__auto___37938) {
     var argseq__31212__auto__ = 0 < args__31211__auto__.length ? new cljs.core.IndexedSeq(args__31211__auto__.slice(0), 0, null) : null;
     return redditv.core.subreddit_path_with_index.cljs$core$IFn$_invoke$arity$variadic(argseq__31212__auto__);
   };
-}(action__37686__auto___37938);
-redditv.core.subreddit_path_with_index.cljs$core$IFn$_invoke$arity$variadic = function(action__37686__auto___37938) {
-  return function(args__37685__auto__) {
-    return cljs.core.apply.call(null, secretary.core.render_route_STAR_, /\/r\/([\w\d]+)\/(\d+)/, args__37685__auto__);
+}(action__37891__auto___38072);
+redditv.core.subreddit_path_with_index.cljs$core$IFn$_invoke$arity$variadic = function(action__37891__auto___38072) {
+  return function(args__37890__auto__) {
+    return cljs.core.apply.call(null, secretary.core.render_route_STAR_, /\/r\/([\w\d]+)\/(\d+)/, args__37890__auto__);
   };
-}(action__37686__auto___37938);
+}(action__37891__auto___38072);
 redditv.core.subreddit_path_with_index.cljs$lang$maxFixedArity = 0;
-redditv.core.subreddit_path_with_index.cljs$lang$applyTo = function(action__37686__auto___37938) {
-  return function(seq37937) {
-    return redditv.core.subreddit_path_with_index.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null, seq37937));
+redditv.core.subreddit_path_with_index.cljs$lang$applyTo = function(action__37891__auto___38072) {
+  return function(seq38071) {
+    return redditv.core.subreddit_path_with_index.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null, seq38071));
   };
-}(action__37686__auto___37938);
-var action__37686__auto___37948 = function(params__37687__auto__) {
-  if (cljs.core.map_QMARK_.call(null, params__37687__auto__)) {
-    var map__37942 = params__37687__auto__;
-    var map__37942__$1 = (!(map__37942 == null) ? map__37942.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__37942.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__37942) : map__37942;
-    var subreddit = cljs.core.get.call(null, map__37942__$1, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754));
-    var index = cljs.core.get.call(null, map__37942__$1, new cljs.core.Keyword(null, "index", "index", -1531685915));
-    var search = cljs.core.get.call(null, map__37942__$1, new cljs.core.Keyword(null, "search", "search", 1564939822));
-    var query_params = cljs.core.get.call(null, map__37942__$1, new cljs.core.Keyword(null, "query-params", "query-params", 900640534));
+}(action__37891__auto___38072);
+var action__37891__auto___38082 = function(params__37892__auto__) {
+  if (cljs.core.map_QMARK_.call(null, params__37892__auto__)) {
+    var map__38076 = params__37892__auto__;
+    var map__38076__$1 = (!(map__38076 == null) ? map__38076.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__38076.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__38076) : map__38076;
+    var subreddit = cljs.core.get.call(null, map__38076__$1, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754));
+    var index = cljs.core.get.call(null, map__38076__$1, new cljs.core.Keyword(null, "index", "index", -1531685915));
+    var search = cljs.core.get.call(null, map__38076__$1, new cljs.core.Keyword(null, "search", "search", 1564939822));
+    var query_params = cljs.core.get.call(null, map__38076__$1, new cljs.core.Keyword(null, "query-params", "query-params", 900640534));
     cljs.core.swap_BANG_.call(null, redditv.core.app_state, cljs.core.assoc, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754), subreddit, new cljs.core.Keyword(null, "playlist-selected-index", "playlist-selected-index", -1037896961), redditv.utils.parse_int.call(null, index), new cljs.core.Keyword(null, "playlist-selected-search", "playlist-selected-search", 1442408399), search, new cljs.core.Keyword(null, "settings-video-category", "settings-video-category", -1875669518), "hot", 
     new cljs.core.Keyword(null, "settings-video-count", "settings-video-count", 1798809692), redditv.utils.parse_int.call(null, cljs.core.get_in.call(null, query_params, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "query-params", "query-params", 900640534), new cljs.core.Keyword(null, "count", "count", 2139924085)], null), "100")), new cljs.core.Keyword(null, "fullscreen", "fullscreen", -4371054), redditv.utils.parse_bool.call(null, 
     cljs.core.get_in.call(null, query_params, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "query-params", "query-params", 900640534), new cljs.core.Keyword(null, "fullscreen", "fullscreen", -4371054)], null), "false")));
     redditv.utils.force_app_reload_BANG_.call(null, redditv.core.app_state);
     return redditv.storage.save_app_state_BANG_.call(null, cljs.core.deref.call(null, redditv.core.app_state));
   } else {
-    if (cljs.core.vector_QMARK_.call(null, params__37687__auto__)) {
-      var vec__37944 = params__37687__auto__;
-      var subreddit = cljs.core.nth.call(null, vec__37944, 0, null);
-      var index = cljs.core.nth.call(null, vec__37944, 1, null);
-      var search = cljs.core.nth.call(null, vec__37944, 2, null);
-      var query_params = cljs.core.nth.call(null, vec__37944, 3, null);
+    if (cljs.core.vector_QMARK_.call(null, params__37892__auto__)) {
+      var vec__38078 = params__37892__auto__;
+      var subreddit = cljs.core.nth.call(null, vec__38078, 0, null);
+      var index = cljs.core.nth.call(null, vec__38078, 1, null);
+      var search = cljs.core.nth.call(null, vec__38078, 2, null);
+      var query_params = cljs.core.nth.call(null, vec__38078, 3, null);
       cljs.core.swap_BANG_.call(null, redditv.core.app_state, cljs.core.assoc, new cljs.core.Keyword(null, "subreddit", "subreddit", -670654754), subreddit, new cljs.core.Keyword(null, "playlist-selected-index", "playlist-selected-index", -1037896961), redditv.utils.parse_int.call(null, index), new cljs.core.Keyword(null, "playlist-selected-search", "playlist-selected-search", 1442408399), search, new cljs.core.Keyword(null, "settings-video-category", "settings-video-category", -1875669518), "hot", 
       new cljs.core.Keyword(null, "settings-video-count", "settings-video-count", 1798809692), redditv.utils.parse_int.call(null, cljs.core.get_in.call(null, query_params, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "query-params", "query-params", 900640534), new cljs.core.Keyword(null, "count", "count", 2139924085)], null), "100")), new cljs.core.Keyword(null, "fullscreen", "fullscreen", -4371054), redditv.utils.parse_bool.call(null, 
       cljs.core.get_in.call(null, query_params, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "query-params", "query-params", 900640534), new cljs.core.Keyword(null, "fullscreen", "fullscreen", -4371054)], null), "false")));
@@ -91621,17 +91623,17 @@ var action__37686__auto___37948 = function(params__37687__auto__) {
     }
   }
 };
-secretary.core.add_route_BANG_.call(null, /\/r\/([\w\d]+)\/(\d)\/([\w\d]+)/, action__37686__auto___37948);
-redditv.core.subreddit_path_with_search = function(action__37686__auto___37948) {
+secretary.core.add_route_BANG_.call(null, /\/r\/([\w\d]+)\/(\d)\/([\w\d]+)/, action__37891__auto___38082);
+redditv.core.subreddit_path_with_search = function(action__37891__auto___38082) {
   return function redditv$core$subreddit_path_with_search(var_args) {
     var args__31211__auto__ = [];
-    var len__31204__auto___37949 = arguments.length;
-    var i__31205__auto___37950 = 0;
+    var len__31204__auto___38083 = arguments.length;
+    var i__31205__auto___38084 = 0;
     while (true) {
-      if (i__31205__auto___37950 < len__31204__auto___37949) {
-        args__31211__auto__.push(arguments[i__31205__auto___37950]);
-        var G__37951 = i__31205__auto___37950 + 1;
-        i__31205__auto___37950 = G__37951;
+      if (i__31205__auto___38084 < len__31204__auto___38083) {
+        args__31211__auto__.push(arguments[i__31205__auto___38084]);
+        var G__38085 = i__31205__auto___38084 + 1;
+        i__31205__auto___38084 = G__38085;
         continue;
       } else {
       }
@@ -91640,37 +91642,37 @@ redditv.core.subreddit_path_with_search = function(action__37686__auto___37948) 
     var argseq__31212__auto__ = 0 < args__31211__auto__.length ? new cljs.core.IndexedSeq(args__31211__auto__.slice(0), 0, null) : null;
     return redditv.core.subreddit_path_with_search.cljs$core$IFn$_invoke$arity$variadic(argseq__31212__auto__);
   };
-}(action__37686__auto___37948);
-redditv.core.subreddit_path_with_search.cljs$core$IFn$_invoke$arity$variadic = function(action__37686__auto___37948) {
-  return function(args__37685__auto__) {
-    return cljs.core.apply.call(null, secretary.core.render_route_STAR_, /\/r\/([\w\d]+)\/(\d)\/([\w\d]+)/, args__37685__auto__);
+}(action__37891__auto___38082);
+redditv.core.subreddit_path_with_search.cljs$core$IFn$_invoke$arity$variadic = function(action__37891__auto___38082) {
+  return function(args__37890__auto__) {
+    return cljs.core.apply.call(null, secretary.core.render_route_STAR_, /\/r\/([\w\d]+)\/(\d)\/([\w\d]+)/, args__37890__auto__);
   };
-}(action__37686__auto___37948);
+}(action__37891__auto___38082);
 redditv.core.subreddit_path_with_search.cljs$lang$maxFixedArity = 0;
-redditv.core.subreddit_path_with_search.cljs$lang$applyTo = function(action__37686__auto___37948) {
-  return function(seq37947) {
-    return redditv.core.subreddit_path_with_search.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null, seq37947));
+redditv.core.subreddit_path_with_search.cljs$lang$applyTo = function(action__37891__auto___38082) {
+  return function(seq38081) {
+    return redditv.core.subreddit_path_with_search.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null, seq38081));
   };
-}(action__37686__auto___37948);
-var action__37686__auto___37958 = function(params__37687__auto__) {
-  if (cljs.core.map_QMARK_.call(null, params__37687__auto__)) {
-    var map__37952 = params__37687__auto__;
-    var map__37952__$1 = (!(map__37952 == null) ? map__37952.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__37952.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__37952) : map__37952;
-    var temp__4655__auto___37959 = redditv.storage.load_app_state.call(null);
-    if (cljs.core.truth_(temp__4655__auto___37959)) {
-      var state_37960 = temp__4655__auto___37959;
-      cljs.core.reset_BANG_.call(null, redditv.core.app_state, state_37960);
+}(action__37891__auto___38082);
+var action__37891__auto___38092 = function(params__37892__auto__) {
+  if (cljs.core.map_QMARK_.call(null, params__37892__auto__)) {
+    var map__38086 = params__37892__auto__;
+    var map__38086__$1 = (!(map__38086 == null) ? map__38086.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__38086.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__38086) : map__38086;
+    var temp__4655__auto___38093 = redditv.storage.load_app_state.call(null);
+    if (cljs.core.truth_(temp__4655__auto___38093)) {
+      var state_38094 = temp__4655__auto___38093;
+      cljs.core.reset_BANG_.call(null, redditv.core.app_state, state_38094);
     } else {
       redditv.playlist.reload.call(null, redditv.core.app_state);
     }
     return redditv.utils.force_app_reload_BANG_.call(null, redditv.core.app_state);
   } else {
-    if (cljs.core.vector_QMARK_.call(null, params__37687__auto__)) {
-      var vec__37954 = params__37687__auto__;
-      var temp__4655__auto___37961 = redditv.storage.load_app_state.call(null);
-      if (cljs.core.truth_(temp__4655__auto___37961)) {
-        var state_37962 = temp__4655__auto___37961;
-        cljs.core.reset_BANG_.call(null, redditv.core.app_state, state_37962);
+    if (cljs.core.vector_QMARK_.call(null, params__37892__auto__)) {
+      var vec__38088 = params__37892__auto__;
+      var temp__4655__auto___38095 = redditv.storage.load_app_state.call(null);
+      if (cljs.core.truth_(temp__4655__auto___38095)) {
+        var state_38096 = temp__4655__auto___38095;
+        cljs.core.reset_BANG_.call(null, redditv.core.app_state, state_38096);
       } else {
         redditv.playlist.reload.call(null, redditv.core.app_state);
       }
@@ -91680,17 +91682,17 @@ var action__37686__auto___37958 = function(params__37687__auto__) {
     }
   }
 };
-secretary.core.add_route_BANG_.call(null, "*", action__37686__auto___37958);
-redditv.core.default_route = function(action__37686__auto___37958) {
+secretary.core.add_route_BANG_.call(null, "*", action__37891__auto___38092);
+redditv.core.default_route = function(action__37891__auto___38092) {
   return function redditv$core$default_route(var_args) {
     var args__31211__auto__ = [];
-    var len__31204__auto___37963 = arguments.length;
-    var i__31205__auto___37964 = 0;
+    var len__31204__auto___38097 = arguments.length;
+    var i__31205__auto___38098 = 0;
     while (true) {
-      if (i__31205__auto___37964 < len__31204__auto___37963) {
-        args__31211__auto__.push(arguments[i__31205__auto___37964]);
-        var G__37965 = i__31205__auto___37964 + 1;
-        i__31205__auto___37964 = G__37965;
+      if (i__31205__auto___38098 < len__31204__auto___38097) {
+        args__31211__auto__.push(arguments[i__31205__auto___38098]);
+        var G__38099 = i__31205__auto___38098 + 1;
+        i__31205__auto___38098 = G__38099;
         continue;
       } else {
       }
@@ -91699,34 +91701,34 @@ redditv.core.default_route = function(action__37686__auto___37958) {
     var argseq__31212__auto__ = 0 < args__31211__auto__.length ? new cljs.core.IndexedSeq(args__31211__auto__.slice(0), 0, null) : null;
     return redditv.core.default_route.cljs$core$IFn$_invoke$arity$variadic(argseq__31212__auto__);
   };
-}(action__37686__auto___37958);
-redditv.core.default_route.cljs$core$IFn$_invoke$arity$variadic = function(action__37686__auto___37958) {
-  return function(args__37685__auto__) {
-    return cljs.core.apply.call(null, secretary.core.render_route_STAR_, "*", args__37685__auto__);
+}(action__37891__auto___38092);
+redditv.core.default_route.cljs$core$IFn$_invoke$arity$variadic = function(action__37891__auto___38092) {
+  return function(args__37890__auto__) {
+    return cljs.core.apply.call(null, secretary.core.render_route_STAR_, "*", args__37890__auto__);
   };
-}(action__37686__auto___37958);
+}(action__37891__auto___38092);
 redditv.core.default_route.cljs$lang$maxFixedArity = 0;
-redditv.core.default_route.cljs$lang$applyTo = function(action__37686__auto___37958) {
-  return function(seq37957) {
-    return redditv.core.default_route.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null, seq37957));
+redditv.core.default_route.cljs$lang$applyTo = function(action__37891__auto___38092) {
+  return function(seq38091) {
+    return redditv.core.default_route.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null, seq38091));
   };
-}(action__37686__auto___37958);
-var h_37968 = new goog.History;
-goog.events.listen(h_37968, goog.history.EventType.NAVIGATE, function(h_37968) {
-  return function(p1__37966_SHARP_) {
-    return secretary.core.dispatch_BANG_.call(null, p1__37966_SHARP_.token);
+}(action__37891__auto___38092);
+var h_38102 = new goog.History;
+goog.events.listen(h_38102, goog.history.EventType.NAVIGATE, function(h_38102) {
+  return function(p1__38100_SHARP_) {
+    return secretary.core.dispatch_BANG_.call(null, p1__38100_SHARP_.token);
   };
-}(h_37968));
-var G__37967_37969 = h_37968;
-G__37967_37969.setEnabled(true);
+}(h_38102));
+var G__38101_38103 = h_38102;
+G__38101_38103.setEnabled(true);
 redditv.core.mixin_keyboard_controls = new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "did-mount", "did-mount", 918232960), function(state) {
   return window.addEventListener("keydown", function(e) {
     if (cljs.core.truth_(redditv.utils.query_in_focus_QMARK_.call(null, "#input-search-bar"))) {
       return null;
     } else {
       var keycode = e.keyCode;
-      var G__37970 = keycode;
-      switch(G__37970) {
+      var G__38104 = keycode;
+      switch(G__38104) {
         case 27:
           return cljs.core.swap_BANG_.call(null, redditv.core.app_state, cljs.core.assoc, new cljs.core.Keyword(null, "fullscreen", "fullscreen", -4371054), false);
           break;
@@ -91749,13 +91751,17 @@ redditv.core.mixin_keyboard_controls = new cljs.core.PersistentArrayMap(null, 1,
   });
 }], null);
 redditv.core.app = rum.core.build_defc.call(null, function() {
-  var attrs37972 = redditv.components.header.c_header.call(null, redditv.core.app_state);
-  return cljs.core.apply.call(null, React.createElement, "div", cljs.core.map_QMARK_.call(null, attrs37972) ? sablono.interpreter.attributes.call(null, sablono.normalize.merge_with_class.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "class", "class", -2030961996), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, ["redditv-main"], null)], null), attrs37972)) : {"className":"redditv-main"}, cljs.core.map_QMARK_.call(null, attrs37972) ? 
+  var attrs38106 = redditv.components.header.c_header.call(null, redditv.core.app_state);
+  return cljs.core.apply.call(null, React.createElement, "div", cljs.core.map_QMARK_.call(null, attrs38106) ? sablono.interpreter.attributes.call(null, sablono.normalize.merge_with_class.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "class", "class", -2030961996), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, ["redditv-main"], null)], null), attrs38106)) : {"className":"redditv-main"}, cljs.core.map_QMARK_.call(null, attrs38106) ? 
   new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [sablono.interpreter.interpret.call(null, redditv.components.sidepane.c_sidepane.call(null, redditv.core.app_state)), sablono.interpreter.interpret.call(null, redditv.components.player.c_player.call(null, redditv.core.app_state, redditv.core.initial_load_QMARK_, redditv.core.playlist_index, redditv.core.show_playlist, redditv.core.fullscreen)), sablono.interpreter.interpret.call(null, redditv.components.playlist.c_playlist.call(null, 
-  redditv.core.app_state)), sablono.interpreter.interpret.call(null, redditv.components.fullscreen_controls.c_fullscreen_controls.call(null, redditv.core.app_state))], null) : new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [sablono.interpreter.interpret.call(null, attrs37972), sablono.interpreter.interpret.call(null, redditv.components.sidepane.c_sidepane.call(null, redditv.core.app_state)), sablono.interpreter.interpret.call(null, redditv.components.player.c_player.call(null, 
+  redditv.core.app_state)), sablono.interpreter.interpret.call(null, redditv.components.fullscreen_controls.c_fullscreen_controls.call(null, redditv.core.app_state))], null) : new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [sablono.interpreter.interpret.call(null, attrs38106), sablono.interpreter.interpret.call(null, redditv.components.sidepane.c_sidepane.call(null, redditv.core.app_state)), sablono.interpreter.interpret.call(null, redditv.components.player.c_player.call(null, 
   redditv.core.app_state, redditv.core.initial_load_QMARK_, redditv.core.playlist_index, redditv.core.show_playlist, redditv.core.fullscreen)), sablono.interpreter.interpret.call(null, redditv.components.playlist.c_playlist.call(null, redditv.core.app_state)), sablono.interpreter.interpret.call(null, redditv.components.fullscreen_controls.c_fullscreen_controls.call(null, redditv.core.app_state))], null));
 }, new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [redditv.core.mixin_keyboard_controls], null), "app");
 redditv.playlist.reload.call(null, redditv.core.app_state, new cljs.core.Keyword(null, "reload?", "reload?", -1559406964), true);
 rum.core.mount.call(null, redditv.core.app.call(null), document.querySelector("#app"));
 redditv.core.search = cljs.core.partial.call(null, redditv.playlist.search_subreddit, redditv.core.app_state);
 window["search"] = redditv.core.search;
+goog.provide("redditv.mixins");
+goog.require("cljs.core");
+goog.require("rum.core");
+redditv.mixins.mixin_fade_out = null;
