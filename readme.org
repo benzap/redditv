@@ -18,6 +18,9 @@
    Currently redditv supports:
 - Youtube
 - Vimeo
+- Streamable
+- Soundcloud
+- Gfycat
 
 ** Contributing
 *** How to run
