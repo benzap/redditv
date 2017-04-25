@@ -1,13 +1,12 @@
-* RedditV - Subreddit Video Player
-  *This is still a work in progress.
+* Redditv - Subreddit Video Player
 
  Check out some subreddit videos at:
   
-  - http://benzap.github.io/redditv
-  - http://benzap.github.io/redditv/#/r/360video
-  - http://benzap.github.io/redditv/#/r/documentaries
-  - http://benzap.github.io/redditv/#/r/youtubehaiku
-  - http://benzap.github.io/redditv/#/r/commercialcuts
+  - http://redditv.ca
+  - http://redditv.ca/#/r/360video
+  - http://redditv.ca/#/r/documentaries
+  - http://redditv.ca/#/r/youtubehaiku
+  - http://redditv.ca/#/r/commercialcuts
 
 ** Keyboard Controls
 
