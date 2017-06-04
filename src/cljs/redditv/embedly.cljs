@@ -45,6 +45,7 @@
     (doto iframe
       (.setAttribute "width" "100%")
       (.setAttribute "height" "100%")
+      #_(.setAttribute "autoplay" "true")
       (.setAttribute "frameborder" "0"))
     (.appendChild target iframe)))
 
@@ -52,29 +53,29 @@
   (let [player (js/playerjs.Player. (.querySelector js/document embedly-iframe-class))]
     player))
 
+(defn attach-embedly-events [player event-channel]
+  (if (.supports player "event" "play")
+      (.on player "play" #(put! event-channel (events/player-playing)))
+      (put! event-channel (events/player-ended)))
+
+  (if (.supports player "event" "ended")
+      (.on player "ended" #(put! event-channel (events/player-ended)))
+      (put! event-channel (events/player-ended)))
+
+  (.on player "error" #(put! event-channel (events/player-not-started)))
+  (.setLoop player false)
+  (.play player)
+
+  ;; Sometimes the video doesn't play when you call 'play' right away
+  (.setTimeout js/window (fn [] (.play player)) 1000)
+
+  (aset js/window "redditv_embedly_player" player)
+  )
+
 (defn ^:export create-embedly-player [dom-id item event-channel]
   (let [html (post->embedded-html item)
         iframe (create-embedly-iframe dom-id html)
         player (attach-embedly-player)]
-    (.on player "ready"
-         (fn []
-           (if (.supports player "event" "play")
-             (.on player "play" #(put! event-channel (events/player-playing)))
-             (put! event-channel (events/player-ended)))
+    (.on player "event" "ready" (attach-embedly-events player event-channel))
+    (->EmbedlyPlayer iframe player item event-channel)))
 
-           (if (.supports player "event" "ended")
-             (.on player "ended" #(put! event-channel (events/player-ended)))
-             (put! event-channel (events/player-ended)))
-
-           (.on player "error" #(put! event-channel (events/player-not-started)))
-
-           (.setLoop player false)
-           (.play player)
-
-           ;; Sometimes the video doesn't play when you call 'play' right away
-           (.setTimeout js/window (fn [] (.play player)) 500)
-
-           (aset js/window "redditv_embedly_player" player)
-           ))
-    (->EmbedlyPlayer iframe player item event-channel)
-    ))
