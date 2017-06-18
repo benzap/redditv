@@ -129,6 +129,8 @@
                          (swap! app-state assoc :show-search true)
                          67 ;; Letter 'c'
                          (playlist/open-current-video-comments app-state)
+                         70
+                         (utils/set-fullscreen (.querySelector js/document "#app"))
                          nil))))))})
 
 (rum/defc app 

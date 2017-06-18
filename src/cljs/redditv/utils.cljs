@@ -134,3 +134,17 @@
     :else
     (keyword class-name)
     )))
+
+(defn set-fullscreen [dom-element]
+  (cond
+    (aget dom-element "requestFullscreen")
+    (.requestFullscreen dom-element)
+
+    (aget dom-element "webkitRequestFullscreen")
+    (.webkitRequestFullscreen dom-element)
+
+    (aget dom-element "mozRequestFullscreen")
+    (.mozRequestFullscreen dom-element)
+
+    (aget dom-element "msRequestFullscreen")
+    (.msRequestFullscreen dom-element)))
