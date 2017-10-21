@@ -10,8 +10,9 @@
 
 (def reddit-url "https://www.reddit.com")
 
-(defn generate-subreddit-url [subreddit {:keys [limit category]
-                               :or {limit 100 category "hot"}}]
+(defn generate-subreddit-url [subreddit {:keys [limit category after]
+                                         :or {limit 100 category "hot" after nil}
+                                         :as opts}]
   (let [base-url (str reddit-url "/r/" subreddit)
         link-categories #{"hot" "new" "rising"}
         [sort time] (string/split category #"_")]
@@ -20,7 +21,8 @@
       (str base-url "/" sort "/.json" (gen-query-params
                                            {:limit limit
                                             :sort sort
-                                            :t time})))))
+                                            :t time
+                                            :after after})))))
                              
 #_(generate-subreddit-url "videos" {:category "top_yearly" :limit 100})
 
@@ -36,15 +38,16 @@
                             :restrict_sr "on"
                             :limit 100}))))
 
-(generate-search-url "videos" "doggo")
+#_(generate-search-url "videos" "doggo")
 
 (defn get-subreddit-posts [subreddit opts]
   (let [output-channel (chan)
         url (generate-subreddit-url subreddit opts)
         [success-channel error-channel] (send-jsonp url)]
     (go (let [result (js->clj (<! success-channel) :keywordize-keys true)
-              data (-> result :data :children vec)]
-          (put! output-channel (map #(:data %) data))))
+              data (-> result :data :children)
+              data (map #(:data %) data)]
+          (put! output-channel data)))
     [output-channel error-channel]))
 
 (defn post-is-video? [post]

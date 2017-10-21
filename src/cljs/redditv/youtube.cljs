@@ -79,7 +79,9 @@
     ))
 
 (defn ^:export create-youtubeplayer [dom-id video-url event-channel]
-  (let [context
+  (let [start-time (video-url->seconds video-url)
+        _ (.log js/console (str "Time: " start-time))
+        context
         (YT.Player. dom-id 
                     #js {:videoId (video-url->video-id video-url)
                          :playerVars #js {:autoplay 1 :start (video-url->seconds video-url)}

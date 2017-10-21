@@ -3,29 +3,30 @@
   :url "http://github.com/benzap/redditv"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-
+  :jvm-opts ^:replace []
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.9.293" :scope "provided"]
-                 [org.clojure/core.async "0.2.395"]
+                 [org.clojure/clojurescript "1.9.946" :scope "provided"]
+                 [org.clojure/core.async "0.3.443"]
                  [org.clojure/core.match "0.3.0-alpha4"]
-                 [ring "1.5.0"]
-                 [ring/ring-defaults "0.2.1"]
-                 [bk/ring-gzip "0.1.1"]
+                 [ring "1.6.2"]
+                 [ring/ring-defaults "0.3.1"]
+                 [bk/ring-gzip "0.2.1"]
                  [ring.middleware.logger "0.5.0"]
-                 [compojure "1.5.1"]
+                 [compojure "1.6.0"]
                  [environ "1.1.0"]
 
                  ;; cljs
-                 [garden "1.3.2"]
+                 [garden "1.3.3"]
                  [rum "0.10.8"]
-                 [cljs-http "0.1.42"]
+                 [cljs-http "0.1.43"]
                  [secretary "1.2.3"]
-                 [cljsjs/react-mdl "1.5.4-1"]
-                 [cljsjs/react-select "1.0.0-rc.1"]]
+                 [cljsjs/react-mdl "1.10.1-1"]
+                 [cljsjs/react-select "1.0.0-rc.3"]]
 
   :plugins [[lein-cljsbuild "1.1.5"]
             [lein-environ "1.1.0"]
-            [lein-garden "0.3.0"]]
+            [lein-garden "0.3.0"]
+            [lein-ancient "0.6.14"]]
 
   :min-lein-version "2.6.1"
 
@@ -88,11 +89,11 @@
   :doo {:build "test"}
 
   :profiles {:dev
-             {:dependencies [[figwheel "0.5.8"]
-                             [figwheel-sidecar "0.5.8"]
-                             [com.cemerick/piggieback "0.2.1"]
-                             [org.clojure/tools.nrepl "0.2.12"]
-                             [lein-doo "0.1.7"]]
+             {:dependencies [[figwheel "0.5.14"]
+                             [figwheel-sidecar "0.5.14"]
+                             [com.cemerick/piggieback "0.2.2"]
+                             [org.clojure/tools.nrepl "0.2.13"]
+                             [lein-doo "0.1.8"]]
 
               :plugins [[lein-figwheel "0.5.8"]
                         [lein-doo "0.1.7"]]

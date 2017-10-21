@@ -34,10 +34,12 @@
                       fullscreen (-> state :rum/args (nth 2) deref)]
                   (go-loop []
                     (let [event (<! event-channel)]
+                      (.log js/console (str "Video Event: " event))
                       ;;events
                       (cond
-                        (or (events/is-player-not-started? event)
-                            (events/is-player-ended? event))
+                        (or 
+                         #_(events/is-player-not-started? event)
+                         (events/is-player-ended? event))
                         (playlist/select-next app-state)
                         (events/is-player-playing? event)
                         (when fullscreen
