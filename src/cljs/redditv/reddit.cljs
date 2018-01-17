@@ -8,7 +8,9 @@
             [redditv.embedly :as embedly]
             [redditv.utils :refer [gen-query-params]]))
 
+
 (def reddit-url "https://www.reddit.com")
+
 
 (defn generate-subreddit-url [subreddit {:keys [limit category after]
                                          :or {limit 100 category "hot" after nil}
@@ -26,6 +28,7 @@
                              
 #_(generate-subreddit-url "videos" {:category "top_yearly" :limit 100})
 
+
 (defn generate-search-url [subreddit search & {:keys [category]
                                                :or {category "relevance_all"}}]
   (let [base-url (str reddit-url "/r/" subreddit "/search")
@@ -40,6 +43,7 @@
 
 #_(generate-search-url "videos" "doggo")
 
+
 (defn get-subreddit-posts [subreddit opts]
   (let [output-channel (chan)
         url (generate-subreddit-url subreddit opts)
@@ -50,14 +54,17 @@
           (put! output-channel data)))
     [output-channel error-channel]))
 
+
 (defn post-is-video? [post]
   (or
    (yt/is-youtube-url? (post :url))
    (vimeo/is-vimeo-url? (post :url))
    (embedly/is-embedly-post? post)))
 
+
 (defn post-is-nsfw? [post]
   (:over_18 post))
+
 
 (defn get-subreddit-videos [subreddit opts]
   (let [{:keys [allow-nsfw?]} opts
@@ -70,6 +77,7 @@
                        videos)]
           (put! output-channel videos)))
     [output-channel error-channel]))
+
 
 (defn get-subreddit-post-by-id [id]
   (let [output-channel (chan)
@@ -92,6 +100,7 @@
           (close! output-channel)))
     [output-channel error-channel]))
 
+
 (defn get-search-posts [subreddit search opts]
   (let [output-channel (chan)
         url (generate-search-url subreddit search)
@@ -100,6 +109,7 @@
               data (-> result :data :children vec)]
           (put! output-channel (map #(:data %) data))))
     [output-channel error-channel]))
+
 
 (defn get-search-videos [subreddit search opts]
   (let [{:keys [allow-nsfw?]} opts
@@ -113,7 +123,8 @@
           (put! output-channel videos)))
     [output-channel error-channel]))
 
-#_(let [[result err] (get-search-videos "youtubehaiku" "doggo")]
+
+#_(let [[result err] (get-search-videos "youtubehaiku" "doggo" {})]
     (go (if-let [data (<! result)]
           (.log js/console (clj->js data))
           (.log js/console "Video does not exist"))

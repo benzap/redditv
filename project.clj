@@ -6,9 +6,9 @@
   :jvm-opts ^:replace []
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.946" :scope "provided"]
-                 [org.clojure/core.async "0.3.443"]
+                 [org.clojure/core.async "0.4.474"]
                  [org.clojure/core.match "0.3.0-alpha4"]
-                 [ring "1.6.2"]
+                 [ring "1.6.3"]
                  [ring/ring-defaults "0.3.1"]
                  [bk/ring-gzip "0.2.1"]
                  [ring.middleware.logger "0.5.0"]
@@ -18,10 +18,10 @@
                  ;; cljs
                  [garden "1.3.3"]
                  [rum "0.10.8"]
-                 [cljs-http "0.1.43"]
+                 [cljs-http "0.1.44"]
                  [secretary "1.2.3"]
                  [cljsjs/react-mdl "1.10.1-1"]
-                 [cljsjs/react-select "1.0.0-rc.3"]]
+                 [cljsjs/react-select "1.0.0-rc.10-1"]]
 
   :plugins [[lein-cljsbuild "1.1.5"]
             [lein-environ "1.1.0"]
@@ -38,12 +38,8 @@
 
   :uberjar-name "redditv.jar"
 
-  ;; Use `lein run` if you just want to start a HTTP server, without figwheel
   :main redditv.server
 
-  ;; nREPL by default starts in the :main namespace, we want to start in `user`
-  ;; because that's where our development helper functions like (run) and
-  ;; (browser-repl) live.
   :repl-options {:init-ns user}
 
   :garden
@@ -55,9 +51,7 @@
               {:app
                {:source-paths ["src/cljc" "src/cljs"]
 
-                :figwheel true
-                ;; Alternatively, you can configure a function to run every time figwheel reloads.
-                ;; :figwheel {:on-jsload "redditv.core/on-figwheel-reload"}
+                :figwheel {:autoload false}
 
                 :compiler {:main redditv.core
                            :asset-path "js/compiled/out"
@@ -74,14 +68,8 @@
                            :pretty-print true
                            }}}}
 
-  ;; When running figwheel from nREPL, figwheel will read this configuration
-  ;; stanza, but it will read it without passing through leiningen's profile
-  ;; merging. So don't put a :figwheel section under the :dev profile, it will
-  ;; not be picked up, instead configure figwheel here on the top level.
 
-  :figwheel {;; :http-server-root "public"       ;; serve static assets from resources/public/
-             ;; :server-port 3449                ;; default
-             :server-ip "localhost"              ;; default
+  :figwheel {:server-ip "localhost"              ;; default
              :css-dirs ["resources/public/css"]  ;; watch and update CSS
              :ring-handler user/http-handler
              :server-logfile "log/figwheel.log"}
@@ -89,11 +77,13 @@
   :doo {:build "test"}
 
   :profiles {:dev
-             {:dependencies [[figwheel "0.5.14"]
+             {:dependencies [[cider/cider-nrepl "0.17.0-SNAPSHOT"]
+                             [figwheel "0.5.14"]
                              [figwheel-sidecar "0.5.14"]
                              [com.cemerick/piggieback "0.2.2"]
                              [org.clojure/tools.nrepl "0.2.13"]
                              [lein-doo "0.1.8"]]
+              :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
 
               :plugins [[lein-figwheel "0.5.8"]
                         [lein-doo "0.1.7"]]
