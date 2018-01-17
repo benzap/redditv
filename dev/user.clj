@@ -11,7 +11,21 @@
 (def http-handler
   (wrap-reload #'redditv.server/http-handler))
 
-(defn run []
+(defn start []
   (figwheel/start-figwheel!))
+
+
+(defn stop []
+  (figwheel/stop-figwheel!))
+
+
+(def go start)
+(def run start)
+
+
+(defn restart []
+  (stop)
+  (start))
+
 
 (def browser-repl figwheel/cljs-repl)

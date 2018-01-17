@@ -30,8 +30,6 @@
             [redditv.components.player :refer [c-player]]
             [redditv.components.fullscreen-controls :refer [c-fullscreen-controls]]
 
-            ;; JS Dependencies
-            [cljsjs.react-select]
             )
   (:import goog.History))
 

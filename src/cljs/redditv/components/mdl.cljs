@@ -2,7 +2,6 @@
   (:require-macros [redditv.components.utils :refer [adapt-react]])
   (:require [rum.core :as rum]
             [cljsjs.react-mdl]
-            [cljsjs.react-select]
             ))
 
 (adapt-react checkbox js/ReactMDL.Checkbox)

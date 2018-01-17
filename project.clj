@@ -20,8 +20,7 @@
                  [rum "0.10.8"]
                  [cljs-http "0.1.44"]
                  [secretary "1.2.3"]
-                 [cljsjs/react-mdl "1.10.1-1"]
-                 [cljsjs/react-select "1.0.0-rc.10-1"]]
+                 [cljsjs/react-mdl "1.10.1-1"]]
 
   :plugins [[lein-cljsbuild "1.1.5"]
             [lein-environ "1.1.0"]
