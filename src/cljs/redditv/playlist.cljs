@@ -3,7 +3,9 @@
   (:require [redditv.utils :refer [set-hash! force-app-reload! 
                                    app-hash open-reddit-comment
                                    set-loading-animation!]]
-            [redditv.reddit :as reddit]))
+            [redditv.reddit :as reddit]
+            [redditv.reddit.request :as reddit.request]
+            ))
 
 (defn reload [app-state & {:keys [search reload?] :or {search nil reload? false}}]
   (set-loading-animation! app-state true)
@@ -15,9 +17,10 @@
                     playlist-selected-search
                     ]} @app-state
             [out err] (if-not playlist-selected-search
-                        (reddit/get-subreddit-videos subreddit {:allow-nsfw? settings-show-nsfw
-                                                                :limit settings-video-count
-                                                                :category settings-video-category})
+                        (reddit.request/get-subreddit-videos {:subreddit subreddit
+                                                              :allow-nsfw? settings-show-nsfw
+                                                              :rlimit settings-video-count
+                                                              :category settings-video-category})
                         (reddit/get-search-videos subreddit playlist-selected-search {:allow-nsfw? settings-show-nsfw}))
             videos (<! out)]
         (when videos

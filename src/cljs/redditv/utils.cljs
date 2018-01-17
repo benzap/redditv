@@ -90,7 +90,7 @@
          (when playlist-selected-search (str "/" (.encodeURIComponent js/window playlist-selected-search)))
          (gen-query-params 
           {:sort (when (not= settings-video-category "hot") settings-video-category)
-           :count (when (not= settings-video-count 100) settings-video-count)
+           :count (when (not= settings-video-count 200) settings-video-count)
            :fullscreen (when (not= fullscreen false) fullscreen)
            :nsfw (when (not= settings-show-nsfw true) settings-show-nsfw)
            }))))

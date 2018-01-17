@@ -47,7 +47,7 @@
          :show-search false
          :show-settings false
          :settings-show-nsfw true
-         :settings-video-count 100
+         :settings-video-count 200
          :settings-video-category "hot"
          }))
 
@@ -68,9 +68,9 @@
   (swap! app-state assoc
          :subreddit subreddit
          :settings-video-category (get query-params :sort "hot")
-         :settings-video-count (parse-int (get query-params :count "100")))
+         :settings-video-count (parse-int (get query-params :count "200")))
   (force-app-reload! app-state)
-  (storage/save-app-state! @app-state))
+  #_(storage/save-app-state! @app-state))
 
 (defroute subreddit-path-with-index #"/r/([\w\d]+)/(\d+)"
   [subreddit index query-params]
@@ -79,11 +79,11 @@
          :playlist-selected-index (parse-int index)
          :playlist-selected-search nil
          :settings-video-category (get-in query-params [:query-params :sort] "hot")
-         :settings-video-count (parse-int (get-in query-params [:query-params :count] "100"))
+         :settings-video-count (parse-int (get-in query-params [:query-params :count] "200"))
          :fullscreen (parse-bool (get-in query-params [:query-params :fullscreen] "false"))
          )
   (force-app-reload! app-state)
-  (storage/save-app-state! @app-state))
+  #_(storage/save-app-state! @app-state))
 
 (defroute subreddit-path-with-search #"/r/([\w\d]+)/(\d)/([\w\d]+)"
   [subreddit index search query-params]
@@ -92,17 +92,18 @@
          :playlist-selected-index (parse-int index)
          :playlist-selected-search search
          :settings-video-category "hot"
-         :settings-video-count (parse-int (get-in query-params [:query-params :count] "100"))
+         :settings-video-count (parse-int (get-in query-params [:query-params :count] "200"))
          :fullscreen (parse-bool (get-in query-params [:query-params :fullscreen] "false")))
   (force-app-reload! app-state)
-  (storage/save-app-state! @app-state))
+  #_(storage/save-app-state! @app-state))
 
-;; Default route goes to /r/videos
-(defroute default-route "*" []
+
+#_(defroute default-route "*" []
   (if-let [state (storage/load-app-state)]
     (reset! app-state state)
     (playlist/reload app-state))
   (force-app-reload! app-state))
+
 
 ;; Quick and dirty history configuration.
 (let [h (History.)]
@@ -148,3 +149,4 @@
 (def search (partial playlist/search-subreddit app-state))
 (aset js/window "search" search)
 
+#_(println (clj->js @app-state))

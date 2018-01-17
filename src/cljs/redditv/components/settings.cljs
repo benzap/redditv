@@ -56,8 +56,8 @@
          {}
          (mdl/cell {:col 4} (.span js/React.DOM #js {:style #js {:fontSize "16px"}}
                                    "# Playlist Videos"))
-         (mdl/cell {:col 6} (mdl/slider {:min 10 :max 100 :value settings-video-count
-                                         :onChange 
+         (mdl/cell {:col 6} (mdl/slider {:min 20 :max 1000 :value settings-video-count
+                                         :onChange
                                          (fn [e] 
                                            (swap! app-state assoc
                                                   :settings-video-count

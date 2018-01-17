@@ -1,7 +1,7 @@
 (ns redditv.reddit
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [clojure.string :as string]
-            [cljs.core.async :refer [put! chan <! close!]]
+            [cljs.core.async :refer [put! chan <! close! >!]]
             [redditv.jsonp :refer [send-jsonp]]
             [redditv.youtube :as yt]
             [redditv.vimeo :as vimeo]
@@ -52,7 +52,7 @@
     (go (let [result (js->clj (<! success-channel) :keywordize-keys true)
               data (-> result :data :children)
               data (map #(:data %) data)]
-          (put! output-channel data)))
+          (>! output-channel data)))
     [output-channel error-channel]))
 
 
@@ -76,7 +76,7 @@
               videos (if-not allow-nsfw? 
                        (filterv (complement post-is-nsfw?) videos)
                        videos)]
-          (put! output-channel videos)))
+          (>! output-channel videos)))
     [output-channel error-channel]))
 
 
