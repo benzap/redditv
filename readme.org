@@ -1,19 +1,24 @@
-* Redditv - Subreddit Video Player
+#+TITLE: Redditv - Subreddit Video Player
+#+AUTHOR: Benjamin Zaporzan
+#+DATE: 2018-01-17
+#+EMAIL: benzaporzan@gmail.com
+#+LANGUAGE: en
+#+OPTIONS: H:2 num:t toc:t \n:nil ::t |:t ^:t f:t tex:t
 
- Check out some subreddit videos at:
+Check out some subreddit videos at:
   
-  - http://redditv.ca
-  - http://redditv.ca/#/r/360video
-  - http://redditv.ca/#/r/documentaries
-  - http://redditv.ca/#/r/youtubehaiku
-  - http://redditv.ca/#/r/commercialcuts
+- http://redditv.ca
+- http://redditv.ca/#/r/360video
+- http://redditv.ca/#/r/documentaries
+- http://redditv.ca/#/r/youtubehaiku
+- http://redditv.ca/#/r/commercialcuts
 
-** Keyboard Controls
+* Keyboard Controls
 
-   You can use the *Left Arrow Key* and *Right Arrow Keys* to navigate
-   to the previous and next videos
-   
-** Supported Videos
+  You can use the *Left Arrow Key* and *Right Arrow Keys* to navigate
+  to the previous and next videos
+  
+* Supported Videos
 
    Currently redditv supports:
 - Youtube
@@ -22,7 +27,7 @@
 - Soundcloud
 - Gfycat
 
-** Contributing
+* Contributing
 *** How to run
     Connect your editor to the app, by [[https://github.com/plexus/chestnut#usage][following these steps]]
 
@@ -34,23 +39,26 @@
     - If you want to manipulate the browser from within the repl, go
       to your repl, and type ~(browser-repl)~
 
-** Programming Tasks
-   - [X] Keyboard Shortcuts to watch next video, or previous video
-   - [X] Buttons to watch next video, or previous video
-   - [X] Search bar containing current subreddit to scrape
-     videos from
-   - [X] Left Pane - button to go to comments section
-   - [X] Playlist - automatically scroll the listing
-   - [X] Routes - include routing to subreddits based on anchors
-     ex.
-     - [[http://benzap.github.io/redditv/#/r/youtubehaiku]]
-     - http://benzap.github.io/redditv/#/r/commercialcuts
-   - [X] Add HTTPS Support
-   - [X] Toggle NSFW videos
-   - [X] Settings dialog (Right Pane) which contains default limit
-     on # videos per subreddit
-   - [X] Add support for Vimeo Videos
-   - [X] youtube - respect the 'start' parameter when playing the
-     video.
-   - [X] Local Storage for app-state
-   - [X] Add support for other video formats
+* Programming Tasks
+  - [X] Keyboard Shortcuts to watch next video, or previous video
+  - [X] Buttons to watch next video, or previous video
+  - [X] Search bar containing current subreddit to scrape
+    videos from
+  - [X] Left Pane - button to go to comments section
+  - [X] Playlist - automatically scroll the listing
+  - [X] Routes - include routing to subreddits based on anchors
+    ex.
+    - [[http://benzap.github.io/redditv/#/r/youtubehaiku]]
+    - http://benzap.github.io/redditv/#/r/commercialcuts
+  - [X] Add HTTPS Support
+  - [X] Toggle NSFW videos
+  - [X] Settings dialog (Right Pane) which contains default limit
+    on # videos per subreddit
+  - [X] Add support for Vimeo Videos
+  - [X] youtube - respect the 'start' parameter when playing the
+    video.
+  - [X] Local Storage for app-state
+  - [X] Add support for other video formats
+* Helpful Resources
+** Deploying from dist folder to gh-pages
+   - https://gist.github.com/cobyism/4730490
