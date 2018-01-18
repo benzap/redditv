@@ -1,8 +1,8 @@
 .anim-slideInLeft {
     -webkit-animation-name: slideInLeft;
     animation-name: slideInLeft;
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
@@ -27,4 +27,10 @@
 	-webkit-transform: translateX(0);
 	transform: translateX(0);
     }
-} 
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 1s, opacity 1s linear;
+}
