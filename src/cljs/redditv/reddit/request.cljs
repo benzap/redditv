@@ -26,11 +26,13 @@
 
 (spec/def ::subreddit string?)
 (spec/def ::limit #(spec/int-in-range? 1 101 %))
+(spec/def ::vcount nat-int?)
 (spec/def ::category #(allowed-categories %))
 (spec/def ::after (spec/nilable string?))
 
 
 #_(spec/valid? ::limit 100)
+#_(spec/valid? ::vcount -1)
 #_(spec/valid? ::category "top_all")
 #_(spec/valid? ::after nil)
 
@@ -53,33 +55,53 @@
   after - reddit id to grab the posts 'after' which is a means to grab
   pages 'after' a given set of posts have been retrieved. [default: nil]
   "
-  [{:keys [subreddit limit category after]
-    :or {limit 100 category "hot" after nil}}]
+  [{:keys [subreddit limit category after vcount]
+    :or {limit 100 category "hot" after nil vcount 0}}]
   (let [[sort time] (string/split category #"_")
         base-url (str reddit-url "/r/" subreddit "/" sort "/.json")]
     (cond
       ;; If the sort criteria is a restricted category, we don't process the time
       (sort-restricted-categories sort)
-      (str base-url (gen-query-params {:limit limit :after after}))
+      (str base-url (gen-query-params {:limit limit :after after :count vcount}))
       
       (sort-time-categories sort)
       (str base-url (gen-query-params
                      {:limit limit
                       :sort sort
                       :t time
-                      :after after})))))
+                      :after after
+                      :count vcount})))))
 
 
 (spec/fdef generate-subreddit-url
            :args (spec/cat :opts (spec/keys :req-un [::subreddit]
-                                            :opt-un [::limit ::category ::after]))
+                                            :opt-un [::limit ::category ::after ::vcount]))
            :ret string?)
 
 
 #_(println (generate-subreddit-request-url {:subreddit "videos" :category "top_all"}))
 
 
+(defn distinct-by-id
+  "Ensures that the reddit posts are distinct within the given post collection.
 
+  Note: maintains the first post seen as unique, removing additional
+  posts with the same :id"
+  [posts]
+  (let [idx-kw :idx-somekeywedontcareabout
+        find-index (fn [coll id]
+                       (as-> coll $
+                         (filter #(= id (:id %)) $)
+                         (first $)
+                         (idx-kw $)))
+        indexed-posts (map-indexed #(assoc %2 idx-kw %1) posts)]
+    (for [p indexed-posts
+          :when (= (find-index indexed-posts (:id p)) (idx-kw p))]
+      (dissoc p idx-kw)
+      )))
+
+
+#_(distinct-by-id [{:id "a"} {:id "b"} {:id "a"} {:id "c"}])
 
 
 (defn get-subreddit-videos
@@ -98,7 +120,12 @@
   some categories don't allow a time constraint. [default: 'hot']
 
   after - reddit id to grab the posts 'after' which is a means to grab
-  pages 'after' a given set of posts have been retrieved. [default: nil]
+  pages 'after' a given set of posts have been retrieved. Note: this
+  is inaccurate, you need the vcount in order to provide an
+  offset. [default: nil]
+
+  vcount - provide an offset on what is requested from a particular
+  subreddit
 
   allow-nsfw? - If false, will filter out videos containing
   Not-Safe-For-Work content [default: true]
@@ -110,32 +137,53 @@
   element is a channel which will contain Error Data if any of the
   reddit api requests fail.
   "
-  [{:keys [subreddit rlimit category after allow-nsfw?]
-    :or {rlimit 100 category "hot" after nil allow-nsfw? true}}]
+  [{:keys [subreddit rlimit category after vcount allow-nsfw?]
+    :or {rlimit 100 category "hot" after nil vcount 0 allow-nsfw? true}}]
   (let [main-data-channel (chan)
         main-error-channel (chan)
-        max-requests 12]
+        max-requests 15]
     
     (go-loop [video-posts '()
               num-requests 0]
+      
+      ;; Query the reddit api until we've reached the desired number
+      ;; of video posts, or until we've reached the max number of
+      ;; request we're willing to make
       (if (and (< (count video-posts) rlimit)
                (< num-requests max-requests))
         (let [limit (min (- rlimit (count video-posts)) 100)
-              after-id (or (-> video-posts last :id) after)
+              vcount (count video-posts)
+              after-id (or (-> video-posts last :name) after)
+
+              ;; Generate the request and query reddit using jsonp
               url (generate-subreddit-request-url
-                   {:subreddit subreddit :limit limit :category category :after after-id})
+                   {:subreddit subreddit :limit limit :category category
+                    :after after-id :vcount vcount})
               [s-chan e-chan] (send-jsonp url)
+
+              ;; Convert the resulting JS Object into a clojure collection of map objects
               data-result (some-> (<! s-chan) (js->clj :keywordize-keys true) :data :children)
               result (map #(:data %) data-result)
+
+              ;; Remove NSFW Posts if flag is not set
               result (if-not allow-nsfw? (filter (complement post-is-nsfw?) result) result)
+
+              ;; Scrape out any posts that don't contain playable videos
               video-results (filter post-is-video? result)
+
+              ;; Remove any distinct reddit posts from subsequent reddit api requests
+              video-results (distinct-by-id video-results)
               ]
           (recur (concat video-posts video-results)
                  (inc num-requests))))
       (>! main-data-channel video-posts))
     [main-data-channel main-error-channel]))
 
-#_(let [[success error] (get-subreddit-videos {:subreddit "videos" :rlimit 1000})]
+#_(let [[success error] (get-subreddit-videos {:subreddit "videos" :rlimit 200})]
     (go (let [results (<! success)]
           (.log js/console "Results:" (clj->js results))
+          (.log js/console (->> results
+                                (group-by :id)
+                                (filter #(> (count %2) 1))
+                                (clj->js)))
           )))

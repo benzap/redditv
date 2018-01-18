@@ -1,6 +1,7 @@
 (ns redditv.utils
   (:require [goog.functions]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [redditv.config :as config]))
 
 (defn dom-clear-children 
   [div-id]
@@ -89,8 +90,8 @@
          "/" playlist-selected-index
          (when playlist-selected-search (str "/" (.encodeURIComponent js/window playlist-selected-search)))
          (gen-query-params 
-          {:sort (when (not= settings-video-category "hot") settings-video-category)
-           :count (when (not= settings-video-count 200) settings-video-count)
+          {:sort (when (not= settings-video-category config/default-video-category) settings-video-category)
+           :count (when (not= settings-video-count config/default-video-count) settings-video-count)
            :fullscreen (when (not= fullscreen false) fullscreen)
            :nsfw (when (not= settings-show-nsfw true) settings-show-nsfw)
            }))))

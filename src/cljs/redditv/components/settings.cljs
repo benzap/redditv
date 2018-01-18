@@ -2,7 +2,8 @@
   (:require [rum.core :as rum]
             [redditv.playlist :as playlist]
             [redditv.components.mdl :as mdl]
-            [redditv.utils :refer [parse-int]]))
+            [redditv.utils :refer [parse-int]]
+            [redditv.config :as config]))
 
 (rum/defcs c-settings
   < rum/reactive

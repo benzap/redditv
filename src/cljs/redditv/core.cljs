@@ -7,6 +7,7 @@
             [goog.history.EventType :as EventType]
 
             ;; Local
+            [redditv.config :as config]
             [redditv.utils :refer [parse-int
                                    parse-bool
                                    set-hash!
@@ -38,7 +39,7 @@
 (defonce app-state
   (atom {:loading? true
          :initial-load? 0
-         :subreddit "videos"
+         :subreddit config/default-subreddit
          :playlist []
          :playlist-selected-index 0
          :playlist-selected-search nil
@@ -47,8 +48,8 @@
          :show-search false
          :show-settings false
          :settings-show-nsfw true
-         :settings-video-count 200
-         :settings-video-category "hot"
+         :settings-video-count config/default-video-count
+         :settings-video-category config/default-video-category
          }))
 
 (defonce initial-load? (rum/cursor-in app-state [:initial-load?]))
@@ -67,8 +68,8 @@
   [subreddit query-params]
   (swap! app-state assoc
          :subreddit subreddit
-         :settings-video-category (get query-params :sort "hot")
-         :settings-video-count (parse-int (get query-params :count "200")))
+         :settings-video-category (get query-params :sort config/default-video-category)
+         :settings-video-count (parse-int (get query-params :count (str config/default-video-count))))
   (force-app-reload! app-state)
   #_(storage/save-app-state! @app-state))
 
@@ -78,8 +79,10 @@
          :subreddit subreddit
          :playlist-selected-index (parse-int index)
          :playlist-selected-search nil
-         :settings-video-category (get-in query-params [:query-params :sort] "hot")
-         :settings-video-count (parse-int (get-in query-params [:query-params :count] "200"))
+         :settings-video-category (get-in query-params [:query-params :sort]
+                                          config/default-video-category)
+         :settings-video-count (parse-int (get-in query-params [:query-params :count]
+                                                  (str config/default-video-count)))
          :fullscreen (parse-bool (get-in query-params [:query-params :fullscreen] "false"))
          )
   (force-app-reload! app-state)
@@ -91,8 +94,9 @@
          :subreddit subreddit
          :playlist-selected-index (parse-int index)
          :playlist-selected-search search
-         :settings-video-category "hot"
-         :settings-video-count (parse-int (get-in query-params [:query-params :count] "200"))
+         :settings-video-category config/default-video-category
+         :settings-video-count (parse-int (get-in query-params [:query-params :count]
+                                                  (str config/default-video-count)))
          :fullscreen (parse-bool (get-in query-params [:query-params :fullscreen] "false")))
   (force-app-reload! app-state)
   #_(storage/save-app-state! @app-state))
