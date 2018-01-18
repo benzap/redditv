@@ -1,11 +1,19 @@
 (ns redditv.styles
   (:require
-   [garden.def :refer [defstyles]]
+   [garden.def :refer [defstyles defrule defkeyframes]]
    [garden.color :as color :refer [hsl rgb rgba]]
    [garden.units :refer [px]]
    [garden.selectors :refer [defpseudoelement]]))
 
 (defpseudoelement selection)
+
+(defkeyframes fade-in
+  ["0%"
+   {:opacity 0}]
+
+  ["100%"
+   {:opacity 1}])
+
 
 (def font-mono "'Roboto', sans-serif")
 
@@ -32,6 +40,18 @@
 (def search-bar-width 300)
 
 (defstyles main
+
+  ;;
+  ;; Animations
+  ;;
+
+  fade-in
+  [:.anim-fade-in-fast
+   {:animation-name "fade-in"
+    :animation-duration "0.3s"
+    :animation-fill-mode "both"}]
+
+
   [:* 
    {:font-family font-mono
     :color color-light-text
@@ -121,7 +141,10 @@
     :font-size (px 20)
     :border-top-right-radius (px 20)
     :line-height (px header-height)
-    :border-bottom-right-radius (px 20)}]
+    :border-bottom-right-radius (px 20)
+    :transition "color 0.3s"}
+   [:&:hover
+    {:color "#1d1d1d"}]]
 
   [:.header-title
    {:height (px header-height)
@@ -298,7 +321,8 @@
     :white-space "normal"
     :vertical-align "top"
     :margin "0px 0px 45px 0px"
-    :cursor "pointer"}
+    :cursor "pointer"
+    :transition "background-color 0.1s"}
    [:&:hover
     {:background-color color-entry-hover}]]
 
@@ -333,7 +357,8 @@
     :text-align "center"
     :line-height (px sidepane-width)
     :background-color color-button-default
-    :cursor "pointer"}
+    :cursor "pointer"
+    :transition "background-color 0.1s"}
    [:&:hover
     {:background-color color-button-default-hover}]]
 

@@ -6,6 +6,7 @@
             [redditv.utils :refer [align-to-root-left clear-scroll set-hash!
                                    app-hash decode-html-string
                                    app-css-class-layout]]
+            [redditv.animation :as anim]
             [redditv.components.mdl :as mdl]))
 
 (def nsfw-thumbnail-url "http://i.imgur.com/KZOsckv.jpg")
@@ -18,7 +19,9 @@
         parent-node (.querySelector js/document ".redditv-playlist-container")
         selected? (-> state :rum/args (nth 2))]
     (when selected?
-      (align-to-root-left parent-node dom-node)))
+      #_(anim/smooth-scroll-to-element-h parent-node dom-node)
+      (align-to-root-left parent-node dom-node)
+      ))
   state)
 
 (defn mixin-fix-playlist-compressed
@@ -42,7 +45,7 @@
                     nil default-thumbnail-url
                     "" default-thumbnail-url
                     thumbnail)]
-  [:.redditv-playlist-item
+  [:.redditv-playlist-item.anim-fade-in-fast
    {:title title
     :on-click #(put! select-chan i)
     :class (when selected? "selected")}

@@ -91,6 +91,7 @@
             (close! output-channel))))
     [output-channel error-channel]))
 
+
 (defn get-subreddit-video-by-id [id]
   (let [output-channel (chan)
         [success-channel error-channel] (get-subreddit-post-by-id id)]

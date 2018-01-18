@@ -23,6 +23,7 @@
             [redditv.icons :as icons]
             [redditv.events :as events]
             [redditv.storage :as storage]
+            [redditv.animation :as anim]
 
             ;; Rum Components
             [redditv.components.header :refer [c-header]]
@@ -30,7 +31,6 @@
             [redditv.components.playlist :refer [c-playlist]]
             [redditv.components.player :refer [c-player]]
             [redditv.components.fullscreen-controls :refer [c-fullscreen-controls]]
-
             )
   (:import goog.History))
 
