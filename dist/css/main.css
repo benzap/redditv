@@ -1,3 +1,39 @@
+@keyframes fade-in {
+
+0% {
+    opacity: 0;
+  }
+  
+100% {
+    opacity: 1;
+  }
+
+}
+
+.anim-fade-in-fast {
+  animation-name: fade-in;
+  animation-duration: 0.3s;
+  animation-fill-mode: none;
+}
+
+.anim-fade-in-default {
+  animation-name: fade-in;
+  animation-duration: 0.7s;
+  animation-fill-mode: none;
+}
+
+.anim-fade-in-medium {
+  animation-name: fade-in;
+  animation-duration: 1.0s;
+  animation-fill-mode: none;
+}
+
+.anim-fade-in-slow {
+  animation-name: fade-in;
+  animation-duration: 1.5s;
+  animation-fill-mode: none;
+}
+
 * {
   font-family: 'Roboto', sans-serif;
   color: #fdfdfd;
@@ -77,15 +113,15 @@ body {
 }
 
 .header-logo {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  background-color: #01405d;
-  flex-grow: 0;
   width: 120px;
-  flex-shrink: 0;
-  flex-basis: 120px;
   height: 40px;
+  flex-shrink: 0;
+  text-align: center;
+  flex-grow: 0;
+  font-weight: bold;
+  font-size: 24px;
+  background-color: #01405d;
+  flex-basis: 120px;
 }
 
 .header-subreddit {
@@ -99,7 +135,12 @@ body {
   background-color: #607D8B;
   padding-right: 10px;
   display: flex;
+  transition: color 0.3s;
   padding-left: 15px;
+}
+
+.header-subreddit:hover {
+  color: #1d1d1d;
 }
 
 .header-title {
@@ -117,12 +158,12 @@ body {
   line-height: 40px;
   text-align: center;
   white-space: wrap;
-  font-size: 20px;
   overflow: hidden;
+  font-size: 20px;
   background-color: hsla(0, 0%, 0%, 0.33);
   padding-right: 20px;
-  padding-left: 20px;
   border-radius: 5px;
+  padding-left: 20px;
 }
 
 #spinner-loading {
@@ -193,6 +234,14 @@ body {
   left: 80px;
 }
 
+.redditv-playlist-load-indicator>.redditv-playlist-progress {
+  left: 0;
+  top: 20%;
+  margin-left: 20%;
+  margin-right: 20%;
+  color: blue;
+}
+
 .redditv-playlist-progress {
   position: absolute;
   right: 0;
@@ -202,14 +251,14 @@ body {
 }
 
 .redditv-playlist-container {
-  bottom: 0;
-  white-space: nowrap;
-  background-color: #607D8B;
-  overflow-x: scroll;
   right: 40px;
-  position: absolute;
-  overflow-y: hidden;
   height: 140px;
+  overflow-y: hidden;
+  white-space: nowrap;
+  position: absolute;
+  overflow-x: scroll;
+  background-color: #607D8B;
+  bottom: 0;
   left: 40px;
 }
 
@@ -219,14 +268,14 @@ body {
 }
 
 .redditv-playlist-container-compressed {
-  bottom: 0;
-  white-space: nowrap;
-  background-color: #607D8B;
-  overflow-x: hidden;
   right: 80px;
-  position: absolute;
-  overflow-y: hidden;
   height: 40px;
+  overflow-y: hidden;
+  white-space: nowrap;
+  position: absolute;
+  overflow-x: hidden;
+  background-color: #607D8B;
+  bottom: 0;
   left: 40px;
 }
 
@@ -286,14 +335,15 @@ body {
 }
 
 .redditv-playlist-item {
-  position: relative;
-  display: inline-block;
-  height: 100%;
   width: 165px;
-  white-space: normal;
-  vertical-align: top;
+  height: 100%;
   margin: 0px 0px 45px 0px;
+  vertical-align: top;
+  white-space: normal;
+  position: relative;
   cursor: pointer;
+  display: inline-block;
+  transition: background-color 0.1s;
 }
 
 .redditv-playlist-item:hover {
@@ -326,14 +376,15 @@ body {
 }
 
 .redditv-button {
+  line-height: 40px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
   position: relative;
   z-index: 2;
-  height: 40px;
-  width: 40px;
-  text-align: center;
-  line-height: 40px;
-  background-color: #455A64;
   cursor: pointer;
+  background-color: #455A64;
+  transition: background-color 0.1s;
 }
 
 .redditv-button:hover {
@@ -364,15 +415,15 @@ body {
 }
 
 #input-search-bar {
-  vertical-align: middle;
-  font-size: 24px;
-  background-color: black;
   width: 270px;
+  margin: 6px;
+  border: none;
+  vertical-align: middle;
   padding: 0 5px 0 5px;
   outline: none;
-  border: none;
+  font-size: 24px;
+  background-color: black;
   border-radius: 3px;
-  margin: 6px;
 }
 
 .redditv-settings-dialog-container {
@@ -424,14 +475,14 @@ body {
 }
 
 .redditv-dialog-content {
-  color: #1d1d1d;
-  bottom: 0;
-  top: 40px;
-  background-color: #fdfdfd;
-  padding: 25px;
   right: 0;
-  position: absolute;
+  top: 40px;
   overflow-y: auto;
+  padding: 25px;
+  position: absolute;
+  background-color: #fdfdfd;
+  bottom: 0;
+  color: #1d1d1d;
   left: 0;
 }
 
@@ -520,6 +571,7 @@ body {
 
 .header-subreddit-listing {
   position: fixed;
+  opacity: 1.0;
   z-index: 199;
   top: 40px;
   left: 120px;
@@ -539,6 +591,7 @@ body {
   padding-bottom: 5px;
   height: 24px;
   white-space: nowrap;
+  z-index: 199;
   text-overflow: ellipsis;
   cursor: pointer;
   overflow: hidden;
