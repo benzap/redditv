@@ -49,7 +49,22 @@
   [:.anim-fade-in-fast
    {:animation-name "fade-in"
     :animation-duration "0.3s"
-    :animation-fill-mode "both"}]
+    :animation-fill-mode "none"}]
+
+  [:.anim-fade-in-default
+   {:animation-name "fade-in"
+    :animation-duration "0.7s"
+    :animation-fill-mode "none"}]
+
+  [:.anim-fade-in-medium
+   {:animation-name "fade-in"
+    :animation-duration "1.0s"
+    :animation-fill-mode "none"}]
+
+  [:.anim-fade-in-slow
+   {:animation-name "fade-in"
+    :animation-duration "1.5s"
+    :animation-fill-mode "none"}]
 
 
   [:* 
@@ -231,6 +246,13 @@
     :padding-left (px 12)
     :padding-bottom (px 5)
     :line-height (px sidepane-width)}]
+
+  [:.redditv-playlist-load-indicator>.redditv-playlist-progress
+   {:left 0
+    :top "20%"
+    :margin-left "20%"
+    :margin-right "20%"
+    :color "blue"}]
 
   [:.redditv-playlist-progress
    {:position "absolute"
@@ -494,6 +516,7 @@
 
   [:.header-subreddit-listing
    {:position "fixed"
+    :opacity 1.0
     :z-index 199
     :top (px header-height)
     :left (px header-logo-width)
@@ -513,7 +536,8 @@
     }]
 
   [:.header-subreddit-listing-element
-   {:padding-top (px 5)
+   {:z-index 199
+    :padding-top (px 5)
     :padding-bottom (px 5)
     :padding-left (px 15)
     :padding-right (px 10)

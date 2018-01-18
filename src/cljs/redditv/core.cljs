@@ -34,7 +34,9 @@
             )
   (:import goog.History))
 
+
 (enable-console-print!)
+
 
 (defonce app-state
   (atom {:loading? true
@@ -51,6 +53,7 @@
          :settings-video-count config/default-video-count
          :settings-video-category config/default-video-category
          }))
+
 
 (defonce initial-load? (rum/cursor-in app-state [:initial-load?]))
 (defonce playlist-index (rum/cursor-in app-state [:playlist-selected-index]))
@@ -73,6 +76,7 @@
   (force-app-reload! app-state)
   #_(storage/save-app-state! @app-state))
 
+
 (defroute subreddit-path-with-index #"/r/([\w\d]+)/(\d+)"
   [subreddit index query-params]
   (swap! app-state assoc
@@ -87,6 +91,7 @@
          )
   (force-app-reload! app-state)
   #_(storage/save-app-state! @app-state))
+
 
 (defroute subreddit-path-with-search #"/r/([\w\d]+)/(\d)/([\w\d]+)"
   [subreddit index search query-params]
@@ -114,6 +119,7 @@
   (goog.events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
   (doto h (.setEnabled true)))
 
+
 (def mixin-keyboard-controls 
   {:did-mount (fn [state]
                 (.addEventListener 
@@ -136,6 +142,7 @@
                          (utils/set-fullscreen (.querySelector js/document "#app"))
                          nil))))))})
 
+
 (rum/defc app 
   < mixin-keyboard-controls
   []
@@ -146,11 +153,15 @@
    (c-playlist app-state)
    (c-fullscreen-controls app-state)])
 
+
 (playlist/reload app-state :reload? true)
+
 
 (rum/mount (app) (.querySelector js/document "#app"))
 
+
 (def search (partial playlist/search-subreddit app-state))
 (aset js/window "search" search)
+
 
 #_(println (clj->js @app-state))

@@ -97,8 +97,11 @@
       ]
      (if show-playlist
        [:.redditv-playlist-container {:class (if-not show-playlist "compressed")}
-        (for [[index item] playlist-items]
-          (c-playlist-item [index item] select-chan (= index playlist-selected-index)))]
+        (if (<= (count playlist-items) 0)
+          [:.redditv-playlist-load-indicator
+           (mdl/progress-bar {:className "redditv-playlist-progress" :indeterminate true})]
+          (for [[index item] playlist-items]
+            (c-playlist-item [index item] select-chan (= index playlist-selected-index))))]
        [:.redditv-playlist-container-compressed
         [:.redditv-leftpane-compressed
          (mdl/tooltip
@@ -113,6 +116,7 @@
          (str (inc playlist-selected-index) " of " (count playlist-items))]
         (mdl/progress-bar {:className "redditv-playlist-progress"
                            :progress (* (/ (inc playlist-selected-index) (count playlist-items))
-                                        100)})
+                                        100)
+                           :indeterminate (<= (count playlist-items) 0)})
         ])]))
   

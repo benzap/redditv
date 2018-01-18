@@ -64,7 +64,7 @@
         selected (playlist/get-selected app-state)
         title (-> selected :title str decode-html-string)]
     (if-not (-> @app-state :fullscreen)
-      [:.redditv-header
+      [:.redditv-header.anim-fade-in-slow
        [:.redditv-header-flex
         [:.header-logo "redditv"]
         [:.header-subreddit.noselect {:on-click #(swap! app-state update-in [:show-subreddits] not)}
@@ -77,7 +77,7 @@
                      :title "Pick Popular Subreddit"}))]
         [:.header-title {:title title} title]
         (when show-subreddits
-          [:.header-subreddit-listing
+          [:.header-subreddit-listing.anim-fade-in-fast
            [:.header-subreddit-container
             (map #(subreddit-listing app-state %) subreddits)]])
         (when loading? (mdl/spinner {:id "spinner-loading"}))]]
