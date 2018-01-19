@@ -49,6 +49,14 @@ html, body {
 body {
   background: #607D8B;
   min-height: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  z-index: -2;
 }
 
 .right-border-radius {
@@ -73,10 +81,12 @@ body {
   background-color: #fdfdfd;
 }
 
-#app {
-  width: 100%;
-  height: 100%;
-  z-index: -2;
+.oddity {
+  background-color: #FF5252;
+}
+
+.oddity:hover {
+  background-color: #FF7474;
 }
 
 .redditv-header {
@@ -232,6 +242,15 @@ body {
   display: inline-block;
   padding-left: 12px;
   left: 80px;
+}
+
+.redditv-playlist-load-indicator {
+  background-color: hsla(0, 0%, 5.098039%, 0.5);
+  width: 100%;
+  height: 100%;
+  animation-name: fade-in;
+  animation-duration: 1.0s;
+  animation-fill-mode: none;
 }
 
 .redditv-playlist-load-indicator>.redditv-playlist-progress {
