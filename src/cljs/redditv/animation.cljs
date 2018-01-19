@@ -1,5 +1,6 @@
 (ns redditv.animation
-  (:require-macros [cljs.core.async.macros :refer [go go-loop]])
+  (:require-macros
+   [cljs.core.async.macros :refer [go go-loop]])
   (:require
    [cljs.core.async :refer [chan timeout <!]]))
 

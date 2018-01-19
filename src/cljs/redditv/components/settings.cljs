@@ -13,10 +13,10 @@
                 settings-video-category
                 show-playlist]} (rum/react app-state)]
     [(if show-playlist
-       :.redditv-settings-dialog-container
-       :.redditv-settings-dialog-container-compressed)
+       :.redditv-settings-dialog-container.anim-fade-in-fast
+       :.redditv-settings-dialog-container-compressed.anim-fade-in-fast)
          
-     [:.redditv-settings-dialog-page
+     [:.redditv-settings-dialog-page.anim-fade-in-default
       
       ;; Close Button
       [:.redditv-dialog-close
@@ -62,9 +62,8 @@
                                          (fn [e] 
                                            (swap! app-state assoc
                                                   :settings-video-count
-                                                  (-> e .-target .-value parse-int)
-                                                  :playlist-selected-index 0)
-                                           (playlist/reload app-state))}))
+                                                  (-> e .-target .-value parse-int))
+                                           (playlist/reload app-state :reload? true))}))
          (mdl/cell {:col 2} (.span js/React.DOM #js {} (str settings-video-count))))]
 
        [:.video-type-setting

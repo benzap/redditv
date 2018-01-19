@@ -82,9 +82,9 @@
   <
   rum/reactive
   mixin-player-handler
-  [state app-state initial-load? playlist-index show-playlist fullscreen]
-  (let [initial-load? (rum/react initial-load?)
-        index (rum/react playlist-index)
+  [state app-state force-reload-counter playlist-id show-playlist fullscreen]
+  (let [force-reload-counter (rum/react force-reload-counter)
+        id (rum/react playlist-id)
         show-playlist (rum/react show-playlist)
         fullscreen (rum/react fullscreen)]
     [(app-css-class-layout app-state :#redditv-player-container)

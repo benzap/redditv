@@ -7,6 +7,7 @@
             [redditv.components.mdl :as mdl]
             [redditv.utils :refer [app-css-class-layout]]))
 
+
 (defn search-subreddit [app-state subreddit]
   (swap! app-state assoc
          :subreddit subreddit
@@ -14,6 +15,7 @@
          :playlist-selected-search nil)
   (playlist/reload app-state :reload? true)
   (set-hash! (app-hash app-state)))
+
 
 (def mixin-focus-search-bar
   {:did-update (fn [state]
@@ -23,6 +25,7 @@
                     (aset search-element "value" "")
                     (.focus search-element)))
                 state)})
+
 
 (rum/defcs c-sidepane
   <

@@ -40,10 +40,11 @@
 
 (defonce app-state
   (atom {:loading? true
-         :initial-load? 0
+         :initial-load? true
+         :force-reload-counter 0
          :subreddit config/default-subreddit
          :playlist []
-         :playlist-selected-index 0
+         :playlist-selected-id nil
          :playlist-selected-search nil
          :show-playlist true
          :fullscreen false
@@ -55,8 +56,8 @@
          }))
 
 
-(defonce initial-load? (rum/cursor-in app-state [:initial-load?]))
-(defonce playlist-index (rum/cursor-in app-state [:playlist-selected-index]))
+(defonce force-reload-counter (rum/cursor-in app-state [:force-reload-counter]))
+(defonce playlist-id (rum/cursor-in app-state [:playlist-selected-id]))
 (defonce show-playlist (rum/cursor-in app-state [:show-playlist]))
 (defonce fullscreen (rum/cursor-in app-state [:fullscreen]))
 
@@ -73,50 +74,34 @@
          :subreddit subreddit
          :settings-video-category (get query-params :sort config/default-video-category)
          :settings-video-count (parse-int (get query-params :count (str config/default-video-count))))
-  (force-app-reload! app-state)
-  #_(storage/save-app-state! @app-state))
+  (force-app-reload! app-state))
 
 
-(defroute subreddit-path-with-index #"/r/([\w\d]+)/(\d+)"
-  [subreddit index query-params]
+(defroute subreddit-path-with-id #"/r/([\w\d]+)/([\w\d]+)"
+  [subreddit id query-params]
   (swap! app-state assoc
          :subreddit subreddit
-         :playlist-selected-index (parse-int index)
-         :playlist-selected-search nil
+         :playlist-selected-id id
          :settings-video-category (get-in query-params [:query-params :sort]
                                           config/default-video-category)
          :settings-video-count (parse-int (get-in query-params [:query-params :count]
                                                   (str config/default-video-count)))
-         :fullscreen (parse-bool (get-in query-params [:query-params :fullscreen] "false"))
-         )
-  (force-app-reload! app-state)
-  #_(storage/save-app-state! @app-state))
+         :fullscreen (parse-bool (get-in query-params [:query-params :fullscreen] "false"))))
 
 
-(defroute subreddit-path-with-search #"/r/([\w\d]+)/(\d)/([\w\d]+)"
-  [subreddit index search query-params]
-  (swap! app-state assoc
-         :subreddit subreddit
-         :playlist-selected-index (parse-int index)
-         :playlist-selected-search search
-         :settings-video-category config/default-video-category
-         :settings-video-count (parse-int (get-in query-params [:query-params :count]
-                                                  (str config/default-video-count)))
-         :fullscreen (parse-bool (get-in query-params [:query-params :fullscreen] "false")))
-  (force-app-reload! app-state)
-  #_(storage/save-app-state! @app-state))
+(defroute default-route "*" []
+  (playlist/reload app-state))
 
 
-#_(defroute default-route "*" []
-  (if-let [state (storage/load-app-state)]
-    (reset! app-state state)
-    (playlist/reload app-state))
-  (force-app-reload! app-state))
+(defn on-navigate-handler [url-obj]
+  (when (:initial-load? @app-state)
+    (swap! app-state assoc :initial-load? false)
+    (secretary/dispatch! (.-token url-obj))))
 
 
 ;; Quick and dirty history configuration.
 (let [h (History.)]
-  (goog.events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
+  (goog.events/listen h EventType/NAVIGATE on-navigate-handler)
   (doto h (.setEnabled true)))
 
 
@@ -149,19 +134,10 @@
   [:.redditv-main
    (c-header app-state)
    (c-sidepane app-state)
-   (c-player app-state initial-load? playlist-index show-playlist fullscreen)
+   (c-player app-state force-reload-counter playlist-id show-playlist fullscreen)
    (c-playlist app-state)
    (c-fullscreen-controls app-state)])
 
 
 (playlist/reload app-state :reload? true)
-
-
 (rum/mount (app) (.querySelector js/document "#app"))
-
-
-(def search (partial playlist/search-subreddit app-state))
-(aset js/window "search" search)
-
-
-#_(println (clj->js @app-state))

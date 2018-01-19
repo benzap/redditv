@@ -146,7 +146,7 @@
     
     (go-loop [video-posts '()
               num-requests 0]
-      
+
       ;; Query the reddit api until we've reached the desired number
       ;; of video posts, or until we've reached the max number of
       ;; request we're willing to make
@@ -180,6 +180,7 @@
       (>! main-data-channel video-posts))
     [main-data-channel main-error-channel]))
 
+
 #_(let [[success error] (get-subreddit-videos {:subreddit "videos" :rlimit 200})]
     (go (let [results (<! success)]
           (.log js/console "Results:" (clj->js results))
@@ -188,3 +189,37 @@
                                 (filter #(> (count %2) 1))
                                 (clj->js)))
           )))
+
+
+(defn get-subreddit-post-by-id [id]
+  (let [output-channel (chan)
+        url (str reddit-url "/comments/" id "/.json")
+        [success-channel error-channel] (send-jsonp url)]
+    (go (if-let [result
+                 (some-> (<! success-channel)
+                         (js->clj :keywordize-keys true)
+                         first :data :children first :data)]
+          (put! output-channel result)
+          (close! output-channel)))
+    [output-channel error-channel]))
+
+
+(defn get-subreddit-video-by-id [id]
+  (let [output-channel (chan)
+        [success-channel error-channel] (get-subreddit-post-by-id id)]
+    (go (if-let [video (<! success-channel)]
+          (if (post-is-video? video)
+            (>! output-channel video)
+            (close! output-channel))
+          (close! output-channel)))
+    [output-channel error-channel]))
+
+
+#_(let [[success error] (get-subreddit-video-by-id "7rcqbk")]
+    (go (let [video (<! success)]
+          (.log js/console "Post" (clj->js video))
+          (.log js/console "Failed to get id: 7rcqbk")
+          ))
+
+    (go (let [error (<! error)]
+          (.log js/console "Error Message: " error))))

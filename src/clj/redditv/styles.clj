@@ -79,7 +79,14 @@
 
   [:body 
    {:background color-background
-    :min-height "100%"}]
+    :min-height "100%"
+    :height "100%"
+    :overflow "hidden"}]
+
+  [:#app
+   {:width "100%"
+    :height "100%"
+    :z-index -2}]
 
   [:.right-border-radius
    {:-webkit-border-top-right-radius (px default-border-radius)
@@ -100,10 +107,12 @@
   [:.selected
    {:background-color "#fdfdfd"}]
 
-  [:#app
-   {:width "100%"
-    :height "100%"
-    :z-index -2}]
+  
+  [:.oddity
+   {:background-color "#FF5252"}
+   [:&:hover
+    {:background-color "#FF7474"}]]
+
 
   [:.redditv-header
    {:position "absolute"
@@ -246,6 +255,14 @@
     :padding-left (px 12)
     :padding-bottom (px 5)
     :line-height (px sidepane-width)}]
+
+  [:.redditv-playlist-load-indicator
+   {:background-color (rgba 13 13 13 0.5)
+    :width "100%"
+    :height "100%"
+    :animation-name "fade-in"
+    :animation-duration "1.0s"
+    :animation-fill-mode "none"}]
 
   [:.redditv-playlist-load-indicator>.redditv-playlist-progress
    {:left 0

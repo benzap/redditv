@@ -4,6 +4,7 @@
             [redditv.playlist :as playlist]
             [redditv.components.mdl :as mdl]))
 
+
 (def subreddits 
   [
    "videos"
@@ -41,20 +42,22 @@
    "wtf"
    ])
 
+
 (defn search-subreddit [app-state subreddit]
   (swap! app-state assoc
          :subreddit subreddit
-         :playlist-selected-index 0
-         :playlist-selected-search nil
+         :playlist-selected-id nil
          :show-subreddits false)
   (playlist/reload app-state :reload? true)
   (set-hash! (app-hash app-state)))
+
 
 (defn subreddit-listing [app-state name]
   [:.header-subreddit-listing-element
    {:on-click #(search-subreddit app-state name)
     :title name}
    (str "/r/" name)])
+
 
 (rum/defc c-header
   < 

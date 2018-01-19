@@ -24,6 +24,7 @@
       ))
   state)
 
+
 (defn mixin-fix-playlist-compressed
   "Bug Fix for compressed playlist buttons not showing"
   [state]
@@ -44,27 +45,32 @@
                     "default" default-thumbnail-url
                     nil default-thumbnail-url
                     "" default-thumbnail-url
-                    thumbnail)]
+                    thumbnail)
+        ;; If the result was tacked on as an oddity.
+        oddity? (-> item :redditv-oddity?)]
   [:.redditv-playlist-item.anim-fade-in-fast
    {:title title
     :on-click #(put! select-chan i)
-    :class (when selected? "selected")}
+    :class (interpose " " [(when selected? "selected")
+                           (when oddity? "oddity")])}
    [:.redditv-playlist-item-title.noselect title]
    [:img.redditv-playlist-item-thumbnail {:src thumbnail}]]))
 
+
 (defn mixin-select-item-handler 
-  "Passes in a ::select-chan local variable, applies playlist index to
+  "Passes in a ::select-chan local variable, applies playlist id to
   current components app-state"
   []
   {:did-mount (fn [state]
                 (let [app-state (-> state :rum/args first)
                       select-chan (chan)]
                   
-                  ;; Loop to apply selected playlist index
+                  ;; Loop to apply selected playlist id
                   (go-loop []
                     (let [index (<! select-chan)
+                          id (-> @app-state :playlist (nth index) :id)
                           subreddit (:subreddit @app-state)]
-                      (swap! app-state assoc :playlist-selected-index index)
+                      (swap! app-state assoc :playlist-selected-id id)
                       (set-hash! (app-hash app-state))
                       (recur)))
                   
@@ -73,12 +79,13 @@
    :will-unmount (fn [state]
                    (dissoc state ::select-chan))})
 
+
 (rum/defcs c-playlist <
   rum/reactive
   (mixin-select-item-handler)
   {:did-update mixin-fix-playlist-compressed}
   [state app-state]
-  (let [{:keys [playlist playlist-selected-index fullscreen
+  (let [{:keys [playlist playlist-selected-id fullscreen
                 show-playlist]} (rum/react app-state)
         playlist-items (map-indexed vector playlist)
         select-chan (::select-chan state)]
@@ -95,28 +102,31 @@
                   :className "redditv-button noselect"
                   :onClick #(swap! app-state update-in [:fullscreen] not)}))
       ]
-     (if show-playlist
-       [:.redditv-playlist-container {:class (if-not show-playlist "compressed")}
-        (if (<= (count playlist-items) 0)
-          [:.redditv-playlist-load-indicator
-           (mdl/progress-bar {:className "redditv-playlist-progress" :indeterminate true})]
-          (for [[index item] playlist-items]
-            (c-playlist-item [index item] select-chan (= index playlist-selected-index))))]
-       [:.redditv-playlist-container-compressed
-        [:.redditv-leftpane-compressed
-         (mdl/tooltip
-          {:label "Previous Video" :position "top" :large false}
-          (mdl/icon {:name "skip_previous" :className "redditv-button noselect"
-                     :onClick #(playlist/select-prev app-state)}))
-         (mdl/tooltip
-          {:label "Next Video" :position "top" :large false}
-          (mdl/icon {:name "skip_next" :className "redditv-button noselect"
-                     :onClick #(playlist/select-next app-state)}))]
-        [:span.redditv-playlist-count
-         (str (inc playlist-selected-index) " of " (count playlist-items))]
-        (mdl/progress-bar {:className "redditv-playlist-progress"
-                           :progress (* (/ (inc playlist-selected-index) (count playlist-items))
-                                        100)
-                           :indeterminate (<= (count playlist-items) 0)})
-        ])]))
+     (let [index (playlist/get-index-of-id app-state playlist-selected-id)]
+       (if show-playlist
+         [:.redditv-playlist-container {:class (if-not show-playlist "compressed")}
+          (if (<= (count playlist-items) 0)
+            [:.redditv-playlist-load-indicator
+             (mdl/progress-bar {:className "redditv-playlist-progress" :indeterminate true})]
+            (for [[idx item] playlist-items]
+              (c-playlist-item [idx item] select-chan (= idx index))))]
+
+         [:.redditv-playlist-container-compressed
+          [:.redditv-leftpane-compressed
+           (mdl/tooltip
+            {:label "Previous Video" :position "top" :large false}
+            (mdl/icon {:name "skip_previous" :className "redditv-button noselect"
+                       :onClick #(playlist/select-prev app-state)}))
+           (mdl/tooltip
+            {:label "Next Video" :position "top" :large false}
+            (mdl/icon {:name "skip_next" :className "redditv-button noselect"
+                       :onClick #(playlist/select-next app-state)}))]
+          [:span.redditv-playlist-count
+           (str (inc index)
+                " of " (count playlist-items))]
+          (mdl/progress-bar {:className "redditv-playlist-progress"
+                             :progress (* (/ (inc index) (count playlist-items))
+                                          100)
+                             :indeterminate (<= (count playlist-items) 0)})
+          ]))]))
   

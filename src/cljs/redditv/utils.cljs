@@ -112,7 +112,7 @@
   "When called, this causes the app-state to change, which forces
   React.js to perform a re-render of the virtual dom."
   [app-state]
-  (swap! app-state update-in [:initial-load?] inc))
+  (swap! app-state update-in [:force-reload-counter] inc))
 
 
 ;; Debouncing turns several repetitive calls to the function into a
@@ -124,16 +124,14 @@
   "Used to generate the appropriate url for the current `app-state'."
   [app-state]
   (let [{:keys [subreddit
-                playlist-selected-index
-                playlist-selected-search
+                playlist-selected-id
                 playlist
                 settings-video-category
                 settings-video-count
                 fullscreen
                 settings-show-nsfw]} @app-state]
     (str "/r/" subreddit
-         "/" playlist-selected-index
-         (when playlist-selected-search (str "/" (.encodeURIComponent js/window playlist-selected-search)))
+         "/" playlist-selected-id
          (gen-query-params 
           {:sort (when (not= settings-video-category config/default-video-category) settings-video-category)
            :count (when (not= settings-video-count config/default-video-count) settings-video-count)
