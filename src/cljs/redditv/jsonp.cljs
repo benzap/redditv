@@ -6,14 +6,17 @@
 
 (defn send-jsonp [url]
   (let [success-channel (chan)
+        error-channel (chan)
         success-handler (fn [result] (if-not (nil? result)
                                        (put! success-channel result)
-                                       (close! success-channel)))
-        
-        error-channel (chan)
+                                       (do
+                                         (close! success-channel)
+                                         (close! error-channel))))
         error-handler (fn [result] (if-not (nil? result)
                                      (put! error-channel result)
-                                     (close! error-channel)))
+                                     (do
+                                       (close! error-channel)
+                                       (close! success-channel))))
 
         jsonp (goog.net.Jsonp. (Uri. url) "jsonp")
         ]

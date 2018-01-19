@@ -215,7 +215,7 @@
     [output-channel error-channel]))
 
 
-#_(let [[success error] (get-subreddit-video-by-id "7rcqbk")]
+#_(let [[success error] (get-subreddit-video-by-id "somemadeupthing")]
     (go (let [video (<! success)]
           (.log js/console "Post" (clj->js video))
           (.log js/console "Failed to get id: 7rcqbk")
