@@ -207,9 +207,11 @@ body {
 
 .header-title-fullscreen {
   line-height: 40px;
+  margin-right: 10px;
   text-align: center;
   white-space: wrap;
   overflow: hidden;
+  margin-left: 10px;
   font-size: 20px;
   background-color: hsla(0, 0%, 0%, 0.33);
   padding-right: 20px;
