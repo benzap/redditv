@@ -34,6 +34,42 @@
   animation-fill-mode: none;
 }
 
+@keyframes fade-out {
+
+0% {
+    opacity: 1;
+  }
+  
+100% {
+    opacity: 0;
+  }
+
+}
+
+.anim-fade-out-fast {
+  animation-name: fade-out;
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+
+.anim-fade-out-default {
+  animation-name: fade-out;
+  animation-duration: 0.7s;
+  animation-fill-mode: both;
+}
+
+.anim-fade-out-medium {
+  animation-name: fade-out;
+  animation-duration: 1.0s;
+  animation-fill-mode: both;
+}
+
+.anim-fade-out-slow {
+  animation-name: fade-out;
+  animation-duration: 1.5s;
+  animation-fill-mode: both;
+}
+
 * {
   font-family: 'Roboto', sans-serif;
   color: #fdfdfd;
@@ -107,6 +143,11 @@ body {
   right: 0;
   height: 40px;
   line-height: 40px;
+  transition: top 0.3s;
+}
+
+.redditv-header-fullscreen.anim-fade-out-fast {
+  top: -10px;
 }
 
 .redditv-header-flex {
@@ -560,6 +601,11 @@ body {
   overflow: hidden;
   display: flex;
   bottom: 80px;
+  transition: right 0.5s;
+}
+
+.redditv-fullscreen-controls.anim-fade-out-fast {
+  right: -20px;
 }
 
 .redditv-button-fullscreen {
