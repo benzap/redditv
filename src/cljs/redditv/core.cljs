@@ -24,8 +24,11 @@
             [redditv.events :as events]
             [redditv.storage :as storage]
             [redditv.animation :as anim]
+            [redditv.entropy :as entropy]
 
             ;; Rum Components
+            [redditv.components.utils :refer [toggle-fullscreen-controls!
+                                              toggle-fullscreen-header!]]
             [redditv.components.header :refer [c-header]]
             [redditv.components.sidepane :refer [c-sidepane]]
             [redditv.components.playlist :refer [c-playlist]]
@@ -39,7 +42,8 @@
 
 
 (defonce app-state
-  (atom {:loading? true
+  (atom {:mouse-channel (chan)
+         :loading? true
          :initial-load? true
          :force-reload-counter 0
          :subreddit config/default-subreddit
@@ -48,6 +52,8 @@
          :playlist-selected-search nil
          :show-playlist true
          :fullscreen false
+         :fullscreen-hide-header? false
+         :fullscreen-hide-controls? false
          :show-search false
          :show-settings false
          :settings-show-nsfw true
@@ -125,11 +131,14 @@
                          (playlist/open-current-video-comments app-state)
                          70
                          (utils/set-fullscreen (.querySelector js/document "#app"))
-                         nil))))))})
+                         nil)))))
+                state)})
 
 
 (rum/defc app 
-  < mixin-keyboard-controls
+  <
+  mixin-keyboard-controls
+  (entropy/mixin-fullscreen-mouseover app-state)
   []
   [:.redditv-main
    (c-header app-state)
@@ -141,3 +150,11 @@
 
 (playlist/reload app-state :reload? true)
 (rum/mount (app) (.querySelector js/document "#app"))
+
+
+(defn toggle-controls [x]
+  (toggle-fullscreen-controls! app-state x))
+
+
+(defn toggle-header [x]
+  (toggle-fullscreen-header! app-state x))

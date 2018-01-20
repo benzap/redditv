@@ -4,13 +4,18 @@
              [redditv.utils :refer [app-css-class-layout]]
              [redditv.components.mdl :as mdl]))
 
+
+
+
 (rum/defcs c-fullscreen-controls
   < rum/reactive
   [state app-state]
-  (let [{:keys [fullscreen]}
+  (let [{:keys [fullscreen fullscreen-hide-controls?]}
         (rum/react app-state)]
     (when fullscreen
-      [:.redditv-fullscreen-controls
+      [(if-not fullscreen-hide-controls?
+         :.redditv-fullscreen-controls.anim-fade-in-fast
+         :.redditv-fullscreen-controls.anim-fade-out-fast)
 
        (mdl/tooltip
         {:label "Next Video" :position "left" :large true :className "redditv-tooltip-fullscreen"}

@@ -5,6 +5,8 @@
                                    set-loading-animation!]]
             [redditv.reddit :as reddit]
             [redditv.reddit.request :as reddit.request]
+            [redditv.components.utils :refer [toggle-fullscreen-header!]]
+            [redditv.entropy :as entropy]
             ))
 
 
@@ -90,21 +92,37 @@
 
 (defn select-next
   "Makes the playlist change the currently selected to the next item
-  in the playlist collection."
+  in the playlist collection.
+  
+  Notes:
+  
+  - Also toggles the fullscreen header on. This gets changed back with
+  redditv.entropy.
+
+  - Changes the url hash to reflect the new video being played"
   [app-state]
   (let [{:keys [playlist-selected-id playlist subreddit]} @app-state
         get-idx (partial get-index-of-id app-state)
         size (count playlist)
         index (-> playlist-selected-id get-idx inc (mod size))
         new-id (when (> size 0) (:id (nth playlist index)))]
-    (swap! app-state assoc :playlist-selected-id new-id)
+    (swap! app-state assoc
+           :playlist-selected-id new-id
+           :fullscreen-hide-header? false)
+    (entropy/push-fake-mouse-event! app-state)
     (set-hash! (app-hash app-state))
     new-id))
 
 
 (defn select-prev
   "Makes the playlist change the currently selected to the previous
-  item in the playlist collection."
+  item in the playlist collection.
+
+  Notes:
+  
+  - Also toggles the fullscreen header on. Small hack!
+  - Changes the url hash to relflect the new video being played
+  "
   [app-state]
   (let [{:keys [playlist-selected-id playlist subreddit]} @app-state
         get-idx (partial get-index-of-id app-state)
@@ -112,7 +130,9 @@
         index (-> playlist-selected-id get-idx dec)
         index (if (< index 0) (dec size) index)
         new-id (when (> size 0) (:id (nth playlist index)))]
-    (swap! app-state assoc :playlist-selected-id new-id)
+    (swap! app-state assoc
+           :playlist-selected-id new-id
+           :fullscreen-hide-header? false)
     (set-hash! (app-hash app-state))
     new-id))
 

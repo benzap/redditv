@@ -7,12 +7,21 @@
 
 (defpseudoelement selection)
 
+
 (defkeyframes fade-in
   ["0%"
    {:opacity 0}]
 
   ["100%"
    {:opacity 1}])
+
+
+(defkeyframes fade-out
+  ["0%"
+   {:opacity 1}]
+  
+  ["100%"
+   {:opacity 0}])
 
 
 (def font-mono "'Roboto', sans-serif")
@@ -65,6 +74,28 @@
    {:animation-name "fade-in"
     :animation-duration "1.5s"
     :animation-fill-mode "none"}]
+
+
+  fade-out
+  [:.anim-fade-out-fast
+   {:animation-name "fade-out"
+    :animation-duration "0.3s"
+    :animation-fill-mode "both"}]
+
+  [:.anim-fade-out-default
+   {:animation-name "fade-out"
+    :animation-duration "0.7s"
+    :animation-fill-mode "both"}]
+
+  [:.anim-fade-out-medium
+   {:animation-name "fade-out"
+    :animation-duration "1.0s"
+    :animation-fill-mode "both"}]
+
+  [:.anim-fade-out-slow
+   {:animation-name "fade-out"
+    :animation-duration "1.5s"
+    :animation-fill-mode "both"}]
 
 
   [:* 
@@ -130,7 +161,14 @@
     :left 0
     :right 0
     :height (px header-height)
-    :line-height (px header-height)}]
+    :line-height (px header-height)
+    :transition "top 0.3s"}]
+
+  
+  [:.redditv-header-fullscreen.anim-fade-out-fast
+   {:top (px (- 0 header-height -30))
+    }]
+
 
   [:.redditv-header-flex
    {:display "flex"
@@ -509,7 +547,13 @@
     :width (px sidepane-width)
     :top (px (* sidepane-width 2))
     :bottom (px (* sidepane-width 2))
-    :overflow "hidden"}]
+    :overflow "hidden"
+    :transition "right 0.5s"}]
+
+  
+  [:.redditv-fullscreen-controls.anim-fade-out-fast
+   {:right (px (- (/ sidepane-width 2)))}]
+
 
   [:.redditv-button-fullscreen
    {:position "relative"

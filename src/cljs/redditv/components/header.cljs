@@ -63,7 +63,7 @@
   < 
   rum/reactive
   [app-state]
-  (let [{:keys [subreddit loading? show-subreddits]} (rum/react app-state)
+  (let [{:keys [subreddit loading? show-subreddits fullscreen-hide-header?]} (rum/react app-state)
         selected (playlist/get-selected app-state)
         title (-> selected :title str decode-html-string)]
     (if-not (-> @app-state :fullscreen)
@@ -84,7 +84,10 @@
            [:.header-subreddit-container
             (map #(subreddit-listing app-state %) subreddits)]])
         (when loading? (mdl/spinner {:id "spinner-loading"}))]]
+
       ;; Fullscreen Header Layout
-      [:.redditv-header-fullscreen
+      [(if-not fullscreen-hide-header?
+         :.redditv-header-fullscreen.anim-fade-in-fast
+         :.redditv-header-fullscreen.anim-fade-out-fast)
        [:.redditv-header-flex-fullscreen
         [:.header-title-fullscreen {:title title} title]]])))
