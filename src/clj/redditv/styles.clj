@@ -225,6 +225,8 @@
     ;;:text-overflow "ellipsis"
     :padding-left (px 20)
     :padding-right (px 20)
+    :margin-left (px 10)
+    :margin-right (px 10)
     :font-size (px 20)
     :overflow "hidden"
     :text-align "center"
