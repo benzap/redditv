@@ -1,9 +1,11 @@
 (ns redditv.components.settings
-  (:require [rum.core :as rum]
-            [redditv.playlist :as playlist]
-            [redditv.components.mdl :as mdl]
-            [redditv.utils :refer [parse-int]]
-            [redditv.config :as config]))
+  (:require
+   [goog.functions]
+   [rum.core :as rum]
+   [redditv.playlist :as playlist]
+   [redditv.components.mdl :as mdl]
+   [redditv.utils :refer [parse-int]]
+   [redditv.config :as config]))
 
 (rum/defcs c-settings
   < rum/reactive
@@ -59,7 +61,7 @@
                                    "# Playlist Videos"))
          (mdl/cell {:col 6} (mdl/slider {:min 20 :max 1000 :value settings-video-count
                                          :onChange
-                                         (fn [e] 
+                                         (fn [e]
                                            (swap! app-state assoc
                                                   :settings-video-count
                                                   (-> e .-target .-value parse-int))
@@ -72,8 +74,7 @@
                   :on-change 
                   (fn [e] 
                     (swap! app-state assoc
-                           :settings-video-category (-> e .-target .-value)
-                           :playlist-selected-index 0)
+                           :settings-video-category (-> e .-target .-value))
                     (playlist/reload app-state))}
          [:option {:value "hot"} "Hot"]
          [:option {:value "new"} "New"]

@@ -1,13 +1,16 @@
 (ns redditv.playlist
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [redditv.utils :refer [set-hash! force-app-reload! 
-                                   app-hash open-reddit-comment
-                                   set-loading-animation!]]
-            [redditv.reddit :as reddit]
-            [redditv.reddit.request :as reddit.request]
-            [redditv.components.utils :refer [toggle-fullscreen-header!]]
-            [redditv.entropy :as entropy]
-            ))
+  (:require
+   [goog.functions]
+
+   [redditv.utils :refer [set-hash! force-app-reload! 
+                          app-hash open-reddit-comment
+                          set-loading-animation!]]
+   [redditv.reddit :as reddit]
+   [redditv.reddit.request :as reddit.request]
+   [redditv.components.utils :refer [toggle-fullscreen-header!]]
+   [redditv.entropy :as entropy]
+   ))
 
 
 (defn has-video-with-id?
@@ -33,7 +36,7 @@
       0)))
 
 
-(defn reload [app-state & {:keys [search reload?] :or {search nil reload? false}}]
+(defn -reload [app-state & {:keys [search reload?] :or {search nil reload? false}}]
   (set-loading-animation! app-state true)
   (go
     (let [{:keys [subreddit
@@ -77,6 +80,9 @@
         (when reload?
           (force-app-reload! app-state))))
     (set-loading-animation! app-state false)))
+
+
+(def reload (goog.functions.debounce -reload))
 
 
 (defn get-selected
