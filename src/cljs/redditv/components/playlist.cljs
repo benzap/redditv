@@ -84,9 +84,12 @@
   rum/reactive
   (mixin-select-item-handler)
   {:did-update mixin-fix-playlist-compressed}
-  [state app-state]
-  (let [{:keys [playlist playlist-selected-id fullscreen
-                show-playlist]} (rum/react app-state)
+  [state app-state {:keys [playlist playlist-selected-id fullscreen show-playlist]}]
+  (let [playlist (rum/react playlist)
+        playlist-selected-id (rum/react playlist-selected-id)
+        fullscreen (rum/react fullscreen)
+        show-playlist (rum/react show-playlist)
+        
         playlist-items (map-indexed vector playlist)
         select-chan (::select-chan state)]
     [(app-css-class-layout app-state :.redditv-playlist)

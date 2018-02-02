@@ -63,8 +63,11 @@
 
 
 (defonce force-reload-counter (rum/cursor-in app-state [:force-reload-counter]))
+(defonce playlist (rum/cursor-in app-state [:playlist]))
 (defonce playlist-id (rum/cursor-in app-state [:playlist-selected-id]))
 (defonce show-playlist (rum/cursor-in app-state [:show-playlist]))
+(defonce show-settings (rum/cursor-in app-state [:show-settings]))
+(defonce show-search (rum/cursor-in app-state [:show-search]))
 (defonce fullscreen (rum/cursor-in app-state [:fullscreen]))
 
 ;;
@@ -142,9 +145,11 @@
   []
   [:.redditv-main
    (c-header app-state)
-   (c-sidepane app-state)
+   (c-sidepane app-state show-settings show-search fullscreen)
    (c-player app-state force-reload-counter playlist-id show-playlist fullscreen)
-   (c-playlist app-state)
+   (c-playlist app-state 
+               {:playlist playlist :playlist-selected-id playlist-id
+                :fullscreen fullscreen :show-playlist show-playlist})
    (c-fullscreen-controls app-state)])
 
 

@@ -69,7 +69,7 @@
         title (-> selected :title str decode-html-string)]
     (if-not (-> @app-state :fullscreen)
       [:.redditv-header.anim-fade-in-slow
-       [:.redditv-header-flex
+       [:.redditv-header-flex.anim-fade-in-slow
         [:.header-logo "redditv"]
         [:.header-subreddit.noselect {:on-click #(swap! app-state update-in [:show-subreddits] not)}
          (str "/r/" subreddit)
