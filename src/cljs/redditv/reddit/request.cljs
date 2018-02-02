@@ -126,10 +126,15 @@
   offset. [default: nil]
 
   vcount - provide an offset on what is requested from a particular
-  subreddit
+  subreddit [default: 0]
 
   allow-nsfw? - If false, will filter out videos containing
   Not-Safe-For-Work content [default: true]
+
+  max-requests - Maximum number of requests to perform to get the
+  desired number of video posts. Upon reaching the max-requests, it
+  will return video posts it was able to scrape in the resulting
+  number of requests.
 
   Return Value:
 
@@ -145,21 +150,19 @@
         max-requests 15]
     
     (go-loop [video-posts '()
-              num-requests 0]
+              num-requests 0
+              after-id after]
 
       ;; Query the reddit api until we've reached the desired number
       ;; of video posts, or until we've reached the max number of
       ;; request we're willing to make
       (if (and (< (count video-posts) rlimit)
                (< num-requests max-requests))
-        (let [limit (min (- rlimit (count video-posts)) 100)
-              vcount (count video-posts)
-              after-id (or (-> video-posts last :name) after)
-
+        (let [
               ;; Generate the request and query reddit using jsonp
               url (generate-subreddit-request-url
-                   {:subreddit subreddit :limit limit :category category
-                    :after after-id :vcount vcount})
+                   {:subreddit subreddit :limit 100 :category category
+                    :after after-id :vcount (count video-posts)})
               [s-chan e-chan] (send-jsonp url)
 
               ;; Convert the resulting JS Object into a clojure collection of map objects
@@ -167,16 +170,18 @@
               result (map #(:data %) data-result)
 
               ;; Remove NSFW Posts if flag is not set
-              result (if-not allow-nsfw? (filter (complement post-is-nsfw?) result) result)
+              clean-result (if-not allow-nsfw? (filter (complement post-is-nsfw?) result) result)
 
               ;; Scrape out any posts that don't contain playable videos
-              video-results (filter post-is-video? result)
+              video-results (filter post-is-video? clean-result)
 
               ;; Remove any distinct reddit posts from subsequent reddit api requests
               video-results (distinct-by-id video-results)
               ]
-          (recur (concat video-posts video-results)
-                 (inc num-requests))))
+          (recur (take rlimit (concat video-posts video-results)) ; video-posts
+                 (inc num-requests) ; num-requests
+                 (or (-> result last :name) after-id)) ; after-id
+          ))
       (>! main-data-channel video-posts))
     [main-data-channel main-error-channel]))
 
