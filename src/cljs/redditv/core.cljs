@@ -145,7 +145,7 @@
   []
   [:.redditv-main
    (c-header app-state)
-   (c-sidepane app-state show-settings show-search fullscreen)
+   (c-sidepane app-state show-settings show-search show-playlist fullscreen)
    (c-player app-state force-reload-counter playlist-id show-playlist fullscreen)
    (c-playlist app-state 
                {:playlist playlist :playlist-selected-id playlist-id

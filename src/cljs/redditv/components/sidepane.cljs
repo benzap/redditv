@@ -38,10 +38,10 @@
              (assoc state ::search-value (atom subreddit))))
    :will-unmount (fn [state]
                    (dissoc state ::search-value))}
-  [state app-state show-settings show-search fullscreen]
-  (let [{:keys [subreddit show-playlist]} @app-state
-        show-settings (rum/react show-settings)
+  [state app-state show-settings show-search show-playlist fullscreen]
+  (let [show-settings (rum/react show-settings)
         show-search (rum/react show-search)
+        show-playlist (rum/react show-playlist)
         fullscreen (rum/react fullscreen)
         search-value (::search-value state)]
 
