@@ -16,3 +16,4 @@ pom.xml
 pom.xml.asc
 .\#*
 /dist/js/compiled/out
+profiles.clj
