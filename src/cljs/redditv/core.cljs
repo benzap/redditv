@@ -47,6 +47,7 @@
          :initial-load? true
          :force-reload-counter 0
          :subreddit config/default-subreddit
+         :subreddit-after-id nil
          :playlist []
          :playlist-selected-id nil
          :playlist-selected-search nil
@@ -81,6 +82,7 @@
   [subreddit query-params]
   (swap! app-state assoc
          :subreddit subreddit
+         :subreddit-after-id (get query-params :after nil)
          :settings-video-category (get query-params :sort config/default-video-category)
          :settings-video-count (parse-int (get query-params :count (str config/default-video-count))))
   (force-app-reload! app-state))
@@ -90,6 +92,7 @@
   [subreddit id query-params]
   (swap! app-state assoc
          :subreddit subreddit
+         :subreddit-after-id (get-in query-params [:query-params :after] nil)
          :playlist-selected-id id
          :settings-video-category (get-in query-params [:query-params :sort]
                                           config/default-video-category)

@@ -46,6 +46,7 @@
 (defn search-subreddit [app-state subreddit]
   (swap! app-state assoc
          :subreddit subreddit
+         :subreddit-after-id nil
          :playlist-selected-id nil
          :playlist []
          :show-subreddits false)

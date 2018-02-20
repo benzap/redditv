@@ -11,6 +11,8 @@
 (defn search-subreddit [app-state subreddit]
   (swap! app-state assoc
          :subreddit subreddit
+         :subreddit-after-id nil
+         :playlist []
          :playlist-selected-index 0
          :playlist-selected-search nil)
   (playlist/reload app-state :reload? true)

@@ -124,6 +124,7 @@
   "Used to generate the appropriate url for the current `app-state'."
   [app-state]
   (let [{:keys [subreddit
+                subreddit-after-id
                 playlist-selected-id
                 playlist
                 settings-video-category
@@ -134,6 +135,7 @@
          "/" playlist-selected-id
          (gen-query-params 
           {:sort (when (not= settings-video-category config/default-video-category) settings-video-category)
+           :after subreddit-after-id
            :count (when (not= settings-video-count config/default-video-count) settings-video-count)
            :fullscreen (when (not= fullscreen false) fullscreen)
            :nsfw (when (not= settings-show-nsfw true) settings-show-nsfw)

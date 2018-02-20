@@ -40,6 +40,7 @@
   (set-loading-animation! app-state true)
   (go
     (let [{:keys [subreddit
+                  subreddit-after-id
                   settings-show-nsfw
                   settings-video-count
                   settings-video-category
@@ -47,6 +48,7 @@
                   ]} @app-state
           [out err] (reddit.request/get-subreddit-videos
                      {:subreddit subreddit
+                      :after subreddit-after-id
                       :allow-nsfw? settings-show-nsfw
                       :rlimit settings-video-count
                       :category settings-video-category})
